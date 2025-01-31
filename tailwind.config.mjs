@@ -7,10 +7,14 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      fontFamily: {
+        glacial: ['Glacial Indifference', 'sans-serif'],
       },
+      backgroundImage:{
+        'desktop-platform': "url(/desktop-platform.png)",
+        'mob-platform': "url(/mobile-platform.png)",
+        
+      }
     },
   },
   plugins: [],
