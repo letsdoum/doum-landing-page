@@ -24,3 +24,15 @@
 .scrollingContent{
    animation: slide 20s linear 0 infinite ;
 }
+.userdp{
+  background-image: url('/userdp.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.employeedp{
+  background-image: url('/employeedp.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
