@@ -20,6 +20,15 @@ import { IoChatbubblesSharp } from "react-icons/io5";
 import { MdPayment } from "react-icons/md";
 import { FaClipboardList } from "react-icons/fa";
 import { RiReactjsLine } from "react-icons/ri";
+import { Form } from 'react-hook-form';
+import { BsWhatsapp } from "react-icons/bs";
+import { useForm } from 'react-hook-form';
+import toast, { Toaster } from "react-hot-toast";
+import { AiOutlineLinkedin } from "react-icons/ai";
+import { CiInstagram } from "react-icons/ci";
+import { AiOutlineFacebook } from "react-icons/ai";
+import { FaXTwitter } from "react-icons/fa6";
+import { supabase } from '../../lib/supabaseClient';
 
 // function Model() {
 
@@ -167,6 +176,41 @@ function Hero() {
 
     return () => window.removeEventListener('resize', updateStyle);
   }, []);
+  const [style2,setStyle2] = useState({})
+  useEffect(() => {
+    const updateStyle2 = () => {
+        const width = window.innerWidth;
+        if (width >= 768) { // Desktop breakpoint
+            setStyle2({
+                
+                backgroundImage: "url('/footerbg.png')",
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                
+                
+                
+                
+            });
+        } else { // Mobile breakpoint
+            setStyle2({
+                
+                backgroundImage: "url('/footerbgmob.png')",
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                
+                
+            });
+        }
+    };
+
+    updateStyle2(); // Initial call to set styles
+    window.addEventListener('resize', updateStyle2);
+    
+
+    return () => window.removeEventListener('resize', updateStyle2);
+  }, []);
   
   const scrollRef = useRef([])
   const conRef = useRef()
@@ -195,7 +239,7 @@ function Hero() {
       { x: window.innerWidth }, // Start from outside the screen
       {
         x: -xval,
-        duration: 20,
+        duration: 65,
         ease: 'linear',
         repeat: -1,
         modifiers: {
@@ -1075,6 +1119,89 @@ useEffect(() => {
     })
   })
 }, [])
+ const mobHoverRef = useRef([])
+ useEffect(() => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.filter = 'grayscale(0%)';
+        entry.target.querySelector('h2').style.opacity = '1';
+      } else {
+        entry.target.style.filter = 'grayscale(100%)';
+        entry.target.querySelector('h2').style.opacity = '0';
+      }
+    });
+  }, { threshold: 0.5 });
+
+  mobHoverRef.current.forEach((el) => {
+    if (el) observer.observe(el);
+  });
+
+  return () => {
+    mobHoverRef.current.forEach((el) => {
+      if (el) observer.unobserve(el);
+    });
+  };
+}, []);
+
+const {
+  register,
+  handleSubmit,
+  watch,
+  formState:{erros},
+  reset
+} = useForm();
+
+// const onSubmit = async (data) => {
+//   console.log("Form Data:", data);
+//   try{
+//     const { error } = await supabase.from('Waitlist').insert([{
+//       firstname : data.firstName,
+//       lastname : data.lastName,
+//       email : data.Email,
+//       phoneno : data.mobile,
+//       message : data.Message
+//     }]) 
+//   }
+//   catch(error) {
+//     console.error(error);
+//     toast.error("Error submitting form!", { position: "top-right" });
+//   }
+  
+//   toast.success("Form submitted successfully!", { position: "top-right" });
+//   reset(); // Clears the form after successful submission
+// };
+const onSubmit = async (formData) => {
+
+  
+  const { firstName, lastName, Email, mobile, Message } = formData;
+
+  // Perform your API call or other operations with the form data
+  console.log('Form data:', { firstName, lastName, Email, mobile ,Message });
+  try{
+    const {data , error} = await supabase.from('Waitlist').insert([{ FirstName: firstName,LastName: lastName, Email,phoneNo: mobile,Message: Message }])
+    if(error) {
+      toast.error("Error submitting form!", { position: "top-right" });
+      console.error(error.message);
+      return;
+    }
+    if(data){
+      toast.success("Form submitted successfully!", { position: "top-right" });
+      reset(); // Clears the form after successful submission
+      console.log(data)
+    }
+  }
+  catch(err){
+    toast.error("Error submitting form!", { position: "top-right"});
+    console.error(err.message);
+  }
+};
+
+const onError = () => {
+  toast.error("Please fix the errors and try again!", { position: "top-right" });
+};
+
+
 
   return (
     <>
@@ -1103,16 +1230,36 @@ useEffect(() => {
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-10 mt-[0vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
         <div className='w-[70%] md:w-[40%] h-[10%] mt-[-80rem] md:mt-[0rem] ' style={{ backgroundImage: "url(/platform-text-removebg-preview_upscayl_4x_realesrgan-x4plus.png)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
              {/*scroller*/}
-             <div className='scrollContainer w-[550vw] md:w-[250vw] h-[35vh] md:h-[70vh] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12'  ref={conRef} >
-                    <div className='scrollingContent h-[90%] w-[25%] bg-red-500 rounded-2xl'ref={el => scrollRef.current[0] = el}></div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-red-500 rounded-2xl'ref={el => scrollRef.current[1] = el}></div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-red-500 rounded-2xl'ref={el => scrollRef.current[2] = el}></div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-red-500 rounded-2xl'ref={el => scrollRef.current[3] = el}></div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-red-500 rounded-2xl'ref={el => scrollRef.current[4] = el}></div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-red-500 rounded-2xl'ref={el => scrollRef.current[5] = el}></div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-red-500 rounded-2xl'ref={el => scrollRef.current[6] = el}></div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-red-500 rounded-2xl'ref={el => scrollRef.current[7] = el}></div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-red-500 rounded-2xl'ref={el => scrollRef.current[8] = el}></div>
+             <div className='scrollContainer w-[1775vw] md:w-[805vw] h-[35vh] md:h-[70vh] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12'  ref={conRef} >
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[0] = el} style={{ backgroundImage: 'url(/services/AC.jpg)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >AC repairing</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[1] = el} style={{ backgroundImage: 'url("/services/bathroom fixture.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >Bathroom Fixture</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[2] = el} style={{ backgroundImage: 'url("/services/carpet cleaning.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Carpet Cleaning</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[3] = el} style={{ backgroundImage: 'url("/services/ceiling fan.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Ceiling fan Service</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[4] = el} style={{ backgroundImage: 'url(/services/chimney.jpg)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Chimney service</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[5] = el} style={{ backgroundImage: 'url(/services/cook.jpg)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Cook service</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[6] = el} style={{ backgroundImage: 'url(/services/electrician.jpg)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Electricial service</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[7] = el} style={{ backgroundImage: 'url(/services/fridge.jpg)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Fridge Servicing</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[8] = el} style={{ backgroundImage: 'url(/services/Handyman.jpg)', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Handyman</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[9] = el} style={{ backgroundImage: 'url("/services/home cleaning service.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >home cleaning service</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[10] = el} style={{ backgroundImage: 'url("/services/home theatre repair.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}> home theatre service</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[11] = el} style={{ backgroundImage: 'url("/services/induction cooktop repair.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >induction cooktop repair</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[12] = el} style={{ backgroundImage: 'url("/services/inverter and UPS repair.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}> inverter& UPS repair</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[13] = el} style={{ backgroundImage: 'url("/services/laptop and computer repair service.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>laptop&computer repair</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[14] = el} style={{ backgroundImage: 'url("/services/Microwave.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Microwave servicing</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[15] = el} style={{ backgroundImage: 'url("/services/Movers and Good Carriers.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Mover services</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[16] = el} style={{ backgroundImage: 'url("/services/pest control.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Pest Control</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[17] = el} style={{ backgroundImage: 'url("/services/plumbing.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Plumber Services </div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[18] = el} style={{ backgroundImage: 'url("/services/security camera installation service.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >Camera installation</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[19] = el} style={{ backgroundImage: 'url("/services/Septic Tank Cleaning.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Tank Cleaning </div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[20] = el} style={{ backgroundImage: 'url("/services/smart home service.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Smart Home service</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[21] = el} style={{ backgroundImage: 'url("/services/sofa and upholstery cleaning service.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Sofa cleaning</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[22] = el} style={{ backgroundImage: 'url("/services/Solar Panel Installation and Repair.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Solar Panel Installation</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[23] = el} style={{ backgroundImage: 'url("/services/Spa and Massage.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Spa&Massage</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[24] = el} style={{ backgroundImage: 'url("/services/switchboard.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Switchboard Repair</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[25] = el} style={{ backgroundImage: 'url("/services/TV repair.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>TV repairing</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[26] = el} style={{ backgroundImage: 'url("/services/washing machine.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Washing Machine</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[27] = el} style={{ backgroundImage: 'url("/services/water purifier.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Water Purifier</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[28] = el} style={{ backgroundImage: 'url("/services/water tank cleaning.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Water Tank Cleaning</div>
              </div>
           </div>
     </div>
@@ -1129,10 +1276,10 @@ useEffect(() => {
           Finding Skilled Experts Just Got Easier!
         </h1>
         <div ref={s1LinkRef} className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[20vh]'>
-          <Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /></Link>
+          <Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[2rem] '>Join Waitlist <FaArrowCircleRight color='#18375d' /></Link>
         </div>
         <div ref={s1ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services1.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
-        <p ref={s1TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-15vw] md:mt-0 whitespace-nowrap'>Anytime, Anywhere...</p>
+        <p ref={s1TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-10vw] md:mt-0 whitespace-nowrap'>Anytime, Anywhere...</p>
       </div>
       <div ref={s1ParagraphRef} className='right h-[20vh] md:h-[35vh] x-[60vw] md:w-[20vw] font-glacial text-lg md:text-xl text-[#18375d] mr-0 md:mr-[5vw] mt-[20vh] md:mt-[40vh] text-right invisible md:visible'>
         <p>With DOUM, access certified and verified professionals instantly. Say goodbye to long searches and unreliable services—get the right expert for your needs in no time, right at your doorstep</p>
@@ -1148,21 +1295,21 @@ useEffect(() => {
               <div className='right h-[100%] w-[50%]'>
                 <div className='headinCon w-full h-[25%] flex flex-col text-right items-end justify-around mt-[7vh] md:mt-[30vh] pr-2 '>
                   <h1 ref={s2HeadingRef} className=' font-light h-[5vh] md:h-[20vh] w-[40vw] md:w-[35vw] mr-0 md:mr-12 text-2xl md:text-4xl text-[#18375d] '>Book Services in Just a Few Taps!</h1>
-                <div ref={s2LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[-10vh] md:mt-[10vh]'><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+                <div ref={s2LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[-10vh] md:mt-[10vh]'><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[6rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
               </div>
               
 
             <div ref={s2ImageRef} className='imageContainer h-[27vh] w-[48vw] md:w-[30vw] mt-[-20vh] md:mt-[15vh] ml-[-50vw] md:ml-[15vw] rounded-xl  md:relative' style={{ backgroundImage: 'url(/services2.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
-            <p ref={s2TextRef} className='text-[#18375d] font-glacial ml-[-50vw] md:ml-[19vw] mt-[-15vw] md:mt-0 whitespace-nowrap  md:relative '>A Few Steps...</p>
+            <p ref={s2TextRef} className='text-[#18375d] font-glacial ml-[-50vw] md:ml-[19vw] mt-[-10vw] md:mt-0 whitespace-nowrap  md:relative  '>A Few Steps...</p>
               </div>
       </div>
       {/* service 3 */}
       <div ref={s3Ref} className='service1 h-[100vh] w-full flex mt-[-40vh] md:mt-[0vh] items-center justify-between'>
             <div className='left flex flex-col items-start justify-center h-full w-[50%] ml-[-5vw] md:ml-[0] mt-0 md:mt-[-20vh]'>
                 <h1 ref={s3HeadingRef} className=' font-light h-[10vh] md:h-[20vh] w-[40vw] md:w-[35vw] ml-12 text-2xl md:text-4xl text-[#18375d] absolute'>Track Real-Time Updates for Every Booking!</h1>
-            <div ref={s3LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[20vh]'><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+            <div ref={s3LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[10vh]'><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[5rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
             <div ref={s3ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services3.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
-            <p  ref={s3TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-15vw] md:mt-0 whitespace-nowrap'>Real-Time Tracking</p>
+            <p  ref={s3TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-10vw] md:mt-0 whitespace-nowrap'>Real-Time Tracking</p>
             </div>
             <div  ref={s3ParagraphRef} className='right  h-[20vh] md:h-[35vh] x-[60vw] md:w-[20vw] font-glacial text-lg md:text-xl text-[#18375d] mr-0 md:mr-[5vw] mt-[20vh] md:mt-[40vh] text-right invisible md:visible'>
                        <p>
@@ -1180,19 +1327,19 @@ useEffect(() => {
               <div className='right h-[100%] w-[50%]'>
                 <div className='headinCon w-full h-[40vh] md:h-[25%] flex flex-col text-right items-end justify-around mt-[7vh] md:mt-[30vh] pr-2 '>
                   <h1 ref={s4HeadingRef} className=' font-light h-[5vh] md:h-[20vh] w-[40vw] md:w-[35vw] mr-0 md:mr-12 text-2xl md:text-4xl text-[#18375d] '>Transparent Pricing and Hassle-Free Payments!</h1>
-                <div ref={s4LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[-10vh] md:mt-[10vh]'><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+                <div ref={s4LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[0vh] md:mt-[10vh]'><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
               </div>
               
 
             <div ref={s4ImageRef} className='imageContainer h-[27vh] w-[48vw] md:w-[30vw] mt-[-32vh] md:mt-[15vh] ml-[-50vw] md:ml-[15vw] rounded-xl  md:relative' style={{ backgroundImage: 'url(/services4.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
-            <p ref={s4TextRef} className='text-[#18375d] font-glacial ml-[-50vw] md:ml-[19vw] mt-[-15vw] md:mt-0 whitespace-nowrap  md:relative '>Transparent Pricing</p>
+            <p ref={s4TextRef} className='text-[#18375d] font-glacial ml-[-50vw] md:ml-[19vw] mt-[-10vw] md:mt-0 whitespace-nowrap  md:relative '>Transparent Pricing</p>
               </div>
       </div>
       {/*services 5*/}
       <div ref={s5Ref} className='service1 h-[100vh] w-full flex mt-[-40vh] md:mt-[0vh] items-center justify-between'>
             <div className='left flex flex-col items-start justify-center h-full w-[50%] ml-[-5vw] md:ml-[0] mt-0 md:mt-[-20vh]'>
                 <h1 ref={s5HeadingRef} className=' font-light h-[10vh] md:h-[20vh] w-[40vw] md:w-[35vw] ml-12 text-2xl md:text-4xl text-[#18375d] absolute'>Expert Services, Anytime, Anywhere!</h1>
-            <div ref={s5LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[20vh]'><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+            <div ref={s5LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[30vh] md:mt-[20vh]'><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
             <div ref={s5ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services5.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
             <p ref={s5TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-15vw] md:mt-0 whitespace-nowrap'>Get Top-notch services instantly...</p>
             </div>
@@ -1224,9 +1371,9 @@ useEffect(() => {
           {/* how it works 1 container*/}
           <div className='h-[100vh] w-[100vw] flex justify-center items-center'>
                 {/*step 1*/}
-                 <div ref={step1ConRef} className='step1-container w-[80%] md:w-[40%] h-[50%] md:h-[60%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
+                 <div ref={step1ConRef} className='step1-container w-[80%] md:w-[40%] h-[75%] md:h-[60%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
                   <div>
-                     <div ref={step1Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[7vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-3xl ml-[5%] mt-4'>
+                     <div ref={step1Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[15vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-3xl ml-[5%] mt-4'>
 
                            Step 01
                      </div>
@@ -1245,7 +1392,7 @@ useEffect(() => {
            {/* how it works 2 container*/}
            <div className='h-[100vh] w-[100vw] flex justify-center items-center'>
                 {/*step 2*/}
-                 <div ref={step2ConRef} className=' step2-container w-[80%] md:w-[40%] h-[50%] md:h-[60%] mt-[20vh] ml-[0] md:ml-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
+                 <div ref={step2ConRef} className=' step2-container w-[80%] md:w-[40%] h-[75%] md:h-[60%] mt-[20vh] ml-[0] md:ml-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
                   <div>
                      <div ref={step2Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[7vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-3xl ml-[5%] mt-[10%] md:mt-[5%]'>
 
@@ -1266,7 +1413,7 @@ useEffect(() => {
            {/* how it works 3 container*/}
            <div className='h-[100vh] w-[100vw] flex justify-center items-center'>
                 {/*step 3*/}
-                 <div ref={step3ConRef} className='step3-container w-[80%] md:w-[40%] h-[50%] md:h-[60%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
+                 <div ref={step3ConRef} className='step3-container w-[80%] md:w-[40%] h-[75%] md:h-[60%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
                   <div>
                      <div ref={step2Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[7vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-3xl ml-[5%] mt-[10%] md:mt-[8%]'>
 
@@ -1292,7 +1439,7 @@ useEffect(() => {
               {/*data container part */}
               <div className='h-[100vh] w-[100vw] bg-[#e1eefd] flex flex-col justify-end items-center'>
               <div ref={whyDoumRef} className='h-[85%] w-[75%] bg-[#18375d] rounded-2xl flex'>
-    <div className=" w-full md:w-1/2 flex flex-col justify-start gap-20 pl-20 overflow-y-scroll overflow-x-hidden">
+    <div className=" w-full md:w-1/2 flex flex-col justify-start gap-20  pl-6 md:pl-10 overflow-y-scroll overflow-x-hidden">
       
     <div className="h-[50vh]"></div>
       <div className="h-[50vh]"></div>
@@ -1303,7 +1450,7 @@ useEffect(() => {
         <div
           key={index}
           ref={el => textRefs.current[index] = el}
-          className="transition-all duration-300"
+          className="transition-all duration-300 w-full"
         >
           <h3 className="text-2xl font-bold text-white/50">{item.heading}</h3>
           <p className="text-white/30">{item.text}</p>
@@ -1340,7 +1487,7 @@ useEffect(() => {
 
        </div>
 
-       <div ref={el => featureRefs.current[0] = el} className=' feature-wrapper w-[90vw] md:w-[55vw] h-[200vh] flex flex-col justify-evenly items-center'>
+       <div className=' feature-wrapper w-[90vw] md:w-[55vw] h-[200vh] flex flex-col justify-evenly items-center'>
         <h1 className='text-[#18375d] text-2xl md:text-5xl whitespace-nowrap font-glacial font-bold'>All features that you can enjoy</h1>
         <div className='w-full h-[90%] flex flex-col justify-evenly items-center '>
           <div className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
@@ -1349,55 +1496,55 @@ useEffect(() => {
 
           </div>
 
-          <div ref={el => featureRefs.current[1] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[0] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><FaUserTag color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Verified Professionals</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[2] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[1] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><FaLocationDot color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Real-Time Tracking</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[3] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[2] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><RiMoneyRupeeCircleFill color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Transparent Pricing</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[4] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[3] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><RiCalendarScheduleFill color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Flexible Scheduling</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[5] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[4] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><MdLocalOffer color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Personalized Offers and Discounts</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[6] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[5] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><IoChatbubblesSharp color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>In-App Communication</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[7] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[6] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><MdPayment color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Multiple Payment Options</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[8] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[7] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><FaClipboardList color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Service History</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[9] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[8] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><RiReactjsLine color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>AI-Powered Assistance</div>
 
@@ -1412,7 +1559,7 @@ useEffect(() => {
 
 
        </div>
-       <div className='Faq-container h-[510vh] w-[100vw] overflow-auto bg-[#19375d] flex flex-col items-center justify-evenly'>
+       <div className='Faq-container h-[510vh] w-[100vw] overflow-auto bg-[#19375d] flex flex-col items-center justify-evenly relative z-10'>
          <div className='headings h-[80vh] w-full flex flex-col justify-center items-center gap-[5vh] text-center'>
          <h1 className=' text-5xl font-bold font-glacial text-white '>FREQUENTLY ASKED QUESTION</h1>
          <h4 className='text-4xl font-thin text-white font-glacial'>know us further</h4>
@@ -1567,26 +1714,180 @@ useEffect(() => {
 
        {/* Card Hover */}
        <div className='h-[160vh] w-[100vw] bg-[#e1eefd] overflow-y-hidden m-[-5vh] flex flex-col justify-center text-center'>
-        <div className='h-[80vw] w-[80vw] mt-[-60vw] rounded-full bg-[#18375d] flex flex-col mx-[12vw] absolute -z-5'></div>
+        <div className=' h-[150vw] md:h-[80vw] w-[150vw] md:w-[80vw] mt-[-140vh] md:mt-[-60vw] rounded-full bg-[#004aad] flex flex-col mx-[-25vw] md:mx-[12vw] absolute -z-9'></div>
         <h1 className='text-5xl font-bold font-glacial text-[#e1eefd]  mt-[-15vh] relative  z-5'>We’re more than just an app,</h1>
         <h1 className='text-5xl font-bold font-glacial text-[#e1eefd]  mt-[5vh] relative  z-5 ml-[2vw]'>we’re your trusted home partner!</h1>
-        <div className= 'hover container w-full h-[80vh] self-center mt-[20vh] relative z-[15] flex justify-center items-center gap-[1%] '>
-           <div className='bg-red-600 w-[12%] h-[95%] rounded-2xl hover:w-[30%] hover:bg-emerald-600 transition-all duration-700'> </div>
-           <div className='bg-red-600 w-[12%] h-[95%] rounded-2xl hover:w-[30%] hover:bg-emerald-600 transition-all duration-700'> </div>
-           <div className='bg-red-600 w-[12%] h-[95%] rounded-2xl hover:w-[30%] hover:bg-emerald-600 transition-all duration-700'> </div>
-           <div className='bg-red-600 w-[12%] h-[95%] rounded-2xl hover:w-[30%] hover:bg-emerald-600 transition-all duration-700'> </div>
-           <div className='bg-red-600 w-[12%] h-[95%] rounded-2xl hover:w-[30%] hover:bg-emerald-600 transition-all duration-700'> </div>
-           <div className='bg-red-600 w-[12%] h-[95%] rounded-2xl hover:w-[30%] hover:bg-emerald-600 transition-all duration-700'> </div>
-           <div className='bg-red-600 w-[12%] h-[95%] rounded-2xl hover:w-[30%] hover:bg-emerald-600 transition-all duration-700'> </div>
-           <div className='bg-red-600 w-[12%] h-[95%] rounded-2xl hover:w-[30%] hover:bg-emerald-600 transition-all duration-700'> </div>
+        <div className= 'hover container w-full h-[80vh] self-center mt-[20vh] relative z-[15] flex justify-center items-center gap-[1%] invisible md:visible overflow-x-hidden '>
+           <div className= 'hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/8.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Beyond Bookings,We Build Trust </div>
+           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/9.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>More Than Service,We Offer Care</div>
+           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/10.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Not Just an App,a Helping Hand </div>
+           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/11.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Your Home,Our Responsibility </div>
+           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/12.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Service with a Personal Touch </div>
+           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/13.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Here for Every Home, Every Need </div>
+           <div className='hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/14.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>From Quick Fixes to Lasting Trust </div>
+           <div className='hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/15.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>A Relationship, Not Just a Transaction </div>
           
             
 
         </div>
-
+        </div>
         
+        <div className='mobHoverContainer w-full h-[430vh] mt-[-100vh] flex md:hidden flex-col justify-evenly items-center relative'>
+  {[
+    { image: '/hover/8.png', text: 'Beyond Bookings, We Build Trust' },
+    { image: '/hover/9.png', text: 'More Than Service, We Offer Care' },
+    { image: '/hover/10.png', text: 'Not Just an App, a Helping Hand' },
+    { image: '/hover/11.png', text: 'Your Home, Our Responsibility' },
+    { image: '/hover/12.png', text: 'Service with a Personal Touch' },
+    { image: '/hover/13.png', text: 'Here for Every Home, Every Need' },
+    { image: '/hover/14.png', text: 'From Quick Fixes to Lasting Trust' },
+    { image: '/hover/15.png', text: 'A Relationship, Not Just a Transaction' }
+  ].map((item, index) => (
+    <div 
+      key={index}
+      ref={el => mobHoverRef.current[index] = el} 
+      className='w-[90%] h-[40vh] rounded-3xl flex items-center justify-center transition-all duration-300 overflow-hidden'
+      style={{
+        backgroundImage: `url(${item.image})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'top',
+        filter: 'grayscale(100%)'
+      }}
+    >
+      <h2 className='text-white text-2xl font-bold opacity-0 transition-opacity duration-300 text-center px-4'>{item.text}</h2>
+    </div>
+  ))}
+</div>
 
-       </div>
+        {/* waitlist form */}
+        <div className='form-section h-[140vh] w-[100vw]  flex justify-between'>
+        <Toaster />
+          <div className='circleCon  h-full w-[25%] ml-[-25vw] overflow-x-visible hidden md:inline-block'> <div className='h-[125vh] w-[125vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
+             <div className='headingCon  mr-[15vh] h-[25%] w-[40%]'>
+              <h1 className='text-[#e1eefd] text-4xl font-glacial font-bold '>
+              Be One of the First 100 to Get a Free Service!
+              </h1>
+              </div>  
+             <div className='contact-info h-[8%] w-[30%] mr-[29vh]'>
+             <p className='font-glacial text-[#e1eefd] text-lg font-light'>+91 8967908081</p>
+             <p className='font-glacial text-[#e1eefd] text-lg font-light'> info@mydoum.com</p>
+             </div>
+             <div className='whatsapp h-[5%] w-[35%] mr-[23vh]' >
+              <Link href='/' className='font-glacial text-[#e1eefd] text-md font-thin whitespace-nowrap flex items-center justify-start gap-4'>Need help? Message us! <div><BsWhatsapp color='#e1eefd' /></div>  </Link> </div>
+              <div className='address font-glacial text-[#e1eefd] text-lg font-light h-[10%] w-[40%] mr-[17vh] '>Salt Lake City, Kolkata,Kolkata 700091,West Bengal, India</div>
+
+            
+
+            </div></div>
+          <div className='FormCon  h-full w-full md:w-[65%]  mt-[10vh] flex justify-center items-center flex-col '>
+            <form className='h-[70%] w-[90%] md:w-[75%] bg-[#bbd7f47a] rounded-2xl mb-[2vh] drop-shadow-2xl flex flex-col items-center justify-evenly'onSubmit={handleSubmit(onSubmit,onError)} id='myForm'>
+            
+              <div className='names flex h-[20%] w-[90%]  items-center justify-between '>
+                <div className='firstname h-full w-[45%] flex flex-col'>
+                  <label className='font-glacial text-[#18375d] text-lg font-medium'>First Name</label>
+                  <input type='text' name='firstname' required placeholder='First Name'  className='h-[60%] w-full rounded-lg bg-[#a2c1e7] focus:border-2 focus:border-[#18375d] placeholder-[#18375d] px-[1rem]' {...register('firstName')}/>
+
+                </div>
+                <div className='lastname h-full w-[45%]  flex flex-col'>
+                  <label className='font-glacial text-[#18375d] text-lg font-medium'>Last Name</label>
+                  <input type='text' name='lastname' required placeholder='Last Name'  className='h-[60%] w-full rounded-lg bg-[#a2c1e7] focus:border-2 focus:border-[#18375d] placeholder-[#18375d] px-[1rem]' {...register('lastName')} />
+
+                </div>
+              </div>
+              <div className='Email flex h-[20%] w-[90%]  items-start justify-between flex-col '>
+              <label className='font-glacial text-[#18375d] text-lg font-medium'>Email</label>
+              <input type='text' name='Email' required placeholder='Name@gmail.com'  className='h-[60%] w-full rounded-lg bg-[#a2c1e7] focus:border-2 focus:border-[#18375d] placeholder-[#18375d] px-[1rem]'   {...register('Email', {
+    pattern: {
+      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      message: "Enter a valid email",
+    },
+  })}/>
+
+              </div>
+              <div className='phone no flex h-[20%] w-[90%]  items-start justify-between flex-col '>
+              <label className='font-glacial text-[#18375d] text-lg font-medium'>Phone no.</label>
+              <div className="w-full h-[60%] flex justify-between">
+  <div className="w-[20%] h-[100%] bg-[#a2c1e7] rounded-lg flex justify-center items-center text-[#18375d] text-lg gap-2">
+    <div
+      className="h-[20%] w-[20%]"
+      style={{
+        backgroundImage: "url(/india.png)",
+        backgroundSize: "contain",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    ></div>
+    +91
+  </div>
+  <input
+    type="tel"
+    name="phone"
+    required
+    placeholder="Enter Phone Number"
+    className="h-full w-[75%] rounded-lg bg-[#a2c1e7] focus:border-2 focus:border-[#18375d] placeholder-[#18375d] px-[1rem]"
+    {...register("mobile", {
+      pattern: {
+        value: /^[6-9]\d{9}$/,
+        message: "Enter a valid 10-digit Indian mobile number",
+      },
+    })}
+  />
+</div>
+
+              </div>
+              <div className='Message flex h-[30%] w-[90%]  items-start justify-between flex-col '>
+              <label className='font-glacial text-[#18375d] text-lg font-medium'>Message</label>
+              <input type='text' name='Message'  placeholder='Enter Your Message'  className='h-[70%] w-full rounded-lg bg-[#a2c1e7] focus:border-2 focus:border-[#18375d] placeholder-[#18375d] px-[1rem]' {...register('Message')}/>
+
+              </div>
+              
+
+            </form>
+            <button type='submit' className='bg-[#004aad] text-[#e1eefd] text-lg font-glacial font-medium w-[50%] h-[7.5%] rounded-2xl' onClick={() => document.getElementById("myForm").requestSubmit()}
+              >Claim Your Spot Now</button>
+          </div>
+
+        </div>
+              {/*footer */}
+   <div className='footer h-auto min-h-[75vh] w-[100vw] md:w-[75vw] mt-[20vh] mb-[-20vh] rounded-3xl mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 py-8' style={style2}>
+   <div className='col1 h-auto w-full md:w-[25%] flex flex-col justify-center mt-6 px-4' >
+      <div className='logo h-[100px] w-[80%] items-start mx-auto md:mx-0' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}> </div>
+      <br/>
+      <div className='text-container text-xl text-[#18375d] font-glacial font-extralight text-center md:text-left'>
+      Salt Lake City, Kolkata, Kolkata 700091, West Bengal, India
+      </div>
+      <br/>
+      <div className='links flex justify-center md:justify-start gap-4'>
+        <Link href='/'><AiOutlineLinkedin color='#18375d' size={40} /></Link>
+        <Link href='/'><CiInstagram color='#18375d' size={40}  /></Link>
+        <Link href='/'><AiOutlineFacebook color='#18375d' size={40}  /></Link>
+        <Link href='/'><FaXTwitter color='#18375d' size={40}  /></Link>
+      </div>
+   </div>
+   <div className='col2 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center mt-6 px-4'>
+      <h1 className='text-[#18375d] font-glacial font-bold text-xl mb-4'>Navigation</h1>
+      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>Home</Link>
+      <Link href='/'className='font-light font-glacial text-md text-[#18375d] mb-2' >How it works</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>why us</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>FAQs</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>Join Waitlist</Link>
+   </div>
+   <div className='col3 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 px-4'>
+      <h1 className='text-[#18375d] font-glacial font-bold text-xl mb-4'>Get in Touch</h1>
+      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>info@mydoum.com</Link>
+      <h1 className='text-[#18375d] font-glacial font-bold text-xl mt-4 mb-2'>Enquire</h1>
+      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>+91 8967908081</Link>
+      <h1 className='text-[#18375d] font-glacial font-bold text-xl mt-4 mb-2'>Support</h1>
+      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>+91 8420385246</Link>
+   </div>
+   <div className='col4 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 px-4'>
+      <h1 className='text-[#18375d] font-glacial font-bold text-xl mb-4'>Legal</h1>
+      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>Terms of Use</Link>
+      <Link href='/'className='font-light font-glacial text-md text-[#18375d] mb-2' >Privacy Policy</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>Equal Opportunity Policy</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>Refund and Cancellation Policy</Link>
+   </div>
+   </div>     
 
        
 

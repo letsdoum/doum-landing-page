@@ -21,6 +21,17 @@
   } 
   
 }
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0px 0px 10px rgba(0, 0, 0,1);
+  }
+}
+@layer utilities {
+  .text-shadow-inv{
+    text-shadow: 0px 0px 10px rgba(0, 0, 0,0);
+  }
+}
 .scrollingContent{
    animation: slide 20s linear 0 infinite ;
 }
@@ -35,4 +46,21 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
+}
+.hovCon{
+  color: rgba(0,0,0,0);
+}
+
+.hovCon:hover{
+  color: rgba(255,255,255,1);
+}
+.scrollingContent{
+  background-size: contain;
+  color: rgba(24, 55, 93, 1);
+}
+@media(max-width:768px){
+  .scrollingContent{
+    background-size: cover;
+    color:rgba(24, 55, 93, 0)
+  }
 }
