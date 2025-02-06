@@ -96,7 +96,7 @@ function Navbar() {
             <div ref={divRef} className='h-full w-1/6' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}></div>
             <Link href='/' className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[2] = el}>Why us</Link>
             <Link href='/' className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[3] = el}>FAQs</Link>
-            <Link href='/' className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[4] = el}>join waitlist</Link>
+            <Link href='/' className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[4] = el}>Join Waitlist</Link>
         </div>
         {/* <div className='flex md:hidden h-[10vh] w-full bg-[#bbd7f47a] justify-between items-center fixed top-0'>
             <div className='w-[40%] h-full filxed left-2' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ></div>
@@ -119,7 +119,7 @@ function Navbar() {
             <Link href='/' className='text-lg px-8 h-1/12 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => mobRef.current[3] = el}>FAQs</Link>
             <Link href='/' className='text-lg px-8 h-1/12 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => mobRef.current[4] = el}>join waitlist</Link>
         </div> */}
-        <div ref={mobBarRef} className='flex md:hidden h-[10vh] w-[95%] fixed rounded-full bg-[#bbd7f47a] backdrop-blur-xl flex justify-between items-center top-4 fixed z-20'>
+        <div ref={mobBarRef} className='flex md:hidden h-[10vh] w-[95%] fixed rounded-full bg-[#bbd7f47a] backdrop-blur-xl flex justify-between items-center top-4 fixed z-[200]'>
             <div ref={el => mobNavRef.current[0] = el} className=' w-2/5 h-[60%] ' style={{backgroundImage:'url(/DOUM-logo-removebg-preview.png)', backgroundSize:"contain", backgroundRepeat:"no-repeat",backgroundPosition:"center"}}></div>
             <div ref={el => mobNavRef.current[1] = el} className='relative right-12 text-2xl font-extrabold font-[#18375d]'><button onClick={()=>{
                 if(flag === false){
@@ -133,7 +133,7 @@ function Navbar() {
                 
             }}><RiMenu3Fill /></button></div>
         </div>
-        <div ref={panelRef} className='flex flex-col h-[90vh] w-[90vw] justify-evenly bg-[#bbd7f47a] rounded-lg backdrop-blur-xl fixed right-[-100vw] top-[10vh] z-20 opacity-0'>
+        <div ref={panelRef} className='flex flex-col h-[90vh] w-[90vw] justify-evenly bg-[#bbd7f47a] rounded-lg backdrop-blur-xl fixed right-[-100vw] top-[10vh] z-[200] opacity-0'>
             <Link href='/' className='mx-16 text-lg font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[0] = el}>Services</Link>
             <Link href='/' className='mx-16 text-lg font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[1] = el}>How it works</Link>
             <Link href='/' className='mx-16 text-lg font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[2] = el}>why us</Link>

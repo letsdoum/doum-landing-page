@@ -9,6 +9,7 @@ export default {
     extend: {
       fontFamily: {
         glacial: ['Glacial Indifference', 'sans-serif'],
+        agrandirW:['Agrandir-Regular', 'sans-serif']
       },
       backgroundImage:{
         'desktop-platform': "url(/desktop-platform.png)",

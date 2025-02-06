@@ -29,6 +29,7 @@ import { CiInstagram } from "react-icons/ci";
 import { AiOutlineFacebook } from "react-icons/ai";
 import { FaXTwitter } from "react-icons/fa6";
 import { supabase } from '../../lib/supabaseClient';
+import Iphone from './Iphone';
 
 // function Model() {
 
@@ -1180,6 +1181,7 @@ const onSubmit = async (formData) => {
   console.log('Form data:', { firstName, lastName, Email, mobile ,Message });
   try{
     const {data , error} = await supabase.from('Waitlist').insert([{ FirstName: firstName,LastName: lastName, Email,phoneNo: mobile,Message: Message }])
+    toast.success("congrats you're in", { position: "top-right" });
     if(error) {
       toast.error("Error submitting form!", { position: "top-right" });
       console.error(error.message);
@@ -1200,6 +1202,131 @@ const onSubmit = async (formData) => {
 const onError = () => {
   toast.error("Please fix the errors and try again!", { position: "top-right" });
 };
+const [isDesktop, setIsDesktop] = useState(false);
+
+useEffect(() => {
+  const handleResize = () => {
+    setIsDesktop(window.innerWidth >= 768); // Adjust this breakpoint as needed
+  };
+
+  // Set initial value
+  handleResize();
+
+  // Add event listener
+  window.addEventListener('resize', handleResize);
+
+  // Clean up
+  return () => window.removeEventListener('resize', handleResize);
+}, []);
+const stepsRef =useRef()
+
+  useEffect(() => {
+    gsap.set(whyUsRef.current, { opacity: 0 });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: whyUsRef.current,
+        start: "top 80%",
+        end: "bottom 20%",
+        scrub: 1,
+        toggleActions: "play reverse play reverse"
+      }
+    });
+
+    tl.to(whyUsRef.current, {
+      opacity: 1,
+      duration: 1,
+      ease: "power2.inOut"
+    })
+    .to(whyUsRef.current, {
+      opacity: 0,
+      duration: 1,
+      ease: "power2.inOut"
+    });
+
+    return () => tl.scrollTrigger.kill();
+  }, []);
+
+useEffect(() => {
+
+  gsap.to('.Faq-container', {
+    
+    scrollTrigger: {
+      trigger: '.Faq-container',
+      start: 'bottom bottom',
+      end: 'bottom+=100vh bottom',
+      toggleActions: 'play none none reverse',
+      scrub: true,
+      markers: true, // Optional: Remove or comment out if you don't want to see markers
+      onEnter: () => gsap.to('.Faq-container', { opacity: 1, duration: 1 }),
+      onLeave: () => gsap.to('.Faq-container', { opacity: 0, duration: 1 }),
+      onEnterBack: () => gsap.to('.Faq-container', { opacity: 1, duration: 1 }),
+      onLeaveBack: () => gsap.to('.Faq-container', { opacity: 1, duration: 1 })
+    }
+  });
+
+
+}, []);
+const hoverCircle=useRef()
+const hoverh11 = useRef()
+const hoverh12 = useRef()
+useEffect(() => {
+  const htl = gsap.timeline({
+    scrollTrigger: {
+      trigger: hoverCircle.current,
+      start: 'center bottom', // Changed from 'bottom bottom'
+      end: 'center center',   // Changed from 'top top'
+      toggleActions: 'play none none reverse',
+      scrub: 1,              // Reduced from 4 for smoother animation
+      markers: true
+    }
+  });
+
+  htl.from(hoverCircle.current, {
+    scale: 0,
+    duration: 1,
+    ease: "back.out(1.7)"    // Added easing for pop effect
+  });
+
+  htl.from([hoverh11.current, hoverh12.current], {
+    opacity: 0,
+    duration: 1,
+    stagger: 0.2             // Added stagger for sequential fade-in
+  });
+
+  return () => {
+    htl.scrollTrigger.kill();
+  };
+}, []);
+
+useEffect(() => {
+  const htl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.formCircle',
+      start: 'center bottom', // Changed from 'bottom bottom'
+      end: 'center center',   // Changed from 'top top'
+      toggleActions: 'play none none reverse',
+      scrub: 1,              // Reduced from 4 for smoother animation
+      markers: true
+    }
+  });
+
+  htl.from('.formCircle', {
+    scale: 0,
+    duration: 1,
+    ease: "back.out(1.7)"    // Added easing for pop effect
+  });
+
+  htl.from(['.headingCon','.contact-info','.whatsapp','.address'], {
+    opacity: 0,
+    duration: 1,
+    stagger: 0.2             // Added stagger for sequential fade-in
+  });
+
+  return () => {
+    htl.scrollTrigger.kill();
+  };
+}, []);
 
 
 
@@ -1208,6 +1335,11 @@ const onError = () => {
 
     {/*3d model*/}
 
+    {/* {isDesktop && (
+        <div className='fixed flex justify-center items-center h-[150vh] w-[100vw] z-[15]'>
+          <Iphone />
+        </div>
+      )} */}
     
           
      {/* hero */}
@@ -1221,7 +1353,7 @@ const onError = () => {
           <span key={index} ref={el => h4Ref.current[index] = el} className='inline-block mr-1'>{letter}</span>
         ))}
       </h4></div>
-      <div className='w-[50vw] h-[25vh] flex flex-col md:flex-row justify-between items-center'>
+      <div className='w-[50vw] md:w-[40vw] h-[25vh] flex flex-col md:flex-row justify-between items-center mb-[0] md:mb-[200vh]'>
         <div className='w-full md:w-[45%] h-[45%] md:h-full rounded-3xl' style={{ backgroundImage: 'url(/playstore.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ref={el => getRef.current[0] = el}></div>
         <div className='w-full md:w-[45%] h-[45%] md:h-full rounded-3xl' style={{ backgroundImage: 'url(/applestore.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ref={el => getRef.current[1] = el}></div>
       </div>
@@ -1276,10 +1408,10 @@ const onError = () => {
           Finding Skilled Experts Just Got Easier!
         </h1>
         <div ref={s1LinkRef} className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[20vh]'>
-          <Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[2rem] '>Join Waitlist <FaArrowCircleRight color='#18375d' /></Link>
+          <Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[2rem] md:mt-[-5vh] font-agrandirW text-2xl '>Join Waitlist <FaArrowCircleRight color='#18375d' /></Link>
         </div>
         <div ref={s1ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services1.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
-        <p ref={s1TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-10vw] md:mt-0 whitespace-nowrap'>Anytime, Anywhere...</p>
+        <p ref={s1TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-10vw] md:mt-0 whitespace-nowrap text-sm'>Anytime, Anywhere...</p>
       </div>
       <div ref={s1ParagraphRef} className='right h-[20vh] md:h-[35vh] x-[60vw] md:w-[20vw] font-glacial text-lg md:text-xl text-[#18375d] mr-0 md:mr-[5vw] mt-[20vh] md:mt-[40vh] text-right invisible md:visible'>
         <p>With DOUM, access certified and verified professionals instantly. Say goodbye to long searches and unreliable services—get the right expert for your needs in no time, right at your doorstep</p>
@@ -1295,7 +1427,7 @@ const onError = () => {
               <div className='right h-[100%] w-[50%]'>
                 <div className='headinCon w-full h-[25%] flex flex-col text-right items-end justify-around mt-[7vh] md:mt-[30vh] pr-2 '>
                   <h1 ref={s2HeadingRef} className=' font-light h-[5vh] md:h-[20vh] w-[40vw] md:w-[35vw] mr-0 md:mr-12 text-2xl md:text-4xl text-[#18375d] '>Book Services in Just a Few Taps!</h1>
-                <div ref={s2LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[-10vh] md:mt-[10vh]'><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[6rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+                <div ref={s2LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[-10vh] md:mt-[-20vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[6rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
               </div>
               
 
@@ -1307,7 +1439,7 @@ const onError = () => {
       <div ref={s3Ref} className='service1 h-[100vh] w-full flex mt-[-40vh] md:mt-[0vh] items-center justify-between'>
             <div className='left flex flex-col items-start justify-center h-full w-[50%] ml-[-5vw] md:ml-[0] mt-0 md:mt-[-20vh]'>
                 <h1 ref={s3HeadingRef} className=' font-light h-[10vh] md:h-[20vh] w-[40vw] md:w-[35vw] ml-12 text-2xl md:text-4xl text-[#18375d] absolute'>Track Real-Time Updates for Every Booking!</h1>
-            <div ref={s3LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[10vh]'><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[5rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+            <div ref={s3LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[3vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[5rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
             <div ref={s3ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services3.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
             <p  ref={s3TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-10vw] md:mt-0 whitespace-nowrap'>Real-Time Tracking</p>
             </div>
@@ -1327,7 +1459,7 @@ const onError = () => {
               <div className='right h-[100%] w-[50%]'>
                 <div className='headinCon w-full h-[40vh] md:h-[25%] flex flex-col text-right items-end justify-around mt-[7vh] md:mt-[30vh] pr-2 '>
                   <h1 ref={s4HeadingRef} className=' font-light h-[5vh] md:h-[20vh] w-[40vw] md:w-[35vw] mr-0 md:mr-12 text-2xl md:text-4xl text-[#18375d] '>Transparent Pricing and Hassle-Free Payments!</h1>
-                <div ref={s4LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[0vh] md:mt-[10vh]'><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+                <div ref={s4LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-2xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[0vh] md:mt-[-5vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
               </div>
               
 
@@ -1339,7 +1471,7 @@ const onError = () => {
       <div ref={s5Ref} className='service1 h-[100vh] w-full flex mt-[-40vh] md:mt-[0vh] items-center justify-between'>
             <div className='left flex flex-col items-start justify-center h-full w-[50%] ml-[-5vw] md:ml-[0] mt-0 md:mt-[-20vh]'>
                 <h1 ref={s5HeadingRef} className=' font-light h-[10vh] md:h-[20vh] w-[40vw] md:w-[35vw] ml-12 text-2xl md:text-4xl text-[#18375d] absolute'>Expert Services, Anytime, Anywhere!</h1>
-            <div ref={s5LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[30vh] md:mt-[20vh]'><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+            <div ref={s5LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[30vh] md:mt-[20vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
             <div ref={s5ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services5.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
             <p ref={s5TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-15vw] md:mt-0 whitespace-nowrap'>Get Top-notch services instantly...</p>
             </div>
@@ -1354,7 +1486,7 @@ const onError = () => {
     </div>
        {/* how it works */}
 
-       <div ref={whyUsRef} className='why-us-start h-[100vh] w-[100vw] bg-[#18375d] flex justify-center items-center'>
+       <div ref={whyUsRef} className='why-us-start h-[100vh] w-[100vw] bg-[#18375d] flex justify-center items-center bg-fixed'>
        <div ref={circleRef} className='h-[40vw] w-[40vw] rounded-full absolute -z-2 self-center'style={{ backgroundImage: 'url(/circle.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', opacity:'0.45' }}></div>
           <div ref={WhyUsImgRef} className='image-container  h-[50%] w-[60%] relative z-50' style={{ backgroundImage: 'url(/Screenshot_2025-02-01_092629-removebg-preview_upscayl_4x_realesrgan-x4plus.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
           
@@ -1364,12 +1496,12 @@ const onError = () => {
        </div>
 
        {/*how it works container */}
-       <div className='h-[450vh] w-[100vh] bg-[#e1eefd] flex flex-col justify-start items-center'>
+       <div ref={stepsRef} className='h-[550vh] w-[100vh] bg-[#e1eefd] flex flex-col justify-start items-center'>
          <h1 ref={howItWorksHeadingRef} className=' font-glacial text-[#18375d] text-xl md:text-4xl sticky top-[15vh] md:top-[25vh] mb-20 whitespace-nowrap font-medium ' >
            Book an Expert in 3 Easy steps
          </h1>
           {/* how it works 1 container*/}
-          <div className='h-[100vh] w-[100vw] flex justify-center items-center'>
+          <div className='h-[100vh] w-[100vw] flex justify-center items-center  mt-[100vh]'>
                 {/*step 1*/}
                  <div ref={step1ConRef} className='step1-container w-[80%] md:w-[40%] h-[75%] md:h-[60%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
                   <div>
@@ -1487,66 +1619,66 @@ const onError = () => {
 
        </div>
 
-       <div className=' feature-wrapper w-[90vw] md:w-[55vw] h-[200vh] flex flex-col justify-evenly items-center'>
-        <h1 className='text-[#18375d] text-2xl md:text-5xl whitespace-nowrap font-glacial font-bold'>All features that you can enjoy</h1>
+       <div className=' feature-wrapper w-[80vw] md:w-[55vw] h-[150vh] flex flex-col justify-center items-center'>
+        <h1 className='text-[#18375d] text-2xl md:text-3xl whitespace-nowrap font-glacial font-bold'>All features that you can enjoy</h1>
         <div className='w-full h-[90%] flex flex-col justify-evenly items-center '>
-          <div className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
-            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><FaTools color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Service Selection Made Easy</div>
+          <div className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><FaTools color='#e1eefd' /></div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Service Selection Made Easy</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[0] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
-            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><FaUserTag color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Verified Professionals</div>
+          <div ref={el => featureRefs.current[0] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><FaUserTag color='#e1eefd' /></div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Verified Professionals</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[1] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
-            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><FaLocationDot color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Real-Time Tracking</div>
+          <div ref={el => featureRefs.current[1] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><FaLocationDot color='#e1eefd' /></div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Real-Time Tracking</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[2] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
-            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><RiMoneyRupeeCircleFill color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Transparent Pricing</div>
+          <div ref={el => featureRefs.current[2] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><RiMoneyRupeeCircleFill color='#e1eefd' /></div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Transparent Pricing</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[3] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
-            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><RiCalendarScheduleFill color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Flexible Scheduling</div>
+          <div ref={el => featureRefs.current[3] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-xl'><RiCalendarScheduleFill color='#e1eefd' /></div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Flexible Scheduling</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[4] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
-            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><MdLocalOffer color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Personalized Offers and Discounts</div>
+          <div ref={el => featureRefs.current[4] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><MdLocalOffer color='#e1eefd' /></div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Personalized Offers and Discounts</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[5] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
-            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><IoChatbubblesSharp color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>In-App Communication</div>
+          <div ref={el => featureRefs.current[5] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><IoChatbubblesSharp color='#e1eefd' /></div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>In-App Communication</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[6] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
-            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><MdPayment color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Multiple Payment Options</div>
+          <div ref={el => featureRefs.current[6] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><MdPayment color='#e1eefd' /></div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Multiple Payment Options</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[7] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
-            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><FaClipboardList color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Service History</div>
+          <div ref={el => featureRefs.current[7] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><FaClipboardList color='#e1eefd' /></div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Service History</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[8] = el} className='feature-container w-full h-[9%] bg-[#18375d] rounded-2xl flex'>
-            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-4xl'><RiReactjsLine color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-3xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>AI-Powered Assistance</div>
+          <div ref={el => featureRefs.current[8] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+            <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><RiReactjsLine color='#e1eefd' /></div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>AI-Powered Assistance</div>
 
           </div>
 
@@ -1559,18 +1691,18 @@ const onError = () => {
 
 
        </div>
-       <div className='Faq-container h-[510vh] w-[100vw] overflow-auto bg-[#19375d] flex flex-col items-center justify-evenly relative z-10'>
+       <div className='Faq-container h-[510vh] w-[100vw] overflow-auto bg-[#19375d] flex flex-col items-center justify-evenly  relative z-10  pb-[100vh]'>
          <div className='headings h-[80vh] w-full flex flex-col justify-center items-center gap-[5vh] text-center'>
          <h1 className=' text-5xl font-bold font-glacial text-white '>FREQUENTLY ASKED QUESTION</h1>
          <h4 className='text-4xl font-thin text-white font-glacial'>know us further</h4>
          <h5 className='text-2xl font-thin text-white font-glacial opacity-[0.7]'> Scroll down slowly</h5>
          </div>
          
-          <div className='FAQS w-full h-[430vh]  flex flex-col justify-evenly items-center overflow-hidden relative z-10'>
+          <div className='FAQS w-full h-[430vh]  flex flex-col justify-evenly items-center overflow-hidden gap-8 relative z-10'>
             <div className='QnA1 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q1Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
                      <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
-                     <div className='Q1 h-full w-[70%] md:w-[40%] bg-[#e1eefd] rounded-3xl text-[#1837fd] font-glacial font-light flex items-center justify-center px-[2%] mr-[11vw]'>
+                     <div className='Q1 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-center px-[2%] mr-[11vw]'>
                      Hi, I’m new to DOUM and have a lot of questions about how it works. Can you help?
 
                      </div>
@@ -1587,9 +1719,9 @@ const onError = () => {
 
             </div>
             <div className='QnA2 h-[50vh] w-full flex flex-col justify-between'>
-               <div className='Q2Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
+               <div className='Q2Container h-[20%] w-[70%] ml-[9%] flex justify-center items-end gap-[1%] '>
                      <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
-                     <div className='Q2 h-full w-[70%] md:w-[40%] bg-[#e1eefd] rounded-3xl text-[#1837fd] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='Q2 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What is DOUM?
 
                      </div>
@@ -1608,7 +1740,7 @@ const onError = () => {
             <div className='QnA3 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q3Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
                      <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
-                     <div className='Q3 h-full w-[70%] md:w-[40%] bg-[#e1eefd] rounded-3xl text-[#1837fd] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='Q3 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      Okay. So, do you offer regular or subscription-based services?
 
 
@@ -1628,7 +1760,7 @@ const onError = () => {
             <div className='QnA4 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q4Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
                      <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
-                     <div className='Q4 h-full w-[70%] md:w-[40%] bg-[#e1eefd] rounded-3xl text-[#1837fd] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='Q4 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What happens if an expert doesn’t show up on time?
 
                      </div>
@@ -1647,7 +1779,7 @@ const onError = () => {
             <div className='QnA5 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q5Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
                      <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
-                     <div className='Q5 h-full w-[70%] md:w-[40%] bg-[#e1eefd] rounded-3xl text-[#1837fd] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='Q5 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      Amazing. So, are there any charges for cancelling or rescheduling bookings?
 
                      </div>
@@ -1666,7 +1798,7 @@ const onError = () => {
             <div className='QnA6 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q6Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
                      <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
-                     <div className='Q6 h-full w-[70%] md:w-[40%] bg-[#e1eefd] rounded-3xl text-[#1837fd] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='Q6 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What happens if I’m not satisfied with the service?
 
                      </div>
@@ -1686,7 +1818,7 @@ const onError = () => {
             <div className='QnA7 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q7Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
                      <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
-                     <div className='Q7 h-full w-[70%] md:w-[40%] bg-[#e1eefd] rounded-3xl text-[#1837fd] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='Q7 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      Got It. What if I require an instant service?
 
 
@@ -1711,12 +1843,15 @@ const onError = () => {
           
 
        </div>
+       <div className='transition-gap h-[50vh] w-[100vw] bg-[#e1eefd] '>
+
+       </div>
 
        {/* Card Hover */}
        <div className='h-[160vh] w-[100vw] bg-[#e1eefd] overflow-y-hidden m-[-5vh] flex flex-col justify-center text-center'>
-        <div className=' h-[150vw] md:h-[80vw] w-[150vw] md:w-[80vw] mt-[-140vh] md:mt-[-60vw] rounded-full bg-[#004aad] flex flex-col mx-[-25vw] md:mx-[12vw] absolute -z-9'></div>
-        <h1 className='text-5xl font-bold font-glacial text-[#e1eefd]  mt-[-15vh] relative  z-5'>We’re more than just an app,</h1>
-        <h1 className='text-5xl font-bold font-glacial text-[#e1eefd]  mt-[5vh] relative  z-5 ml-[2vw]'>we’re your trusted home partner!</h1>
+        <div ref={hoverCircle} className=' h-[150vw] md:h-[80vw] w-[150vw] md:w-[80vw] mt-[-140vh] md:mt-[-60vw] rounded-full bg-[#004aad] flex flex-col mx-[-25vw] md:mx-[12vw] absolute -z-9'></div>
+        <h1 ref={hoverh11} className='text-5xl font-bold font-glacial text-[#e1eefd]  mt-[-15vh] relative  z-5'>We’re more than just an app,</h1>
+        <h1 ref={hoverh12} className='text-5xl font-bold font-glacial text-[#e1eefd]  mt-[5vh] relative  z-5 ml-[2vw]'>we’re your trusted home partner!</h1>
         <div className= 'hover container w-full h-[80vh] self-center mt-[20vh] relative z-[15] flex justify-center items-center gap-[1%] invisible md:visible overflow-x-hidden '>
            <div className= 'hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/8.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Beyond Bookings,We Build Trust </div>
            <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/9.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>More Than Service,We Offer Care</div>
@@ -1762,9 +1897,9 @@ const onError = () => {
         {/* waitlist form */}
         <div className='form-section h-[140vh] w-[100vw]  flex justify-between'>
         <Toaster />
-          <div className='circleCon  h-full w-[25%] ml-[-25vw] overflow-x-visible hidden md:inline-block'> <div className='h-[125vh] w-[125vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
-             <div className='headingCon  mr-[15vh] h-[25%] w-[40%]'>
-              <h1 className='text-[#e1eefd] text-4xl font-glacial font-bold '>
+          <div className='circleCon  h-full w-[25%] ml-[-30vw] overflow-x-visible hidden md:inline-block'> <div className='formCircle h-[175vh] w-[175vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
+             <div className='headingCon  mr-[27vh] h-[25%] w-[40%]'>
+              <h1 className='text-[#e1eefd] text-5xl font-glacial font-bold '>
               Be One of the First 100 to Get a Free Service!
               </h1>
               </div>  
@@ -1780,7 +1915,7 @@ const onError = () => {
 
             </div></div>
           <div className='FormCon  h-full w-full md:w-[65%]  mt-[10vh] flex justify-center items-center flex-col '>
-            <form className='h-[70%] w-[90%] md:w-[75%] bg-[#bbd7f47a] rounded-2xl mb-[2vh] drop-shadow-2xl flex flex-col items-center justify-evenly'onSubmit={handleSubmit(onSubmit,onError)} id='myForm'>
+            <form className='ml:0 md:ml-[10vw] h-[50%] w-[90%] md:w-[65%] bg-[#bbd7f47a] rounded-2xl mb-[2vh] drop-shadow-2xl flex flex-col items-center justify-evenly'onSubmit={handleSubmit(onSubmit,onError)} id='myForm'>
             
               <div className='names flex h-[20%] w-[90%]  items-center justify-between '>
                 <div className='firstname h-full w-[45%] flex flex-col'>
@@ -1843,7 +1978,7 @@ const onError = () => {
               
 
             </form>
-            <button type='submit' className='bg-[#004aad] text-[#e1eefd] text-lg font-glacial font-medium w-[50%] h-[7.5%] rounded-2xl' onClick={() => document.getElementById("myForm").requestSubmit()}
+            <button  type='submit' className='ml:0 md:ml-[10vw] bg-[#004aad] text-[#e1eefd] text-lg font-glacial font-medium w-[50%] h-[7.5%] rounded-2xl' onClick={() => document.getElementById("myForm").requestSubmit()}
               >Claim Your Spot Now</button>
           </div>
 
