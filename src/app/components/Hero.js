@@ -30,6 +30,8 @@ import { AiOutlineFacebook } from "react-icons/ai";
 import { FaXTwitter } from "react-icons/fa6";
 import { supabase } from '../../lib/supabaseClient';
 import Iphone from './Iphone';
+import IPLazy from './IPLazy';
+import MobileAni from './MobileAni';
 
 // function Model() {
 
@@ -1257,7 +1259,7 @@ useEffect(() => {
       end: 'bottom+=100vh bottom',
       toggleActions: 'play none none reverse',
       scrub: true,
-      markers: true, // Optional: Remove or comment out if you don't want to see markers
+       // Optional: Remove or comment out if you don't want to see markers
       onEnter: () => gsap.to('.Faq-container', { opacity: 1, duration: 1 }),
       onLeave: () => gsap.to('.Faq-container', { opacity: 0, duration: 1 }),
       onEnterBack: () => gsap.to('.Faq-container', { opacity: 1, duration: 1 }),
@@ -1278,8 +1280,7 @@ useEffect(() => {
       end: 'center center',   // Changed from 'top top'
       toggleActions: 'play none none reverse',
       scrub: 1,              // Reduced from 4 for smoother animation
-      markers: true
-    }
+          }
   });
 
   htl.from(hoverCircle.current, {
@@ -1307,8 +1308,7 @@ useEffect(() => {
       end: 'center center',   // Changed from 'top top'
       toggleActions: 'play none none reverse',
       scrub: 1,              // Reduced from 4 for smoother animation
-      markers: true
-    }
+          }
   });
 
   htl.from('.formCircle', {
@@ -1335,11 +1335,11 @@ useEffect(() => {
 
     {/*3d model*/}
 
-    {/* {isDesktop && (
+    {isDesktop && (
         <div className='fixed flex justify-center items-center h-[150vh] w-[100vw] z-[15]'>
-          <Iphone />
+          {window.innerWidth>768?<Iphone/>:<MobileAni/>}
         </div>
-      )} */}
+      )}
     
           
      {/* hero */}
@@ -1503,7 +1503,7 @@ useEffect(() => {
           {/* how it works 1 container*/}
           <div className='h-[100vh] w-[100vw] flex justify-center items-center  mt-[100vh]'>
                 {/*step 1*/}
-                 <div ref={step1ConRef} className='step1-container w-[80%] md:w-[40%] h-[75%] md:h-[60%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
+                 <div ref={step1ConRef} className='step1-container w-[80%] md:w-[40%] h-[75%] md:h-[75%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
                   <div>
                      <div ref={step1Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[15vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-3xl ml-[5%] mt-4'>
 
@@ -1524,7 +1524,7 @@ useEffect(() => {
            {/* how it works 2 container*/}
            <div className='h-[100vh] w-[100vw] flex justify-center items-center'>
                 {/*step 2*/}
-                 <div ref={step2ConRef} className=' step2-container w-[80%] md:w-[40%] h-[75%] md:h-[60%] mt-[20vh] ml-[0] md:ml-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
+                 <div ref={step2ConRef} className=' step2-container w-[80%] md:w-[40%] h-[75%] md:h-[75%] mt-[20vh] ml-[0] md:ml-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
                   <div>
                      <div ref={step2Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[7vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-3xl ml-[5%] mt-[10%] md:mt-[5%]'>
 
@@ -1545,7 +1545,7 @@ useEffect(() => {
            {/* how it works 3 container*/}
            <div className='h-[100vh] w-[100vw] flex justify-center items-center'>
                 {/*step 3*/}
-                 <div ref={step3ConRef} className='step3-container w-[80%] md:w-[40%] h-[75%] md:h-[60%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
+                 <div ref={step3ConRef} className='step3-container w-[80%] md:w-[40%] h-[75%] md:h-[75%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
                   <div>
                      <div ref={step2Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[7vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-3xl ml-[5%] mt-[10%] md:mt-[8%]'>
 
@@ -1565,11 +1565,11 @@ useEffect(() => {
           </div>
           {/*why us*/}
                {/*main text part*/}
- <div className='h-[100vh] w-[100vw] bg-[#e1eefd] flex justify-center items-center'>
+ <div className='mt-0 md:mt-[100vh] h-[100vh] w-[100vw] bg-[#e1eefd] flex justify-center items-center '>
                          <h1 className='text-[#18375d] text-3xl font-bold font-glacial' >WHY CHOOSE DOUM</h1>
               </div>
               {/*data container part */}
-              <div className='h-[100vh] w-[100vw] bg-[#e1eefd] flex flex-col justify-end items-center'>
+              <div className='h-[100vh] w-[100vw] bg-[#e1eefd] flex flex-col justify-end items-center z-[50]'>
               <div ref={whyDoumRef} className='h-[85%] w-[75%] bg-[#18375d] rounded-2xl flex'>
     <div className=" w-full md:w-1/2 flex flex-col justify-start gap-20  pl-6 md:pl-10 overflow-y-scroll overflow-x-hidden">
       
@@ -1622,61 +1622,61 @@ useEffect(() => {
        <div className=' feature-wrapper w-[80vw] md:w-[55vw] h-[150vh] flex flex-col justify-center items-center'>
         <h1 className='text-[#18375d] text-2xl md:text-3xl whitespace-nowrap font-glacial font-bold'>All features that you can enjoy</h1>
         <div className='w-full h-[90%] flex flex-col justify-evenly items-center '>
-          <div className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div className='feature-container w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><FaTools color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Service Selection Made Easy</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[0] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[0] = el} className='feature-container  w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><FaUserTag color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Verified Professionals</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[1] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[1] = el} className='feature-container  w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><FaLocationDot color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Real-Time Tracking</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[2] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[2] = el} className='feature-container  w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><RiMoneyRupeeCircleFill color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Transparent Pricing</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[3] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[3] = el} className='feature-container  w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-xl'><RiCalendarScheduleFill color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Flexible Scheduling</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[4] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[4] = el} className='feature-container  w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><MdLocalOffer color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Personalized Offers and Discounts</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[5] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[5] = el} className='feature-container  w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><IoChatbubblesSharp color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>In-App Communication</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[6] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[6] = el} className='feature-container  w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><MdPayment color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Multiple Payment Options</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[7] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[7] = el} className='feature-container w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><FaClipboardList color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Service History</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[8] = el} className='feature-container w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[8] = el} className='feature-container  w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><RiReactjsLine color='#e1eefd' /></div>
             <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>AI-Powered Assistance</div>
 
@@ -1687,7 +1687,7 @@ useEffect(() => {
        </div>
        {/*FAQ */}
 
-       <div className='transition-gap h-[100vh] w-[100vw] bg-[#e1eefd]'>
+       <div className='transition-gap h-[50vh] w-[100vw] bg-[#e1eefd]'>
 
 
        </div>
@@ -1895,7 +1895,7 @@ useEffect(() => {
 </div>
 
         {/* waitlist form */}
-        <div className='form-section h-[140vh] w-[100vw]  flex justify-between'>
+        <div className='form-section h-[140vh] w-[100vw]  flex justify-between z-[20]'>
         <Toaster />
           <div className='circleCon  h-full w-[25%] ml-[-30vw] overflow-x-visible hidden md:inline-block'> <div className='formCircle h-[175vh] w-[175vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
              <div className='headingCon  mr-[27vh] h-[25%] w-[40%]'>

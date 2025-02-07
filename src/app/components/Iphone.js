@@ -5,20 +5,28 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin({ScrollTrigger})
 
 function Model() {
-
-    function Model({ models, activeModel }) {
-        const modelRef = useRef();
-
-        
+    const modelRef = useRef()
+    const model2Ref = useRef()
+    const result = useLoader(GLTFLoader, '/IP 4.glb')
+    const result2 = useLoader(GLTFLoader, '/IP 5.glb')
+    
+    useEffect(() => {
+        // Ensure first model is visible and second is hidden initially
+        if (modelRef.current && model2Ref.current) {
+            modelRef.current.visible = true
+            model2Ref.current.visible = false
+        }
+    }, [])
+    
     useGSAP(() => {
-        if (!modelRef.current) return;
+        if (!modelRef.current || !model2Ref.current) return
         
         // Set initial visibility
-        
+        modelRef.current.visible = true
+        model2Ref.current.visible = false
         
         const tl = gsap.timeline({
             scrollTrigger:{
@@ -26,7 +34,6 @@ function Model() {
                 start: 'top top',
                 end: 'bottom -50%',
                 scrub: true,
-                invalidateOnRefresh: true
             }
         })
         const tl2 = gsap.timeline({
@@ -35,7 +42,6 @@ function Model() {
                 start: 'top 30%',
                 end: 'bottom 60%',
                 scrub: 2,
-                invalidateOnRefresh: true
             }
         })
         const tlR = gsap.timeline({
@@ -45,7 +51,6 @@ function Model() {
                 end: 'bottom -250%',
                 scrub: 4,
                 markers: true,
-                invalidateOnRefresh: true
             }
         })
         const tlR2 = gsap.timeline({
@@ -55,8 +60,23 @@ function Model() {
                 end: 'bottom -350%',
                 scrub: 4,
                 markers: true,
-                invalidateOnRefresh: true,
-                
+                onUpdate: (self) => {
+                    // Get scroll direction and progress
+                    const progress = self.progress;
+                    const direction = self.getVelocity() >= 0 ? 1 : -1;
+                    const currentRotation = modelRef.current.rotation.y;
+
+                    // Scrolling down
+                    if (direction > 0 && currentRotation < 0.6 * Math.PI && !model2Ref.current.visible) {
+                        modelRef.current.visible = false;
+                        model2Ref.current.visible = true;
+                    }
+                    // Scrolling up
+                    else if (direction < 0 && currentRotation > 0.4 * Math.PI && model2Ref.current.visible) {
+                        modelRef.current.visible = true;
+                        model2Ref.current.visible = false;
+                    }
+                }
             }
         })
         const tlR3 = gsap.timeline({
@@ -66,7 +86,6 @@ function Model() {
                 end: 'bottom -450%',
                 scrub: 4,
                 markers: true,
-                invalidateOnRefresh: true
             }
         })
         const tlR4 = gsap.timeline({
@@ -76,7 +95,6 @@ function Model() {
                 end: 'bottom -550%',
                 scrub: 4,
                 markers: true,
-                invalidateOnRefresh: true
             }
         })
         const tlR5 = gsap.timeline({
@@ -86,7 +104,6 @@ function Model() {
                 end: 'bottom -650%',
                 scrub: 4,
                 markers: true,
-                invalidateOnRefresh: true
             }
         })
         const tl3 = gsap.timeline({
@@ -96,7 +113,6 @@ function Model() {
                 end: 'bottom -750%',
                 scrub: 4,
                 markers: true,
-                invalidateOnRefresh: true
             }
         })
         const tl4 = gsap.timeline({
@@ -106,17 +122,15 @@ function Model() {
                 end: 'bottom -750%',
                 scrub: 4,
                 markers: true,
-                invalidateOnRefresh: true
             }
         })
         const fadeOut = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
                 start: 'bottom -750%',
-                end: 'bottom -750%',
+                end: 'bottom -790%',
                 scrub: 4,
                 markers: true,
-                invalidateOnRefresh: true,
                 onUpdate: (self) => {
                     // Make everything transparent
                     modelRef.current.traverse((node) => {
@@ -124,22 +138,26 @@ function Model() {
                             node.material.opacity = 1 - self.progress;
                         }
                     })
-                    
+                    model2Ref.current.traverse((node) => {
+                        if (node.material) {
+                            node.material.opacity = 1 - self.progress;
+                        }
+                    })
                 },
-                
+                onLeave: () => {
+                    modelRef.current.visible = false;
+                    model2Ref.current.visible = false;
+                },
+                onEnterBack: () => {
+                    if (model2Ref.current.visible) {
+                        model2Ref.current.visible = true;
+                    } else {
+                        modelRef.current.visible = true;
+                    }
+                }
             }
         })
-        const tls = gsap.timeline({
-            scrollTrigger:{
-                trigger: "#model-section",
-                start: 'bottom -750%',
-                end: 'bottom -850%',
-                scrub: true,
-                invalidateOnRefresh: true
-                
-            }
-        })
-        tl.fromTo(modelRef.current.scale, {
+        tl.fromTo([modelRef.current.scale, model2Ref.current.scale], {
             x: 18,
             y: 18,
             z: 18
@@ -148,7 +166,7 @@ function Model() {
             y: 10,
             z: 10,
         }, 'hi')
-        .fromTo(modelRef.current.rotation,{
+        .fromTo([modelRef.current.rotation, model2Ref.current.rotation], {
             x: -Math.PI/4,
             y: Math.PI,
             z: 0
@@ -157,7 +175,7 @@ function Model() {
             y: Math.PI,
             z: 0,
         }, '-=1')
-        .fromTo(modelRef.current.scale, {
+        .fromTo([modelRef.current.scale, model2Ref.current.scale], {
             x: 10,
             y: 10,
             z: 10
@@ -167,7 +185,7 @@ function Model() {
             z: 9,
         })
 
-        tl2.fromTo(modelRef.current.position, {
+        tl2.fromTo([modelRef.current.position, model2Ref.current.position], {
             x: 8,
             y: -55,
             z: -15
@@ -177,7 +195,7 @@ function Model() {
             z: -25,
         })
 
-        tlR.fromTo(modelRef.current.rotation, {
+        tlR.fromTo([modelRef.current.rotation, model2Ref.current.rotation], {
             x: 0,
             y: Math.PI,
             z: 0,  
@@ -186,7 +204,7 @@ function Model() {
             y: 2*Math.PI/3,
             z: 0,
         }, 'kbc')
-        .fromTo(modelRef.current.scale, {
+        .fromTo([modelRef.current.scale, model2Ref.current.scale], {
             x: 9,
             y: 9,
             z: 9,  
@@ -196,7 +214,7 @@ function Model() {
             z: 6.5,
         }, 'kbc')
         
-        tlR2.fromTo(modelRef.current.rotation, {
+        tlR2.fromTo([modelRef.current.rotation, model2Ref.current.rotation], {
             x: 0,
             y: 2*Math.PI/3,
             z: 0,  
@@ -206,7 +224,7 @@ function Model() {
             z: 0,
         })
 
-        tlR3.fromTo(modelRef.current.rotation, {
+        tlR3.fromTo([modelRef.current.rotation, model2Ref.current.rotation], {
             x: 0,
             y: Math.PI/2,
             z: 0,
@@ -216,7 +234,7 @@ function Model() {
             z: 0,
         })
 
-        tlR4.fromTo(modelRef.current.rotation,  {
+        tlR4.fromTo([modelRef.current.rotation, model2Ref.current.rotation], {
             x: 0,
             y: Math.PI/4,
             z: 0,
@@ -226,7 +244,7 @@ function Model() {
             z: 0,
         })
 
-        tlR5.fromTo(modelRef.current.rotation, {
+        tlR5.fromTo([modelRef.current.rotation, model2Ref.current.rotation], {
             x: 0,
             y: 0,
             z: 0,
@@ -235,14 +253,14 @@ function Model() {
             y: -Math.PI,
             z: 0,
         })
-        tl3.fromTo(modelRef.current.scale,{
+        tl3.fromTo(model2Ref.current.scale,{
             x: 6.5,
             y: 6.5,
             z: 6.5,     
         },{
             x: 35,y:35,z: 35,
         },'hy')
-        tl3.fromTo(modelRef.current.position,{
+        tl3.fromTo(model2Ref.current.position,{
             x: 3,
             y: 6,
             z: -25
@@ -251,21 +269,84 @@ function Model() {
             y: 6,
             z: -25
         })
-        fadeOut.fromTo(modelRef.current,{
+        fadeOut.fromTo(model2Ref.current,{
             opacity:1
         },{
             opacity:0
         })
-        tls.fromTo(modelRef.current.scale, {
-            x: 18,
-            y: 18,
-            z: 18
-        }, {
-            x: 10,
-            y: 10,
-            z: 10,
-        }, 'hi')
-        .fromTo(modelRef.current.rotation, {
+
+    }, [modelRef.current, model2Ref.current])
+
+    return (
+        <>
+            <primitive 
+                object={result.scene} 
+                scale={[0.5, 0.5, 0.5]} 
+                ref={modelRef}
+            />
+            <primitive 
+                object={result2.scene} 
+                scale={[0.5, 0.5, 0.5]} 
+                ref={model2Ref}
+            />
+        </>
+    )
+}
+ function Model2(){
+    const modelRef = useRef()
+    const model2Ref = useRef()
+    const model3Ref = useRef()
+    const model4Ref = useRef()
+    const result = useLoader(GLTFLoader, '/IP 1.glb')
+    const result2 = useLoader(GLTFLoader, '/IP 2.glb')
+    const result3 = useLoader(GLTFLoader, '/IP 3.glb' )
+    const result4 = useLoader(GLTFLoader, '/IP 6.glb')
+    useEffect(() => {
+        // Ensure first model is visible and second is hidden initially
+        if (modelRef.current && model2Ref.current&& model3Ref.current.visible) {
+            modelRef.current.visible = false
+            model2Ref.current.visible = false
+            model3Ref.current.visible = false
+            model4Ref.current.visible = false
+
+        
+        }
+    }, [])
+
+    useGSAP(()=>{
+        if(!modelRef.current||!model2Ref.current||!model3Ref) return
+        const tl = gsap.timeline({
+            scrollTrigger:{
+                trigger: "#model-section",
+                start: 'bottom -850%',
+                end: 'bottom -1050%',
+                markers:true,
+                scrub: 4,
+                onEnter: ()=>{
+                    modelRef.current.visible = true
+                    model2Ref.current.visible = false
+                    model3Ref.current.visible = false
+                },
+                onEnterBack: ()=>{
+                    modelRef.current.visible = true
+                    model2Ref.current.visible = false
+                    model3Ref.current.visible = false
+                },
+                onLeave:()=>{
+                    modelRef.current.visible = true
+                    model2Ref.current.visible = false
+                    model3Ref.current.visible = false
+                },
+                onLeaveBack:()=>{
+                    modelRef.current.visible = false
+                    model2Ref.current.visible = false
+                    model3Ref.current.visible = false
+                }
+            }
+        })
+
+        
+        tl.fromTo([modelRef.current.rotation, model2Ref.current.rotation,model3Ref.current.rotation], {
             x: -Math.PI/4,
             y: Math.PI,
             z: 0
@@ -273,72 +354,345 @@ function Model() {
             x: 0,
             y: Math.PI,
             z: 0,
-        }, '-=1')
-        .fromTo(modelRef.current.scale, {
+        }, 'hi')
+        .fromTo([modelRef.current.scale, model2Ref.current.scale,model3Ref.current.scale,model4Ref.current.scale], {
             x: 10,
             y: 10,
             z: 10
         }, {
-            x: 9,
-            y: 9,
-            z: 9,
+            x: 6,
+            y: 6,
+            z: 6,
+        },'hi')
+        .fromTo([modelRef.current.rotation, model2Ref.current.rotation,model3Ref.current.rotation], {
+            x: -Math.PI/4,
+            y: Math.PI,
+            z: 0
+        }, {
+            x: 0,
+            y: 5*Math.PI/6,
+            z: 0,
+        }, 'hi')
+        .fromTo([modelRef.current.position, model2Ref.current.position,model3Ref.current.position], {
+            x: 0,
+            y: -55,
+            z: 15
+        }, {
+            x: 15,
+            y: 5,
+            z: -25,
+        },'hi')
+
+        const tl2 = gsap.timeline({
+            scrollTrigger:{
+                trigger: "#model-section",
+                start: 'bottom -1050%',
+                end: 'bottom -1125%',
+                markers:true,
+                scrub: 4,
+                onEnter: ()=>{
+                    modelRef.current.visible = false
+                    model2Ref.current.visible = true
+                    model3Ref.current.visible = false
+                },
+                onEnterBack: ()=>{
+                    modelRef.current.visible =false
+                    model2Ref.current.visible = true
+                    model3Ref.current.visible = false
+                },
+                onLeave:()=>{
+                    modelRef.current.visible = false
+                    model2Ref.current.visible = false
+                    model3Ref.current.visible = false
+                },
+                onLeaveBack:()=>{
+                    modelRef.current.visible = true
+                    model2Ref.current.visible = false
+                    model3Ref.current.visible = false
+                }
+            }
         })
 
-    }, { dependencies: [model] })
-    useEffect(() => {
-        ScrollTrigger.create({
-            trigger: "#model-section",
-            start: "bottom -250%",
-            end: "bottom -350%",
-            onEnter: () => setActiveModel(prev => modelSequence[prev].next),
-            onEnterBack: () => setActiveModel(prev => modelSequence[prev].prev),
-        });
-    }, []);
+        tl2.fromTo([modelRef.current.position, model2Ref.current.position,model3Ref.current.position], {
+            x: 15,
+            y: 5,
+            z: -25,
+        }, {
+            x: -15,
+            y: 5,
+            z: -25,
+        },'hi')
+        .fromTo([modelRef.current.rotation, model2Ref.current.rotation,model3Ref.current.rotation], {
+            x: 0,
+            y:  5*Math.PI/6,
+            z: 0
+        }, {
+            x: 0,
+            y: -5*Math.PI/6,
+            z: 0,
+        }, 'hi')
 
-    return (
-        <>{model ? <primitive object={model.scene} ref={modelRef} /> : null}</>
-        
+        const tl3 = gsap.timeline({
+            scrollTrigger:{
+                trigger: "#model-section",
+                start: 'bottom -1130%',
+                end: 'bottom -1190%',
+                markers:true,
+                scrub: 4,
+                onEnter: ()=>{
+                    modelRef.current.visible = false
+                    model2Ref.current.visible = false
+                    model3Ref.current.visible = true
+                },
+                onEnterBack: ()=>{
+                    modelRef.current.visible =false
+                    model2Ref.current.visible = false
+                    model3Ref.current.visible = true
+                    model4Ref.current.visible = false
+                },
+                onLeave:()=>{
+                    modelRef.current.visible = false
+                    model2Ref.current.visible = false
+                    model3Ref.current.visible = false
+                    model4Ref.current.visible = true
+                },
+                onLeaveBack:()=>{
+                    modelRef.current.visible = false
+                    model2Ref.current.visible = true
+                    model3Ref.current.visible = false
+                }
+            }
+        })
+        tl3.fromTo([modelRef.current.position, model2Ref.current.position,model3Ref.current.position,model4Ref.current.position], {
+            x: -15,
+            y: 5,
+            z: -25,
+        }, {
+            x: 15,
+            y: 5,
+            z: -25,
+        },'hi')
+        .fromTo([modelRef.current.rotation, model2Ref.current.rotation,model3Ref.current.rotation,model4Ref.current.rotation], {
+            x: 0,
+            y: -5*Math.PI/6,
+            z: 0,
+        }, {
+            x: 0,
+            y: 5*Math.PI/6,
+            z: 0,
+        }, 'hi')
+        const tl4= gsap.timeline({
+            scrollTrigger:{
+                trigger: "#model-section",
+                start: 'bottom -1190%',
+                end: 'bottom -1240%',
+                markers:true,
+                scrub: 4,
+                onEnter: ()=>{
+                    model4Ref.visible = true
+                },
+                onEnterBack: ()=>{
+                    model4Ref.visible = true
+                },
+                onLeave:()=>{
+                    model4Ref.visible = false
+                },
+                onLeaveBack:()=>{
+                    model4Ref.visible = false
+                }
+            }
+        })
+
+        tl4.fromTo(model4Ref.current.rotation,{ 
+            x: 0,
+            y: -5*Math.PI/6,
+            z: 0,
+        },{
+            x: 0,
+            y: Math.PI,
+            z: Math.PI/2,
+        },'hola'
+
+        )
+        tl4.fromTo(model4Ref.current.scale,{ 
+            
+                x: 6,
+                y: 6,
+                z: 6,
+            
+        },{
+            x: 24,
+            y: 30,
+            z: 30,
+        },'hola'
+
+        )
+        tl4.to(model4Ref.current.position,{
+            x:5,y:5,z:-25
+        },'hola')
+
+        const fadeOut = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#model-section",
+                start: 'bottom -1270%',
+                end: 'bottom -1290%',
+                markers: true,
+                scrub: 2,
+                onUpdate: (self) => {
+                    // Only use this method if your model has materials
+                    if (model4Ref.current) {
+                        model4Ref.current.traverse((node) => {
+                            if (node.isMesh && node.material) {
+                                // Make sure material is set to transparent
+                                node.material.transparent = true;
+                                node.material.needsUpdate = true;
+                                node.material.opacity = 1 - self.progress;
+                            }
+                        });
+                    }
+                },
+                onEnter: () => {
+                    model4Ref.current.visible = true;
+                },
+                onEnterBack: () => {
+                    model4Ref.current.visible = true;
+                },
+                onLeave: () => {
+                    model4Ref.current.visible = false;
+                },
+                onLeaveBack: () => {
+                    model4Ref.current.visible = false;
+                }
+            }
+        });
+    })
+   
+
+    return(
+        <>
+        <primitive 
+            object={result.scene} 
+            scale={[0.5, 0.5, 0.5]} 
+            ref={modelRef}
+        />
+        <primitive 
+            object={result2.scene} 
+            scale={[0.5, 0.5, 0.5]} 
+            ref={model2Ref}
+        />
+        <primitive
+         object={result3.scene}
+         scale={[0.5, 0.5, 0.5]}
+         ref={model3Ref}/>
+         <primitive
+         object={result4.scene}
+         scale={[0.5, 0.5, 0.5]}
+         ref={model4Ref}/>
+    </>
     )
-         
-        
+
 
     
-}
-}
+ }
 
-function Iphone() {
-    const [activeModel, setActiveModel] = useState('IP 4');
-    const [models, setModels] = useState({});
+ function Model3(){
+    const modelRef = useRef()
+    const result = useLoader(GLTFLoader, '/IP 7.glb')
 
-    const modelSequence = {
-        'IP 4': { next: 'IP 5', prev: 'IP 6' },
-        'IP 5': { next: 'IP 1', prev: 'IP 4' },
-        'IP 1': { next: 'IP 2', prev: 'IP 5' },
-        'IP 2': { next: 'IP 3', prev: 'IP 1' },
-        'IP 3': { next: 'IP 6', prev: 'IP 2' },
-        'IP 6': { next: 'IP 4', prev: 'IP 3' }
-    };
-
-    useEffect(() => {
-        const loadModels = async () => {
-            const modelNames = Object.keys(modelSequence);
-            const loadedModels = {};
-            
-            for (const name of modelNames) {
-                loadedModels[name] = await new GLTFLoader().loadAsync(`/${name}.glb`);
+    useGSAP(()=>{
+        const tl =gsap.timeline({
+            scrollTrigger:{
+                trigger: "#model-section",
+                start: 'bottom -1590%',
+                end: 'bottom -1690%',
+                markers:true,
+                scrub: 4,
+                
             }
+        })
 
-            setModels(loadedModels);
-        };
+        tl.fromTo(modelRef.current.position,{
+            x:0,
+            y:-35,
+            z:-25
+        },{
+            x:0,
+            y:-25,
+            z:-25
+        },'bruh')
+        tl.fromTo(modelRef.current.rotation,{
+            x:0,
+            y:0,
+            z:0
+        },{
+            x:0,
+            y:Math.PI,
+            z:0
+        },'bruh')
+        tl.fromTo(modelRef.current.scale,{
+            x:8,
+            y:8,
+            z:8
+        },{
+            x:35,
+            y:35,
+            z:35
+        },'bruh')
+        const fadeOut = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#model-section",
+                start: 'bottom -1720%',
+                end: 'bottom -1750%',
+                markers: true,
+                scrub: 2,
+                onUpdate: (self) => {
+                    // Only use this method if your model has materials
+                    if (modelRef.current) {
+                        modelRef.current.traverse((node) => {
+                            if (node.isMesh && node.material) {
+                                // Make sure material is set to transparent
+                                node.material.transparent = true;
+                                node.material.needsUpdate = true;
+                                node.material.opacity = 1 - self.progress;
+                            }
+                        });
+                    }
+                },
+                onEnter: () => {
+                    modelRef.current.visible = true;
+                },
+                onEnterBack: () => {
+                    modelRef.current.visible = true;
+                },
+                onLeave: () => {
+                    modelRef.current.visible = false;
+                },
+                onLeaveBack: () => {
+                    modelRef.current.visible = false;
+                }
+            }
+        });
+    })
 
-        loadModels();
-    }, []);
+
+    return(
+        <primitive 
+        object={result.scene} 
+        scale={[0.5, 0.5, 0.5]} 
+        ref={modelRef}
+    />
+    )
+
+ }
+function Iphone() {
     return (
         <div id="model-section" className="h-full w-full">
             <Canvas>
                 <ambientLight intensity={1} color='white'/>
                 <directionalLight intensity={1} position={[5,5,5]}color='white'/>
                 <Model />
+                <Model2/>
+                <Model3/>
             </Canvas>
         </div>
     )
