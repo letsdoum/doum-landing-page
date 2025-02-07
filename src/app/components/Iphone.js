@@ -50,7 +50,7 @@ function Model() {
                 start: 'top -150%',
                 end: 'bottom -250%',
                 scrub: 4,
-                markers: true,
+                
             }
         })
         const tlR2 = gsap.timeline({
@@ -59,7 +59,7 @@ function Model() {
                 start: 'bottom -250%',
                 end: 'bottom -350%',
                 scrub: 4,
-                markers: true,
+                
                 onUpdate: (self) => {
                     // Get scroll direction and progress
                     const progress = self.progress;
@@ -85,7 +85,7 @@ function Model() {
                 start: 'bottom -350%',
                 end: 'bottom -450%',
                 scrub: 4,
-                markers: true,
+                
             }
         })
         const tlR4 = gsap.timeline({
@@ -94,7 +94,7 @@ function Model() {
                 start: 'bottom -450%',
                 end: 'bottom -550%',
                 scrub: 4,
-                markers: true,
+                
             }
         })
         const tlR5 = gsap.timeline({
@@ -103,7 +103,7 @@ function Model() {
                 start: 'bottom -550%',
                 end: 'bottom -650%',
                 scrub: 4,
-                markers: true,
+                
             }
         })
         const tl3 = gsap.timeline({
@@ -112,7 +112,7 @@ function Model() {
                 start: 'bottom -650%',
                 end: 'bottom -750%',
                 scrub: 4,
-                markers: true,
+                
             }
         })
         const tl4 = gsap.timeline({
@@ -121,7 +121,7 @@ function Model() {
                 start: 'bottom -750%',
                 end: 'bottom -750%',
                 scrub: 4,
-                markers: true,
+                
             }
         })
         const fadeOut = gsap.timeline({
@@ -130,7 +130,7 @@ function Model() {
                 start: 'bottom -750%',
                 end: 'bottom -790%',
                 scrub: 4,
-                markers: true,
+                
                 onUpdate: (self) => {
                     // Make everything transparent
                     modelRef.current.traverse((node) => {
@@ -320,7 +320,7 @@ function Model() {
                 trigger: "#model-section",
                 start: 'bottom -850%',
                 end: 'bottom -1050%',
-                markers:true,
+                
                 scrub: 4,
                 onEnter: ()=>{
                     modelRef.current.visible = true
@@ -388,7 +388,7 @@ function Model() {
                 trigger: "#model-section",
                 start: 'bottom -1050%',
                 end: 'bottom -1125%',
-                markers:true,
+                
                 scrub: 4,
                 onEnter: ()=>{
                     modelRef.current.visible = false
@@ -437,7 +437,7 @@ function Model() {
                 trigger: "#model-section",
                 start: 'bottom -1130%',
                 end: 'bottom -1190%',
-                markers:true,
+                
                 scrub: 4,
                 onEnter: ()=>{
                     modelRef.current.visible = false
@@ -486,7 +486,7 @@ function Model() {
                 trigger: "#model-section",
                 start: 'bottom -1190%',
                 end: 'bottom -1240%',
-                markers:true,
+                
                 scrub: 4,
                 onEnter: ()=>{
                     model4Ref.visible = true
@@ -536,7 +536,7 @@ function Model() {
                 trigger: "#model-section",
                 start: 'bottom -1270%',
                 end: 'bottom -1290%',
-                markers: true,
+                
                 scrub: 2,
                 onUpdate: (self) => {
                     // Only use this method if your model has materials
@@ -605,7 +605,7 @@ function Model() {
                 trigger: "#model-section",
                 start: 'bottom -1590%',
                 end: 'bottom -1690%',
-                markers:true,
+                
                 scrub: 4,
                 
             }
@@ -643,7 +643,7 @@ function Model() {
                 trigger: "#model-section",
                 start: 'bottom -1720%',
                 end: 'bottom -1750%',
-                markers: true,
+                
                 scrub: 2,
                 onUpdate: (self) => {
                     // Only use this method if your model has materials

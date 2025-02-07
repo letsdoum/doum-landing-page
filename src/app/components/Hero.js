@@ -32,6 +32,7 @@ import { supabase } from '../../lib/supabaseClient';
 import Iphone from './Iphone';
 import IPLazy from './IPLazy';
 import MobileAni from './MobileAni';
+import Navbar from './Navbar';
 
 // function Model() {
 
@@ -152,7 +153,7 @@ function Hero() {
         if (width >= 768) { // Desktop breakpoint
             setStyle({
                 
-                backgroundImage: "url('/deskotp-platform.png')",
+                backgroundImage: "url('/deskotp-platform.webp')",
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'top',
                 backgroundSize: 'cover',
@@ -164,7 +165,7 @@ function Hero() {
         } else { // Mobile breakpoint
             setStyle({
                 
-                backgroundImage: "url('/mobile-platform.png')",
+                backgroundImage: "url('/mobile-platform.webp')",
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'top',
                 backgroundSize: 'contain',
@@ -186,7 +187,7 @@ function Hero() {
         if (width >= 768) { // Desktop breakpoint
             setStyle2({
                 
-                backgroundImage: "url('/footerbg.png')",
+                backgroundImage: "url('/footerbg.webp')",
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
@@ -198,7 +199,7 @@ function Hero() {
         } else { // Mobile breakpoint
             setStyle2({
                 
-                backgroundImage: "url('/footerbgmob.png')",
+                backgroundImage: "url('/footerbgmob.webp')",
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
@@ -772,22 +773,22 @@ function Hero() {
     {
       heading: "Verified Professionals",
       text: "Our experts are thoroughly screened to ensure reliability and skill.With DOUM, you get certified professionals delivering top-notch service every time.",
-      image: "/why-us-1.png"
+      image: "/why-us-1.webp"
     },
     {
       heading: "Competitive Pricing",
       text: "Get access to high-quality services at prices that won’t break the bank. We provide transparent, affordable rates with no hidden charges, ensuring the best value for your money.",
-      image: "/why-us-2.png"
+      image: "/why-us-2.webp"
     },
     {
       heading: "Real-Time Updates",
       text: "Stay informed throughout your service journey. From booking confirmation to tracking your professional’s arrival, our real-time updates ensure you’re always in the loop.",
-      image: "/why-us-3.png"
+      image: "/why-us-3.webp"
     },
     {
       heading: "Seamless Booking",
       text: "Booking has never been easier! With just a few taps, you can schedule services, customize requirements, and confirm your slot. Enjoy a hassle-free and efficient booking experience with DOUM",
-      image: "/why-us-4.png"
+      image: "/why-us-4.webp"
     }
   ]
 
@@ -1327,7 +1328,20 @@ useEffect(() => {
     htl.scrollTrigger.kill();
   };
 }, []);
+const videoConRef =useRef()
+const videoRef= useRef()
+const handleMouseEnter = () => {
+  if (videoRef.current) {
+    videoRef.current.muted = false;
+    
+  }
+};
 
+const handleMouseLeave = () => {
+  if (videoRef.current) {
+    videoRef.current.muted = true;
+  }
+};
 
 
   return (
@@ -1340,58 +1354,58 @@ useEffect(() => {
           {window.innerWidth>768?<Iphone/>:<MobileAni/>}
         </div>
       )}
-    
+    <Navbar/>
           
      {/* hero */}
     <div className=' md:h-[300vh] w-full bg-[#e1eefd] relative flex flex-col items-center justify-start gap-4' ref={heroRef}>
-      <div className='h-12 w-12 absolute top-[75vh] left-[15vw] invisible md:visible' style={{ backgroundImage: "url(/star.png)", backgroundSize: 'contain', mixBlendMode:"multiply" }} ref={el => starRef.current[0] = el}></div>
+      <div className='h-12 w-12 absolute top-[75vh] left-[15vw] invisible md:visible' style={{ backgroundImage: "url(/star.webp)", backgroundSize: 'contain', mixBlendMode:"multiply" }} ref={el => starRef.current[0] = el}></div>
       
-      <div className='h-12 w-12  absolute top-[20vh] left-[80vw]' style={{ backgroundImage: "url(/star.png)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center', mixBlendMode:"multiply" }} ref={el => starRef.current[1] = el}></div>
-      <div className='mt-[0vh] md:mt-[20vh] h-[40vh] md:h-[10%] w-[50vw] min-w-[320px]' style={{ backgroundImage: 'url(/Hero-text.png)', backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center', mixBlendMode: 'multiply' }}></div>
+      <div className='h-12 w-12  absolute top-[20vh] left-[80vw]' style={{ backgroundImage: "url(/star.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center', mixBlendMode:"multiply" }} ref={el => starRef.current[1] = el}></div>
+      <div className='mt-[0vh] md:mt-[20vh] h-[40vh] md:h-[10%] w-[50vw] min-w-[320px]' style={{ backgroundImage: 'url(/Hero-text.webp)', backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center', mixBlendMode: 'multiply' }}></div>
       <div className='mt-[-7vh] md:mt[0vh]  h-16 w-400 overflow-hidden'><h4 className='text-xl md:text-2xl lg:text-3xl text-[#18375d] font-semibold font-glacial'>
         {"All Your Home Services, One Tap Away!".split(" ").map((letter, index) => (
           <span key={index} ref={el => h4Ref.current[index] = el} className='inline-block mr-1'>{letter}</span>
         ))}
       </h4></div>
-      <div className='w-[50vw] md:w-[40vw] h-[25vh] flex flex-col md:flex-row justify-between items-center mb-[0] md:mb-[200vh]'>
-        <div className='w-full md:w-[45%] h-[45%] md:h-full rounded-3xl' style={{ backgroundImage: 'url(/playstore.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ref={el => getRef.current[0] = el}></div>
-        <div className='w-full md:w-[45%] h-[45%] md:h-full rounded-3xl' style={{ backgroundImage: 'url(/applestore.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ref={el => getRef.current[1] = el}></div>
+      <div className='w-[50vw] md:w-[40vw] h-[25vh] flex flex-col md:flex-row justify-between items-center mb-[0] md:mb-[200vh] mt-0 md:mt-[-10vh]'>
+        <div className='w-full md:w-[50%] h-[45%] md:h-[80%] rounded-3xl ' style={{ backgroundImage: 'url(/playstore.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ref={el => getRef.current[0] = el}></div>
+        <div className='w-full md:w-[50%] h-[45%] md:h-[80%] rounded-3xl ' style={{ backgroundImage: 'url("/applestore.webp")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ref={el => getRef.current[1] = el}></div>
       </div>
     </div>
     {/* platform */}
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-10 mt-[0vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
-        <div className='w-[70%] md:w-[40%] h-[10%] mt-[-80rem] md:mt-[0rem] ' style={{ backgroundImage: "url(/platform-text-removebg-preview_upscayl_4x_realesrgan-x4plus.png)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
+        <div className='w-[70%] md:w-[40%] h-[10%] mt-[-80rem] md:mt-[0rem] ' style={{ backgroundImage: "url(/platform-text-removebg-preview_upscayl_4x_realesrgan-x4plus.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
              {/*scroller*/}
              <div className='scrollContainer w-[1775vw] md:w-[805vw] h-[35vh] md:h-[70vh] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12'  ref={conRef} >
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[0] = el} style={{ backgroundImage: 'url(/services/AC.jpg)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >AC repairing</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[1] = el} style={{ backgroundImage: 'url("/services/bathroom fixture.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >Bathroom Fixture</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[2] = el} style={{ backgroundImage: 'url("/services/carpet cleaning.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Carpet Cleaning</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[3] = el} style={{ backgroundImage: 'url("/services/ceiling fan.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Ceiling fan Service</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[4] = el} style={{ backgroundImage: 'url(/services/chimney.jpg)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Chimney service</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[5] = el} style={{ backgroundImage: 'url(/services/cook.jpg)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Cook service</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[6] = el} style={{ backgroundImage: 'url(/services/electrician.jpg)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Electricial service</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[7] = el} style={{ backgroundImage: 'url(/services/fridge.jpg)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Fridge Servicing</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[8] = el} style={{ backgroundImage: 'url(/services/Handyman.jpg)', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Handyman</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[9] = el} style={{ backgroundImage: 'url("/services/home cleaning service.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >home cleaning service</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[10] = el} style={{ backgroundImage: 'url("/services/home theatre repair.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}> home theatre service</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[11] = el} style={{ backgroundImage: 'url("/services/induction cooktop repair.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >induction cooktop repair</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[12] = el} style={{ backgroundImage: 'url("/services/inverter and UPS repair.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}> inverter& UPS repair</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[13] = el} style={{ backgroundImage: 'url("/services/laptop and computer repair service.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>laptop&computer repair</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[14] = el} style={{ backgroundImage: 'url("/services/Microwave.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Microwave servicing</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[15] = el} style={{ backgroundImage: 'url("/services/Movers and Good Carriers.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Mover services</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[16] = el} style={{ backgroundImage: 'url("/services/pest control.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Pest Control</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[17] = el} style={{ backgroundImage: 'url("/services/plumbing.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Plumber Services </div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[18] = el} style={{ backgroundImage: 'url("/services/security camera installation service.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >Camera installation</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[19] = el} style={{ backgroundImage: 'url("/services/Septic Tank Cleaning.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Tank Cleaning </div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[20] = el} style={{ backgroundImage: 'url("/services/smart home service.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Smart Home service</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[21] = el} style={{ backgroundImage: 'url("/services/sofa and upholstery cleaning service.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Sofa cleaning</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[22] = el} style={{ backgroundImage: 'url("/services/Solar Panel Installation and Repair.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Solar Panel Installation</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[23] = el} style={{ backgroundImage: 'url("/services/Spa and Massage.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Spa&Massage</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[24] = el} style={{ backgroundImage: 'url("/services/switchboard.jpg")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Switchboard Repair</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[25] = el} style={{ backgroundImage: 'url("/services/TV repair.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>TV repairing</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[26] = el} style={{ backgroundImage: 'url("/services/washing machine.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Washing Machine</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[27] = el} style={{ backgroundImage: 'url("/services/water purifier.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Water Purifier</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[28] = el} style={{ backgroundImage: 'url("/services/water tank cleaning.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Water Tank Cleaning</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[0] = el} style={{ backgroundImage: 'url(/services/AC.webp)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >AC repairing</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[1] = el} style={{ backgroundImage: 'url("/services/bathroom fixture.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >Bathroom Fixture</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[2] = el} style={{ backgroundImage: 'url("/services/carpet cleaning.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Carpet Cleaning</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[3] = el} style={{ backgroundImage: 'url("/services/ceiling fan.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Ceiling fan Service</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[4] = el} style={{ backgroundImage: 'url(/services/chimney.webp)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Chimney service</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[5] = el} style={{ backgroundImage: 'url(/services/cook.webp)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Cook service</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[6] = el} style={{ backgroundImage: 'url(/services/electrician.webp)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Electricial service</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[7] = el} style={{ backgroundImage: 'url(/services/fridge.webp)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Fridge Servicing</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[8] = el} style={{ backgroundImage: 'url(/services/Handyman.webp)', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Handyman</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[9] = el} style={{ backgroundImage: 'url("/services/home cleaning service.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >home cleaning service</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[10] = el} style={{ backgroundImage: 'url("/services/home theatre repair.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}> home theatre service</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[11] = el} style={{ backgroundImage: 'url("/services/induction cooktop repair.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >induction cooktop repair</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[12] = el} style={{ backgroundImage: 'url("/services/inverter and UPS repair.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}> inverter& UPS repair</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[13] = el} style={{ backgroundImage: 'url("/services/laptop and computer repair service.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>laptop&computer repair</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[14] = el} style={{ backgroundImage: 'url("/services/Microwave.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Microwave servicing</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[15] = el} style={{ backgroundImage: 'url("/services/Movers and Good Carriers.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Mover services</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[16] = el} style={{ backgroundImage: 'url("/services/pest control.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Pest Control</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[17] = el} style={{ backgroundImage: 'url("/services/plumbing.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Plumber Services </div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[18] = el} style={{ backgroundImage: 'url("/services/security camera installation service.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >Camera installation</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[19] = el} style={{ backgroundImage: 'url("/services/Septic Tank Cleaning.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Tank Cleaning </div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[20] = el} style={{ backgroundImage: 'url("/services/smart home service.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Smart Home service</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[21] = el} style={{ backgroundImage: 'url("/services/sofa and upholstery cleaning service.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Sofa cleaning</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[22] = el} style={{ backgroundImage: 'url("/services/Solar Panel Installation and Repair.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Solar Panel Installation</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[23] = el} style={{ backgroundImage: 'url("/services/Spa and Massage.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Spa&Massage</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[24] = el} style={{ backgroundImage: 'url("/services/switchboard.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Switchboard Repair</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[25] = el} style={{ backgroundImage: 'url("/services/TV repair.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>TV repairing</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[26] = el} style={{ backgroundImage: 'url("/services/washing machine.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Washing Machine</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[27] = el} style={{ backgroundImage: 'url("/services/water purifier.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Water Purifier</div>
+                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[28] = el} style={{ backgroundImage: 'url("/services/water tank cleaning.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Water Tank Cleaning</div>
              </div>
           </div>
     </div>
@@ -1400,7 +1414,7 @@ useEffect(() => {
    
 
     {/* services */}
-    <div className='h-[600vh] w-full bg-[#e1eefd] relative flex flex-col items-center justify-start gap-4'>
+    <div id='services' className='h-[600vh] w-full bg-[#e1eefd] relative flex flex-col items-center justify-start gap-4'>
       {/* service1*/}
       <div ref={s1Ref} className='service1 h-[100vh] w-full flex mt-[-170vh] md:mt-[0vh] items-center justify-between'>
       <div className='left flex flex-col items-start justify-center h-full w-[50%] ml-[-5vw] md:ml-[0] mt-0 md:mt-[-20vh]'>
@@ -1408,9 +1422,9 @@ useEffect(() => {
           Finding Skilled Experts Just Got Easier!
         </h1>
         <div ref={s1LinkRef} className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[20vh]'>
-          <Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[2rem] md:mt-[-5vh] font-agrandirW text-2xl '>Join Waitlist <FaArrowCircleRight color='#18375d' /></Link>
+          <Link href='#waitlist' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[2rem] md:mt-[-5vh] font-agrandirW text-2xl '>Join Waitlist <FaArrowCircleRight color='#18375d' /></Link>
         </div>
-        <div ref={s1ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services1.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
+        <div ref={s1ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services1.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
         <p ref={s1TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-10vw] md:mt-0 whitespace-nowrap text-sm'>Anytime, Anywhere...</p>
       </div>
       <div ref={s1ParagraphRef} className='right h-[20vh] md:h-[35vh] x-[60vw] md:w-[20vw] font-glacial text-lg md:text-xl text-[#18375d] mr-0 md:mr-[5vw] mt-[20vh] md:mt-[40vh] text-right invisible md:visible'>
@@ -1431,7 +1445,7 @@ useEffect(() => {
               </div>
               
 
-            <div ref={s2ImageRef} className='imageContainer h-[27vh] w-[48vw] md:w-[30vw] mt-[-20vh] md:mt-[15vh] ml-[-50vw] md:ml-[15vw] rounded-xl  md:relative' style={{ backgroundImage: 'url(/services2.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
+            <div ref={s2ImageRef} className='imageContainer h-[27vh] w-[48vw] md:w-[30vw] mt-[-20vh] md:mt-[15vh] ml-[-50vw] md:ml-[15vw] rounded-xl  md:relative' style={{ backgroundImage: 'url(/services2.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
             <p ref={s2TextRef} className='text-[#18375d] font-glacial ml-[-50vw] md:ml-[19vw] mt-[-10vw] md:mt-0 whitespace-nowrap  md:relative  '>A Few Steps...</p>
               </div>
       </div>
@@ -1440,7 +1454,7 @@ useEffect(() => {
             <div className='left flex flex-col items-start justify-center h-full w-[50%] ml-[-5vw] md:ml-[0] mt-0 md:mt-[-20vh]'>
                 <h1 ref={s3HeadingRef} className=' font-light h-[10vh] md:h-[20vh] w-[40vw] md:w-[35vw] ml-12 text-2xl md:text-4xl text-[#18375d] absolute'>Track Real-Time Updates for Every Booking!</h1>
             <div ref={s3LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[3vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[5rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
-            <div ref={s3ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services3.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
+            <div ref={s3ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services3.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
             <p  ref={s3TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-10vw] md:mt-0 whitespace-nowrap'>Real-Time Tracking</p>
             </div>
             <div  ref={s3ParagraphRef} className='right  h-[20vh] md:h-[35vh] x-[60vw] md:w-[20vw] font-glacial text-lg md:text-xl text-[#18375d] mr-0 md:mr-[5vw] mt-[20vh] md:mt-[40vh] text-right invisible md:visible'>
@@ -1463,7 +1477,7 @@ useEffect(() => {
               </div>
               
 
-            <div ref={s4ImageRef} className='imageContainer h-[27vh] w-[48vw] md:w-[30vw] mt-[-32vh] md:mt-[15vh] ml-[-50vw] md:ml-[15vw] rounded-xl  md:relative' style={{ backgroundImage: 'url(/services4.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
+            <div ref={s4ImageRef} className='imageContainer h-[27vh] w-[48vw] md:w-[30vw] mt-[-32vh] md:mt-[15vh] ml-[-50vw] md:ml-[15vw] rounded-xl  md:relative' style={{ backgroundImage: 'url(/services4.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
             <p ref={s4TextRef} className='text-[#18375d] font-glacial ml-[-50vw] md:ml-[19vw] mt-[-10vw] md:mt-0 whitespace-nowrap  md:relative '>Transparent Pricing</p>
               </div>
       </div>
@@ -1472,7 +1486,7 @@ useEffect(() => {
             <div className='left flex flex-col items-start justify-center h-full w-[50%] ml-[-5vw] md:ml-[0] mt-0 md:mt-[-20vh]'>
                 <h1 ref={s5HeadingRef} className=' font-light h-[10vh] md:h-[20vh] w-[40vw] md:w-[35vw] ml-12 text-2xl md:text-4xl text-[#18375d] absolute'>Expert Services, Anytime, Anywhere!</h1>
             <div ref={s5LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[30vh] md:mt-[20vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
-            <div ref={s5ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services5.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
+            <div ref={s5ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services5.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
             <p ref={s5TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-15vw] md:mt-0 whitespace-nowrap'>Get Top-notch services instantly...</p>
             </div>
             <div  ref={s5ParagraphRef} className='right  h-[20vh] md:h-[35vh] x-[60vw] md:w-[20vw] font-glacial text-lg md:text-xl text-[#18375d] mr-0 md:mr-[5vw] mt-[20vh] md:mt-[40vh] text-right invisible md:visible'>
@@ -1486,9 +1500,9 @@ useEffect(() => {
     </div>
        {/* how it works */}
 
-       <div ref={whyUsRef} className='why-us-start h-[100vh] w-[100vw] bg-[#18375d] flex justify-center items-center bg-fixed'>
-       <div ref={circleRef} className='h-[40vw] w-[40vw] rounded-full absolute -z-2 self-center'style={{ backgroundImage: 'url(/circle.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', opacity:'0.45' }}></div>
-          <div ref={WhyUsImgRef} className='image-container  h-[50%] w-[60%] relative z-50' style={{ backgroundImage: 'url(/Screenshot_2025-02-01_092629-removebg-preview_upscayl_4x_realesrgan-x4plus.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+       <div id='howItWorks' ref={whyUsRef} className='why-us-start h-[100vh] w-[100vw] bg-[#18375d] flex justify-center items-center bg-fixed'>
+       <div ref={circleRef} className='h-[40vw] w-[40vw] rounded-full absolute -z-2 self-center'style={{ backgroundImage: 'url(/circle.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', opacity:'0.45' }}></div>
+          <div ref={WhyUsImgRef} className='image-container  h-[50%] w-[60%] relative z-50' style={{ backgroundImage: 'url(/Screenshot_2025-02-01_092629-removebg-preview_upscayl_4x_realesrgan-x4plus.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
           
              
           </div>
@@ -1500,6 +1514,25 @@ useEffect(() => {
          <h1 ref={howItWorksHeadingRef} className=' font-glacial text-[#18375d] text-xl md:text-4xl sticky top-[15vh] md:top-[25vh] mb-20 whitespace-nowrap font-medium ' >
            Book an Expert in 3 Easy steps
          </h1>
+         <div
+      ref={videoConRef}
+      className={`fixed bottom-4 right-4 w-[20vw] h-[10vh] hover:h-[90vh] hover:w-[90vw] overflow-hidden 
+                  transition-all duration-500 ease-in-out rounded-full hover:rounded-lg shadow-lg bg-black z-[20]
+                  `}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <video
+        ref={videoRef}
+        autoPlay
+        loop
+        muted
+        className="w-full h-full object-cover transition-all duration-500 ease-in-out"
+      >
+        <source src="/video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
           {/* how it works 1 container*/}
           <div className='h-[100vh] w-[100vw] flex justify-center items-center  mt-[100vh]'>
                 {/*step 1*/}
@@ -1565,13 +1598,13 @@ useEffect(() => {
           </div>
           {/*why us*/}
                {/*main text part*/}
- <div className='mt-0 md:mt-[100vh] h-[100vh] w-[100vw] bg-[#e1eefd] flex justify-center items-center '>
+ <div id='whyUs' className='mt-0 md:mt-[100vh] h-[100vh] w-[100vw] bg-[#e1eefd] flex justify-center items-center '>
                          <h1 className='text-[#18375d] text-3xl font-bold font-glacial' >WHY CHOOSE DOUM</h1>
               </div>
               {/*data container part */}
               <div className='h-[100vh] w-[100vw] bg-[#e1eefd] flex flex-col justify-end items-center z-[50]'>
-              <div ref={whyDoumRef} className='h-[85%] w-[75%] bg-[#18375d] rounded-2xl flex'>
-    <div className=" w-full md:w-1/2 flex flex-col justify-start gap-20  pl-6 md:pl-10 overflow-y-scroll overflow-x-hidden">
+              <div ref={whyDoumRef} className=' h-[85%] w-[75%] bg-[#18375d] rounded-2xl flex'>
+    <div className=" yus w-full md:w-1/2 flex flex-col justify-start gap-20  pl-6 md:pl-10 overflow-y-scroll overflow-x-hidden">
       
     <div className="h-[50vh]"></div>
       <div className="h-[50vh]"></div>
@@ -1691,7 +1724,7 @@ useEffect(() => {
 
 
        </div>
-       <div className='Faq-container h-[510vh] w-[100vw] overflow-auto bg-[#19375d] flex flex-col items-center justify-evenly  relative z-10  pb-[100vh]'>
+       <div id='faq' className='Faq-container h-[510vh] w-[100vw] overflow-auto bg-[#19375d] flex flex-col items-center justify-evenly  relative z-10  pb-[100vh]'>
          <div className='headings h-[80vh] w-full flex flex-col justify-center items-center gap-[5vh] text-center'>
          <h1 className=' text-5xl font-bold font-glacial text-white '>FREQUENTLY ASKED QUESTION</h1>
          <h4 className='text-4xl font-thin text-white font-glacial'>know us further</h4>
@@ -1853,14 +1886,14 @@ useEffect(() => {
         <h1 ref={hoverh11} className='text-5xl font-bold font-glacial text-[#e1eefd]  mt-[-15vh] relative  z-5'>We’re more than just an app,</h1>
         <h1 ref={hoverh12} className='text-5xl font-bold font-glacial text-[#e1eefd]  mt-[5vh] relative  z-5 ml-[2vw]'>we’re your trusted home partner!</h1>
         <div className= 'hover container w-full h-[80vh] self-center mt-[20vh] relative z-[15] flex justify-center items-center gap-[1%] invisible md:visible overflow-x-hidden '>
-           <div className= 'hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/8.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Beyond Bookings,We Build Trust </div>
-           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/9.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>More Than Service,We Offer Care</div>
-           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/10.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Not Just an App,a Helping Hand </div>
-           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/11.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Your Home,Our Responsibility </div>
-           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/12.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Service with a Personal Touch </div>
-           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/13.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Here for Every Home, Every Need </div>
-           <div className='hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/14.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>From Quick Fixes to Lasting Trust </div>
-           <div className='hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/15.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>A Relationship, Not Just a Transaction </div>
+           <div className= 'hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/8.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Beyond Bookings,We Build Trust </div>
+           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/9.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>More Than Service,We Offer Care</div>
+           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/10.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Not Just an App,a Helping Hand </div>
+           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/11.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Your Home,Our Responsibility </div>
+           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/12.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Service with a Personal Touch </div>
+           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/13.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Here for Every Home, Every Need </div>
+           <div className='hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/14.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>From Quick Fixes to Lasting Trust </div>
+           <div className='hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/15.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>A Relationship, Not Just a Transaction </div>
           
             
 
@@ -1869,14 +1902,14 @@ useEffect(() => {
         
         <div className='mobHoverContainer w-full h-[430vh] mt-[-100vh] flex md:hidden flex-col justify-evenly items-center relative'>
   {[
-    { image: '/hover/8.png', text: 'Beyond Bookings, We Build Trust' },
-    { image: '/hover/9.png', text: 'More Than Service, We Offer Care' },
-    { image: '/hover/10.png', text: 'Not Just an App, a Helping Hand' },
-    { image: '/hover/11.png', text: 'Your Home, Our Responsibility' },
-    { image: '/hover/12.png', text: 'Service with a Personal Touch' },
-    { image: '/hover/13.png', text: 'Here for Every Home, Every Need' },
-    { image: '/hover/14.png', text: 'From Quick Fixes to Lasting Trust' },
-    { image: '/hover/15.png', text: 'A Relationship, Not Just a Transaction' }
+    { image: '/hover/8.webp', text: 'Beyond Bookings, We Build Trust' },
+    { image: '/hover/9.webp', text: 'More Than Service, We Offer Care' },
+    { image: '/hover/10.webp', text: 'Not Just an App, a Helping Hand' },
+    { image: '/hover/11.webp', text: 'Your Home, Our Responsibility' },
+    { image: '/hover/12.webp', text: 'Service with a Personal Touch' },
+    { image: '/hover/13.webp', text: 'Here for Every Home, Every Need' },
+    { image: '/hover/14.webp', text: 'From Quick Fixes to Lasting Trust' },
+    { image: '/hover/15.webp', text: 'A Relationship, Not Just a Transaction' }
   ].map((item, index) => (
     <div 
       key={index}
@@ -1895,7 +1928,7 @@ useEffect(() => {
 </div>
 
         {/* waitlist form */}
-        <div className='form-section h-[140vh] w-[100vw]  flex justify-between z-[20]'>
+        <div id='waitlist' className='form-section h-[140vh] w-[100vw]  flex justify-between z-[20]'>
         <Toaster />
           <div className='circleCon  h-full w-[25%] ml-[-30vw] overflow-x-visible hidden md:inline-block'> <div className='formCircle h-[175vh] w-[175vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
              <div className='headingCon  mr-[27vh] h-[25%] w-[40%]'>
@@ -1903,13 +1936,13 @@ useEffect(() => {
               Be One of the First 100 to Get a Free Service!
               </h1>
               </div>  
-             <div className='contact-info h-[8%] w-[30%] mr-[29vh]'>
-             <p className='font-glacial text-[#e1eefd] text-lg font-light'>+91 8967908081</p>
-             <p className='font-glacial text-[#e1eefd] text-lg font-light'> info@mydoum.com</p>
+             <div className='contact-info h-[8%] w-[30%] mr-[45vh] mb-[0vh] '>
+             <p className='font-glacial text-[#e1eefd] text-2xl font-light'>+91 8967908081</p>
+             <p className='font-glacial text-[#e1eefd] text-2xl font-light'> info@mydoum.com</p>
              </div>
              <div className='whatsapp h-[5%] w-[35%] mr-[23vh]' >
-              <Link href='/' className='font-glacial text-[#e1eefd] text-md font-thin whitespace-nowrap flex items-center justify-start gap-4'>Need help? Message us! <div><BsWhatsapp color='#e1eefd' /></div>  </Link> </div>
-              <div className='address font-glacial text-[#e1eefd] text-lg font-light h-[10%] w-[40%] mr-[17vh] '>Salt Lake City, Kolkata,Kolkata 700091,West Bengal, India</div>
+              <Link href='/' className='font-glacial text-[#e1eefd] text-2xl font-thin whitespace-nowrap flex items-center justify-start gap-4 ml-[-13vh]   '>Need help? Message us! <div><BsWhatsapp color='#e1eefd' /></div>  </Link> </div>
+              <div className='address font-glacial text-[#e1eefd] text-2xl font-light h-[10%] w-[40%] mr-[28vh] '>Salt Lake City, Kolkata,Kolkata 700091,West Bengal, India</div>
 
             
 
@@ -1946,7 +1979,7 @@ useEffect(() => {
     <div
       className="h-[20%] w-[20%]"
       style={{
-        backgroundImage: "url(/india.png)",
+        backgroundImage: "url(/india.webp)",
         backgroundSize: "contain",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -1986,7 +2019,7 @@ useEffect(() => {
               {/*footer */}
    <div className='footer h-auto min-h-[75vh] w-[100vw] md:w-[75vw] mt-[20vh] mb-[-20vh] rounded-3xl mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 py-8' style={style2}>
    <div className='col1 h-auto w-full md:w-[25%] flex flex-col justify-center mt-6 px-4' >
-      <div className='logo h-[100px] w-[80%] items-start mx-auto md:mx-0' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}> </div>
+      <div className='logo h-[100px] w-[80%] items-start mx-auto md:mx-0' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}> </div>
       <br/>
       <div className='text-container text-xl text-[#18375d] font-glacial font-extralight text-center md:text-left'>
       Salt Lake City, Kolkata, Kolkata 700091, West Bengal, India
