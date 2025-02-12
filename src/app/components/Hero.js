@@ -30,7 +30,7 @@ import { AiOutlineFacebook } from "react-icons/ai";
 import { FaXTwitter } from "react-icons/fa6";
 import { supabase } from '../../lib/supabaseClient';
 import Iphone from './Iphone';
-import IPLazy from './IPLazy';
+
 import MobileAni from './MobileAni';
 import Navbar from './Navbar';
 
@@ -1354,29 +1354,30 @@ const handleMouseLeave = () => {
           {window.innerWidth>768?<Iphone/>:<MobileAni/>}
         </div>
       )}
-    <Navbar/>
+    
           
      {/* hero */}
+     
     <div className=' md:h-[300vh] w-full bg-[#e1eefd] relative flex flex-col items-center justify-start gap-4' ref={heroRef}>
       <div className='h-12 w-12 absolute top-[75vh] left-[15vw] invisible md:visible' style={{ backgroundImage: "url(/star.webp)", backgroundSize: 'contain', mixBlendMode:"multiply" }} ref={el => starRef.current[0] = el}></div>
       
       <div className='h-12 w-12  absolute top-[20vh] left-[80vw]' style={{ backgroundImage: "url(/star.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center', mixBlendMode:"multiply" }} ref={el => starRef.current[1] = el}></div>
       <div className='mt-[0vh] md:mt-[20vh] h-[40vh] md:h-[10%] w-[50vw] min-w-[320px]' style={{ backgroundImage: 'url(/Hero-text.webp)', backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center', mixBlendMode: 'multiply' }}></div>
-      <div className='mt-[-7vh] md:mt[0vh]  h-16 w-400 overflow-hidden'><h4 className='text-xl md:text-2xl lg:text-3xl text-[#18375d] font-semibold font-glacial'>
+      <div className='mt-[-15vh] md:mt-[-5vh]  h-16 w-400 overflow-hidden'><h4 className='text-xl md:text-2xl lg:text-3xl text-[#18375d] font-semibold font-glacial'>
         {"All Your Home Services, One Tap Away!".split(" ").map((letter, index) => (
           <span key={index} ref={el => h4Ref.current[index] = el} className='inline-block mr-1'>{letter}</span>
         ))}
       </h4></div>
-      <div className='w-[50vw] md:w-[40vw] h-[25vh] flex flex-col md:flex-row justify-between items-center mb-[0] md:mb-[200vh] mt-0 md:mt-[-10vh]'>
-        <div className='w-full md:w-[50%] h-[45%] md:h-[80%] rounded-3xl ' style={{ backgroundImage: 'url(/playstore.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ref={el => getRef.current[0] = el}></div>
-        <div className='w-full md:w-[50%] h-[45%] md:h-[80%] rounded-3xl ' style={{ backgroundImage: 'url("/applestore.webp")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ref={el => getRef.current[1] = el}></div>
+      <div className='w-[50vw] md:w-[40vw] h-[25vh] flex flex-col md:flex-row justify-evenly md:justify-between items-center mb-[0] md:mb-[200vh] mt-[0vh] md:mt-[-10vh]'>
+        <div className='download w-full md:w-[50%] h-[45%] md:h-[80%] rounded-3xl' style={{ backgroundImage: 'url(/playstore.webp)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ref={el => getRef.current[0] = el}></div>
+        <div className='download w-full md:w-[50%] h-[45%] md:h-[80%] rounded-3xl ' style={{ backgroundImage: 'url("/applestore.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ref={el => getRef.current[1] = el}></div>
       </div>
     </div>
     {/* platform */}
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-10 mt-[0vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
-        <div className='w-[70%] md:w-[40%] h-[10%] mt-[-80rem] md:mt-[0rem] ' style={{ backgroundImage: "url(/platform-text-removebg-preview_upscayl_4x_realesrgan-x4plus.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
+        <div className='w-[70%] md:w-[40%] h-[10%] mt-[-80rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text-removebg-preview_upscayl_4x_realesrgan-x4plus.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
              {/*scroller*/}
-             <div className='scrollContainer w-[1775vw] md:w-[805vw] h-[35vh] md:h-[70vh] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12'  ref={conRef} >
+             <div className='scrollContainer w-[1775vw] md:w-[805vw] h-[35vh] md:h-[70vh] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-auto'  ref={conRef} >
                     <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[0] = el} style={{ backgroundImage: 'url(/services/AC.webp)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >AC repairing</div>
                     <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[1] = el} style={{ backgroundImage: 'url("/services/bathroom fixture.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >Bathroom Fixture</div>
                     <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[2] = el} style={{ backgroundImage: 'url("/services/carpet cleaning.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Carpet Cleaning</div>
@@ -1422,7 +1423,7 @@ const handleMouseLeave = () => {
           Finding Skilled Experts Just Got Easier!
         </h1>
         <div ref={s1LinkRef} className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[20vh]'>
-          <Link href='#waitlist' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[2rem] md:mt-[-5vh] font-agrandirW text-2xl '>Join Waitlist <FaArrowCircleRight color='#18375d' /></Link>
+          <Link href='#waitlist' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[2rem] md:mt-[-5vh] font-agrandirW text-lg md:text-2xl '>Join Waitlist <FaArrowCircleRight color='#18375d' /></Link>
         </div>
         <div ref={s1ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services1.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
         <p ref={s1TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-10vw] md:mt-0 whitespace-nowrap text-sm'>Anytime, Anywhere...</p>
@@ -1441,12 +1442,12 @@ const handleMouseLeave = () => {
               <div className='right h-[100%] w-[50%]'>
                 <div className='headinCon w-full h-[25%] flex flex-col text-right items-end justify-around mt-[7vh] md:mt-[30vh] pr-2 '>
                   <h1 ref={s2HeadingRef} className=' font-light h-[5vh] md:h-[20vh] w-[40vw] md:w-[35vw] mr-0 md:mr-12 text-2xl md:text-4xl text-[#18375d] '>Book Services in Just a Few Taps!</h1>
-                <div ref={s2LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[-10vh] md:mt-[-20vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[6rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+                <div ref={s2LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-lg md:text-2xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[-10vh] md:mt-[-20vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[6rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
               </div>
               
 
-            <div ref={s2ImageRef} className='imageContainer h-[27vh] w-[48vw] md:w-[30vw] mt-[-20vh] md:mt-[15vh] ml-[-50vw] md:ml-[15vw] rounded-xl  md:relative' style={{ backgroundImage: 'url(/services2.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
-            <p ref={s2TextRef} className='text-[#18375d] font-glacial ml-[-50vw] md:ml-[19vw] mt-[-10vw] md:mt-0 whitespace-nowrap  md:relative  '>A Few Steps...</p>
+            <div ref={s2ImageRef} className='imageContainer h-[27vh] w-[48vw] md:w-[30vw] mt-[-20vh] md:mt-[15vh] ml-[-45vw] md:ml-[15vw] rounded-xl  md:relative' style={{ backgroundImage: 'url(/services2.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
+            <p ref={s2TextRef} className='text-[#18375d] font-glacial ml-[-45vw] md:ml-[19vw] mt-[-10vw] md:mt-0 whitespace-nowrap  md:relative   '>A Few Steps...</p>
               </div>
       </div>
       {/* service 3 */}
@@ -1477,8 +1478,8 @@ const handleMouseLeave = () => {
               </div>
               
 
-            <div ref={s4ImageRef} className='imageContainer h-[27vh] w-[48vw] md:w-[30vw] mt-[-32vh] md:mt-[15vh] ml-[-50vw] md:ml-[15vw] rounded-xl  md:relative' style={{ backgroundImage: 'url(/services4.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
-            <p ref={s4TextRef} className='text-[#18375d] font-glacial ml-[-50vw] md:ml-[19vw] mt-[-10vw] md:mt-0 whitespace-nowrap  md:relative '>Transparent Pricing</p>
+            <div ref={s4ImageRef} className='imageContainer h-[27vh] w-[48vw] md:w-[30vw] mt-[-32vh] md:mt-[15vh] ml-[-45vw] md:ml-[15vw] rounded-xl  md:relative' style={{ backgroundImage: 'url(/services4.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
+            <p ref={s4TextRef} className='text-[#18375d] font-glacial ml-[-45vw] md:ml-[19vw] mt-[-10vw] md:mt-0 whitespace-nowrap  md:relative '>Transparent Pricing</p>
               </div>
       </div>
       {/*services 5*/}
@@ -1502,7 +1503,7 @@ const handleMouseLeave = () => {
 
        <div id='howItWorks' ref={whyUsRef} className='why-us-start h-[100vh] w-[100vw] bg-[#18375d] flex justify-center items-center bg-fixed'>
        <div ref={circleRef} className='h-[40vw] w-[40vw] rounded-full absolute -z-2 self-center'style={{ backgroundImage: 'url(/circle.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', opacity:'0.45' }}></div>
-          <div ref={WhyUsImgRef} className='image-container  h-[50%] w-[60%] relative z-50' style={{ backgroundImage: 'url(/Screenshot_2025-02-01_092629-removebg-preview_upscayl_4x_realesrgan-x4plus.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+          <div ref={WhyUsImgRef} className='image-container  h-[50%] w-[100%] md:w-[60%] relative z-50' style={{ backgroundImage: 'url(/Screenshot_2025-02-01_092629-removebg-preview_upscayl_4x_realesrgan-x4plus.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
           
              
           </div>
@@ -1536,9 +1537,9 @@ const handleMouseLeave = () => {
           {/* how it works 1 container*/}
           <div className='h-[100vh] w-[100vw] flex justify-center items-center  mt-[100vh]'>
                 {/*step 1*/}
-                 <div ref={step1ConRef} className='step1-container w-[80%] md:w-[40%] h-[75%] md:h-[75%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
+                 <div ref={step1ConRef} className='step1-container w-[80%] md:w-[40%] h-[60%] md:h-[75%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
                   <div>
-                     <div ref={step1Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[15vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-3xl ml-[5%] mt-4'>
+                     <div ref={step1Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[10vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-3xl ml-[5%] mt-4'>
 
                            Step 01
                      </div>
@@ -1557,9 +1558,9 @@ const handleMouseLeave = () => {
            {/* how it works 2 container*/}
            <div className='h-[100vh] w-[100vw] flex justify-center items-center'>
                 {/*step 2*/}
-                 <div ref={step2ConRef} className=' step2-container w-[80%] md:w-[40%] h-[75%] md:h-[75%] mt-[20vh] ml-[0] md:ml-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
+                 <div ref={step2ConRef} className=' step2-container w-[80%] md:w-[40%] h-[60%] md:h-[75%] mt-[20vh] ml-[0] md:ml-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
                   <div>
-                     <div ref={step2Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[7vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-3xl ml-[5%] mt-[10%] md:mt-[5%]'>
+                     <div ref={step2Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[10vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-3xl ml-[5%] mt-[10%] md:mt-[5%]'>
 
                            Step 02
                      </div>
@@ -1578,9 +1579,9 @@ const handleMouseLeave = () => {
            {/* how it works 3 container*/}
            <div className='h-[100vh] w-[100vw] flex justify-center items-center'>
                 {/*step 3*/}
-                 <div ref={step3ConRef} className='step3-container w-[80%] md:w-[40%] h-[75%] md:h-[75%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
+                 <div ref={step3ConRef} className='step3-container w-[80%] md:w-[40%] h-[60%] md:h-[75%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
                   <div>
-                     <div ref={step2Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[7vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-3xl ml-[5%] mt-[10%] md:mt-[8%]'>
+                     <div ref={step2Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[10vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-3xl ml-[5%] mt-[10%] md:mt-[8%]'>
 
                            Step 03
                      </div>
@@ -1603,7 +1604,7 @@ const handleMouseLeave = () => {
               </div>
               {/*data container part */}
               <div className='h-[100vh] w-[100vw] bg-[#e1eefd] flex flex-col justify-end items-center z-[50]'>
-              <div ref={whyDoumRef} className=' h-[85%] w-[75%] bg-[#18375d] rounded-2xl flex'>
+              <div ref={whyDoumRef} className=' h-[85%] w-[90%] md:w-[75%] bg-[#18375d] rounded-2xl flex'>
     <div className=" yus w-full md:w-1/2 flex flex-col justify-start gap-20  pl-6 md:pl-10 overflow-y-scroll overflow-x-hidden">
       
     <div className="h-[50vh]"></div>
@@ -1615,7 +1616,8 @@ const handleMouseLeave = () => {
         <div
           key={index}
           ref={el => textRefs.current[index] = el}
-          className="transition-all duration-300 w-full"
+          className="transition-all duration-300 w-full px-6"
+          
         >
           <h3 className="text-2xl font-bold text-white/50">{item.heading}</h3>
           <p className="text-white/30">{item.text}</p>
@@ -1626,7 +1628,7 @@ const handleMouseLeave = () => {
       <div className="h-[50vh]"></div>
       <div className="h-[50vh]"></div>
     </div>
-    <div className="invisible md:visible w-1/2  relative flex items-center justify-center">
+    <div className="invisible md:visible w-0  md:w-1/2  relative flex items-center justify-center">
   {whyUsData.map((item, index) => (
     <div
       key={index}
@@ -1652,66 +1654,66 @@ const handleMouseLeave = () => {
 
        </div>
 
-       <div className=' feature-wrapper w-[80vw] md:w-[55vw] h-[150vh] flex flex-col justify-center items-center'>
+       <div className=' feature-wrapper w-[80vw] md:w-[55vw] h-[150vh] flex flex-col justify-evenly items-center'>
         <h1 className='text-[#18375d] text-2xl md:text-3xl whitespace-nowrap font-glacial font-bold'>All features that you can enjoy</h1>
         <div className='w-full h-[90%] flex flex-col justify-evenly items-center '>
-          <div className='feature-container w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div className='feature-container w-[110%] md:w-[60%] h-[7%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><FaTools color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Service Selection Made Easy</div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-md md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Service Selection Made Easy</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[0] = el} className='feature-container  w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[0] = el} className='feature-container  w-[110%] md:w-[60%] h-[7%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><FaUserTag color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Verified Professionals</div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-md md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Verified Professionals</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[1] = el} className='feature-container  w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[1] = el} className='feature-container  w-[110%] md:w-[60%] h-[7%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><FaLocationDot color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Real-Time Tracking</div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-md md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Real-Time Tracking</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[2] = el} className='feature-container  w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[2] = el} className='feature-container  w-[110%] md:w-[60%] h-[7%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><RiMoneyRupeeCircleFill color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Transparent Pricing</div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-md md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Transparent Pricing</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[3] = el} className='feature-container  w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[3] = el} className='feature-container  w-[110%] md:w-[60%] h-[7%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-xl'><RiCalendarScheduleFill color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Flexible Scheduling</div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-md md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Flexible Scheduling</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[4] = el} className='feature-container  w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[4] = el} className='feature-container  w-[110%] md:w-[60%] h-[7%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><MdLocalOffer color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Personalized Offers and Discounts</div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-md md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Personalized Offers and Discounts</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[5] = el} className='feature-container  w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[5] = el} className='feature-container  w-[110%] md:w-[60%] h-[7%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><IoChatbubblesSharp color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>In-App Communication</div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-md md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>In-App Communication</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[6] = el} className='feature-container  w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[6] = el} className='feature-container  w-[110%] md:w-[60%] h-[7%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><MdPayment color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Multiple Payment Options</div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-md md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Multiple Payment Options</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[7] = el} className='feature-container w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[7] = el} className='feature-container w-[110%] md:w-[60%] h-[7%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><FaClipboardList color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Service History</div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-md md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>Service History</div>
 
           </div>
 
-          <div ref={el => featureRefs.current[8] = el} className='feature-container  w-[110%] md:w-[60%] h-[6%] bg-[#18375d] rounded-2xl flex'>
+          <div ref={el => featureRefs.current[8] = el} className='feature-container  w-[110%] md:w-[60%] h-[7%] bg-[#18375d] rounded-2xl flex'>
             <div className='icon-container w-[15%] h-full  flex justify-center items-center text-2xl'><RiReactjsLine color='#e1eefd' /></div>
-            <div className='text-container w-[85%] h-full flex justify-center items-center text-xl md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>AI-Powered Assistance</div>
+            <div className='text-container w-[85%] h-full flex justify-center items-center text-md md:text-xl font-semibold font-glacial text-[#e1eefd] mr-[7%]'>AI-Powered Assistance</div>
 
           </div>
 

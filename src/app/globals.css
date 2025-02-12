@@ -37,6 +37,18 @@
 *{
   scroll-behavior: smooth;
 }
+html, body {
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .scrollingContent{
    animation: slide 20s linear 0 infinite ;
 }
@@ -94,6 +106,21 @@ body::-webkit-scrollbar-thumb {
   background-color: #bbd7f47a;    /* color of the scroll thumb */
   border-radius: 20px;       /* roundness of the scroll thumb */
     /* creates padding around scroll thumb */
+}
+.download{
+  background-size: cover;
+}
+.image-container {
+  background-size: cover;
+}
+
+@media (min-width: 768px) {
+  .download{
+    background-size: contain;
+  }
+  .image-container {
+    background-size: contain;
+  }
 }
 
 

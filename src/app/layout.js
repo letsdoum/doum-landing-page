@@ -17,20 +17,24 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "DOUM - Skilled Experts Anytime Anywhere",
   description: "Connect with DOUM Digitally",
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false
+  }
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-      </head>
+      
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-start items-center gap-8 bg-[#e1eefd] overflow-x-hidden`}
-        
-      >
+  className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-start items-center gap-8 bg-[#e1eefd] overflow-x-hidden min-h-screen w-full max-w-[100vw]`}
+>
         <Navbar/>
         <Hero/>
+        {children}
         
       </body>
     </html>

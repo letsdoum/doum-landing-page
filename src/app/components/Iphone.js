@@ -34,6 +34,8 @@ function Model() {
                 start: 'top top',
                 end: 'bottom -50%',
                 scrub: true,
+                invalidateOnRefresh: true, // Recalculate on resize/refresh
+  fastScrollEnd: true, // Better handling of fast scrolling
             }
         })
         const tl2 = gsap.timeline({
@@ -42,6 +44,8 @@ function Model() {
                 start: 'top 30%',
                 end: 'bottom 60%',
                 scrub: 2,
+                invalidateOnRefresh: true, // Recalculate on resize/refresh
+  fastScrollEnd: true, // Better handling of fast scrolling
             }
         })
         const tlR = gsap.timeline({
@@ -50,6 +54,8 @@ function Model() {
                 start: 'top -150%',
                 end: 'bottom -250%',
                 scrub: 4,
+                invalidateOnRefresh: true, // Recalculate on resize/refresh
+  fastScrollEnd: true, // Better handling of fast scrolling
                 
             }
         })
@@ -59,6 +65,8 @@ function Model() {
                 start: 'bottom -250%',
                 end: 'bottom -350%',
                 scrub: 4,
+                invalidateOnRefresh: true, // Recalculate on resize/refresh
+  fastScrollEnd: true, // Better handling of fast scrolling
                 
                 onUpdate: (self) => {
                     // Get scroll direction and progress
@@ -85,6 +93,8 @@ function Model() {
                 start: 'bottom -350%',
                 end: 'bottom -450%',
                 scrub: 4,
+                invalidateOnRefresh: true, // Recalculate on resize/refresh
+  fastScrollEnd: true, // Better handling of fast scrolling
                 
             }
         })
@@ -94,6 +104,8 @@ function Model() {
                 start: 'bottom -450%',
                 end: 'bottom -550%',
                 scrub: 4,
+                invalidateOnRefresh: true, // Recalculate on resize/refresh
+  fastScrollEnd: true, // Better handling of fast scrolling
                 
             }
         })
@@ -103,6 +115,8 @@ function Model() {
                 start: 'bottom -550%',
                 end: 'bottom -650%',
                 scrub: 4,
+                invalidateOnRefresh: true, // Recalculate on resize/refresh
+  fastScrollEnd: true, // Better handling of fast scrolling
                 
             }
         })
@@ -112,7 +126,8 @@ function Model() {
                 start: 'bottom -650%',
                 end: 'bottom -750%',
                 scrub: 4,
-                
+                invalidateOnRefresh: true, // Recalculate on resize/refresh
+  fastScrollEnd: true, // Better handling of fast scrolling
             }
         })
         const tl4 = gsap.timeline({
@@ -121,6 +136,8 @@ function Model() {
                 start: 'bottom -750%',
                 end: 'bottom -750%',
                 scrub: 4,
+                invalidateOnRefresh: true, // Recalculate on resize/refresh
+  fastScrollEnd: true, // Better handling of fast scrolling
                 
             }
         })
@@ -130,6 +147,8 @@ function Model() {
                 start: 'bottom -750%',
                 end: 'bottom -790%',
                 scrub: 4,
+                invalidateOnRefresh: true, // Recalculate on resize/refresh
+  fastScrollEnd: true, // Better handling of fast scrolling
                 
                 onUpdate: (self) => {
                     // Make everything transparent
