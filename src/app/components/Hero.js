@@ -33,6 +33,9 @@ import Iphone from './Iphone';
 
 import MobileAni from './MobileAni';
 import Navbar from './Navbar';
+import { RiArrowDownDoubleFill } from "react-icons/ri";
+import { League_Spartan } from "next/font/google";
+import Loading from '../loading';
 
 // function Model() {
 
@@ -65,6 +68,11 @@ import Navbar from './Navbar';
 
 
 // }
+
+const leagueSpartan = League_Spartan({
+  subsets: ["latin"],
+  weight: ["400", "700"], // Specify the weights you need
+});
 
 
 function Hero() {
@@ -1342,23 +1350,166 @@ const handleMouseLeave = () => {
     videoRef.current.muted = true;
   }
 };
+const [isLoading, setIsLoading] = useState(true);
+ 
+useEffect(() => {
+  setTimeout(() => setIsLoading(false), 2000); // example
+}, []);
+
+{/*scroll snapping animation */}
+
+// const SECTION_MARGINS = [30, 10, 10, 10, 10, 10, 10, 0, 30, 30, 30, 50, 10, 0, 0, 30, 30, 0];
+//   const WHEEL_TIMEOUT = 0; // Increased to reduce sensitivity
+
+//   useEffect(() => {
+//     let isScrolling = false;
+//     let currentIndex = 0;
+//     let lastWheelTime = Date.now();
+
+//     // Add smooth scroll behavior to html element
+//     document.documentElement.style.scrollBehavior = 'smooth';
+  
+//     const getElementOffset = (el) => {
+//       const rect = el.getBoundingClientRect();
+//       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+//       return rect.top + scrollTop;
+//     };
+
+//     const isElementInView = (el, index) => {
+//       const rect = el.getBoundingClientRect();
+//       const windowHeight = window.innerHeight;
+//       const topMargin = windowHeight * (SECTION_MARGINS[index] / 100);
+      
+//       if (rect.height > windowHeight) {
+//         return Math.abs(rect.bottom - windowHeight) < 50;
+//       }
+      
+//       return Math.abs(rect.top - topMargin) < 50;
+//     };
+
+//     const scrollToElement = (element, index) => {
+//       if (isScrolling) return;
+      
+//       isScrolling = true;
+//       const elementOffset = getElementOffset(element);
+//       const elementHeight = element.offsetHeight;
+//       const windowHeight = window.innerHeight;
+//       const topMargin = windowHeight * (SECTION_MARGINS[index] / 100);
+      
+//       let scrollTarget;
+      
+//       if (elementHeight > windowHeight) {
+//         scrollTarget = elementOffset + elementHeight - windowHeight;
+//       } else {
+//         scrollTarget = elementOffset - topMargin;
+//       }
+
+//       window.scrollTo({
+//         top: scrollTarget,
+//         behavior: 'smooth'
+//       });
+
+//       // Reset isScrolling after animation completes
+//       setTimeout(() => {
+//         isScrolling = false;
+//       }, 1500); // Matches typical CSS smooth scroll duration
+//     };
+
+//     const handleWheel = (event) => {
+//       const now = Date.now();
+//       if (now - lastWheelTime < WHEEL_TIMEOUT) {
+//         event.preventDefault();
+//         return;
+//       }
+//       lastWheelTime = now;
+
+//       if (isScrolling) {
+//         event.preventDefault();
+//         return;
+//       }
+
+//       const elements = document.querySelectorAll('.scrollele');
+//       const direction = event.deltaY > 0 ? 1 : -1;
+//       let targetIndex = currentIndex;
+
+//       if (direction > 0) {
+//         if (currentIndex < elements.length - 1) {
+//           targetIndex = currentIndex + 1;
+//         }
+//       } else {
+//         if (currentIndex > 0) {
+//           targetIndex = currentIndex - 1;
+//         }
+//       }
+
+//       if (targetIndex !== currentIndex) {
+//         event.preventDefault();
+//         currentIndex = targetIndex;
+//         scrollToElement(elements[targetIndex], targetIndex);
+//       }
+//     };
+
+//     const handleScroll = () => {
+//       if (!isScrolling) {
+//         const elements = document.querySelectorAll('.scrollele');
+//         elements.forEach((element, index) => {
+//           if (isElementInView(element, index)) {
+//             currentIndex = index;
+//           }
+//         });
+//       }
+//     };
+
+//     window.addEventListener('wheel', handleWheel, { passive: false });
+//     window.addEventListener('scroll', handleScroll);
+
+//     return () => {
+//       window.removeEventListener('wheel', handleWheel);
+//       window.removeEventListener('scroll', handleScroll);
+//       document.documentElement.style.scrollBehavior = '';
+//     };
+//   }, []);
+
+
 
 
   return (
     <>
 
+{isLoading && <Loading />} 
+
     {/*3d model*/}
 
-    {isDesktop && (
+    
         <div className='fixed flex justify-center items-center h-[150vh] w-[100vw] z-[15]'>
           {window.innerWidth>768?<Iphone/>:<MobileAni/>}
         </div>
-      )}
-    
+     
+
+      {/* video */}
+      <div
+      ref={videoConRef}
+      className={`fixed bottom-4 right-4 w-[40vw] md:w-[20vw] h-[7vh] md:h-[10vh] hover:h-[90vh] hover:md:h-[50vh] hover:w-[90vw] hover:md:w-[80vh] overflow-hidden 
+                  transition-all duration-500 ease-in-out rounded-full hover:rounded-lg shadow-lg bg-transparent z-[20]
+                  `}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <video
+        ref={videoRef}
+        autoPlay
+        loop
+        muted
+        className="w-full h-full object-cover  transition-all duration-500 ease-in-out"
+      >
+        <source src="/video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>    
           
      {/* hero */}
      
-    <div className=' md:h-[300vh] w-full bg-[#e1eefd] relative flex flex-col items-center justify-start gap-4' ref={heroRef}>
+    <div className='scrollele md:h-[300vh] w-full bg-[#e1eefd] relative flex flex-col items-center justify-start gap-4' ref={heroRef}>
       <div className='h-12 w-12 absolute top-[75vh] left-[15vw] invisible md:visible' style={{ backgroundImage: "url(/star.webp)", backgroundSize: 'contain', mixBlendMode:"multiply" }} ref={el => starRef.current[0] = el}></div>
       
       <div className='h-12 w-12  absolute top-[20vh] left-[80vw]' style={{ backgroundImage: "url(/star.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center', mixBlendMode:"multiply" }} ref={el => starRef.current[1] = el}></div>
@@ -1377,7 +1528,7 @@ const handleMouseLeave = () => {
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-10 mt-[0vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
         <div className='w-[70%] md:w-[40%] h-[10%] mt-[-80rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text-removebg-preview_upscayl_4x_realesrgan-x4plus.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
              {/*scroller*/}
-             <div className='scrollContainer w-[1775vw] md:w-[805vw] h-[35vh] md:h-[70vh] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-auto'  ref={conRef} >
+             <div className='scrollele scrollContainer w-[1775vw] md:w-[805vw] h-[35vh] md:h-[70vh] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-auto'  ref={conRef} >
                     <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[0] = el} style={{ backgroundImage: 'url(/services/AC.webp)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >AC repairing</div>
                     <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[1] = el} style={{ backgroundImage: 'url("/services/bathroom fixture.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >Bathroom Fixture</div>
                     <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[2] = el} style={{ backgroundImage: 'url("/services/carpet cleaning.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Carpet Cleaning</div>
@@ -1417,13 +1568,13 @@ const handleMouseLeave = () => {
     {/* services */}
     <div id='services' className='h-[600vh] w-full bg-[#e1eefd] relative flex flex-col items-center justify-start gap-4'>
       {/* service1*/}
-      <div ref={s1Ref} className='service1 h-[100vh] w-full flex mt-[-170vh] md:mt-[0vh] items-center justify-between'>
+      <div ref={s1Ref} className='scrollele service1 h-[100vh] w-full flex mt-[-170vh] md:mt-[0vh] items-center justify-between'>
       <div className='left flex flex-col items-start justify-center h-full w-[50%] ml-[-5vw] md:ml-[0] mt-0 md:mt-[-20vh]'>
         <h1 ref={s1HeadingRef} className='font-light h-[10vh] md:h-[20vh] w-[40vw] md:w-[35vw] ml-12 text-2xl md:text-4xl text-[#18375d] absolute'>
           Finding Skilled Experts Just Got Easier!
         </h1>
         <div ref={s1LinkRef} className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[20vh]'>
-          <Link href='#waitlist' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[2rem] md:mt-[-5vh] font-agrandirW text-lg md:text-2xl '>Join Waitlist <FaArrowCircleRight color='#18375d' /></Link>
+          <Link href='#waitlist' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[15vh] md:mt-[-5vh] font-agrandirW text-lg md:text-2xl '>Join Waitlist <FaArrowCircleRight color='#18375d' /></Link>
         </div>
         <div ref={s1ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services1.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
         <p ref={s1TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-10vw] md:mt-0 whitespace-nowrap text-sm'>Anytime, Anywhere...</p>
@@ -1433,7 +1584,7 @@ const handleMouseLeave = () => {
       </div>
     </div>
       {/*service2*/}
-      <div ref={s2Ref} className='service2 h-[100vh] w-full flex mt-[30vh] md:mt-[0vh] items-center justify-between'>
+      <div ref={s2Ref} className='scrollele service2 h-[100vh] w-full flex mt-[30vh] md:mt-[0vh] items-center justify-between'>
               <div  ref={s2ParagraphRef} className='left h-[20vh] md:h-[35vh] x-[60vw] md:w-[20vw] font-glacial text-lg md:text-xl text-[#18375d] ml-0 md:ml-[5vw] mt-[20vh] md:mt-[40vh] text-left invisible md:visible'>
               <p>
               Our user-friendly app ensures hassle-free bookings. Choose your desired service, customize your requirements, and confirm your slot—all with just a few clicks. Convenience and efficiency made seamless for you
@@ -1442,7 +1593,7 @@ const handleMouseLeave = () => {
               <div className='right h-[100%] w-[50%]'>
                 <div className='headinCon w-full h-[25%] flex flex-col text-right items-end justify-around mt-[7vh] md:mt-[30vh] pr-2 '>
                   <h1 ref={s2HeadingRef} className=' font-light h-[5vh] md:h-[20vh] w-[40vw] md:w-[35vw] mr-0 md:mr-12 text-2xl md:text-4xl text-[#18375d] '>Book Services in Just a Few Taps!</h1>
-                <div ref={s2LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-lg md:text-2xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[-10vh] md:mt-[-20vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[6rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+                <div ref={s2LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-lg md:text-2xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[-10vh] md:mt-[-20vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[25vh] md:mt-[6rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
               </div>
               
 
@@ -1451,10 +1602,10 @@ const handleMouseLeave = () => {
               </div>
       </div>
       {/* service 3 */}
-      <div ref={s3Ref} className='service1 h-[100vh] w-full flex mt-[-40vh] md:mt-[0vh] items-center justify-between'>
+      <div ref={s3Ref} className='scrollele service1 h-[100vh] w-full flex mt-[-40vh] md:mt-[0vh] items-center justify-between'>
             <div className='left flex flex-col items-start justify-center h-full w-[50%] ml-[-5vw] md:ml-[0] mt-0 md:mt-[-20vh]'>
                 <h1 ref={s3HeadingRef} className=' font-light h-[10vh] md:h-[20vh] w-[40vw] md:w-[35vw] ml-12 text-2xl md:text-4xl text-[#18375d] absolute'>Track Real-Time Updates for Every Booking!</h1>
-            <div ref={s3LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[3vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[5rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+            <div ref={s3LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[3vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[25vh] md:mt-[5rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
             <div ref={s3ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services3.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
             <p  ref={s3TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-10vw] md:mt-0 whitespace-nowrap'>Real-Time Tracking</p>
             </div>
@@ -1465,7 +1616,7 @@ const handleMouseLeave = () => {
             </div>
             </div>
       {/*service4*/}
-      <div ref={s4Ref} className='service2 h-[100vh] w-full flex mt-[60vh] md:mt-[0vh] items-center justify-between'>
+      <div ref={s4Ref} className='scrollele service2 h-[100vh] w-full flex mt-[60vh] md:mt-[0vh] items-center justify-between'>
               <div  ref={s4ParagraphRef} className='left h-[20vh] md:h-[35vh] x-[60vw] md:w-[20vw] font-glacial text-lg md:text-xl text-[#18375d] ml-0 md:ml-[5vw] mt-[20vh] md:mt-[40vh] text-left invisible md:visible'>
               <p>
               No hidden costs or surprises!DOUM provides clear, upfront pricing for every service.Choose your preferred payment method—cashless or cash—and enjoy a smooth, worry-free transaction experience every time.
@@ -1483,14 +1634,14 @@ const handleMouseLeave = () => {
               </div>
       </div>
       {/*services 5*/}
-      <div ref={s5Ref} className='service1 h-[100vh] w-full flex mt-[-40vh] md:mt-[0vh] items-center justify-between'>
+      <div ref={s5Ref} className='scrollele service1 h-[100vh] w-full flex mt-[-40vh] md:mt-[0vh] items-center justify-between'>
             <div className='left flex flex-col items-start justify-center h-full w-[50%] ml-[-5vw] md:ml-[0] mt-0 md:mt-[-20vh]'>
                 <h1 ref={s5HeadingRef} className=' font-light h-[10vh] md:h-[20vh] w-[40vw] md:w-[35vw] ml-12 text-2xl md:text-4xl text-[#18375d] absolute'>Expert Services, Anytime, Anywhere!</h1>
-            <div ref={s5LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[30vh] md:mt-[20vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+            <div ref={s5LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[35vh] md:mt-[20vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
             <div ref={s5ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services5.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
             <p ref={s5TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-15vw] md:mt-0 whitespace-nowrap'>Get Top-notch services instantly...</p>
             </div>
-            <div  ref={s5ParagraphRef} className='right  h-[20vh] md:h-[35vh] x-[60vw] md:w-[20vw] font-glacial text-lg md:text-xl text-[#18375d] mr-0 md:mr-[5vw] mt-[20vh] md:mt-[40vh] text-right invisible md:visible'>
+            <div  ref={s5ParagraphRef} className='right  h-[20vh] md:h-[35vh] x-[60vw] w-[10vw] md:w-[20vw] font-glacial text-lg md:text-xl text-[#18375d] mr-0 md:mr-[5vw] mt-[20vh] md:mt-[40vh] text-right invisible md:visible'>
                        <p>
                        Our skilled professionals are always ready to help, whether it’s fixing appliances or deep cleaning your home. From big cities to small towns, DOUM ensures expert services are accessible everywhere,anytime.
                        </p>
@@ -1501,7 +1652,7 @@ const handleMouseLeave = () => {
     </div>
        {/* how it works */}
 
-       <div id='howItWorks' ref={whyUsRef} className='why-us-start h-[100vh] w-[100vw] bg-[#18375d] flex justify-center items-center bg-fixed'>
+       <div id='howItWorks' ref={whyUsRef} className='scrollele why-us-start h-[100vh] w-[100vw] bg-[#18375d] flex justify-center items-center bg-fixed'>
        <div ref={circleRef} className='h-[40vw] w-[40vw] rounded-full absolute -z-2 self-center'style={{ backgroundImage: 'url(/circle.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', opacity:'0.45' }}></div>
           <div ref={WhyUsImgRef} className='image-container  h-[50%] w-[100%] md:w-[60%] relative z-50' style={{ backgroundImage: 'url(/Screenshot_2025-02-01_092629-removebg-preview_upscayl_4x_realesrgan-x4plus.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
           
@@ -1515,38 +1666,20 @@ const handleMouseLeave = () => {
          <h1 ref={howItWorksHeadingRef} className=' font-glacial text-[#18375d] text-xl md:text-4xl sticky top-[15vh] md:top-[25vh] mb-20 whitespace-nowrap font-medium ' >
            Book an Expert in 3 Easy steps
          </h1>
-         <div
-      ref={videoConRef}
-      className={`fixed bottom-4 right-4 w-[20vw] h-[10vh] hover:h-[90vh] hover:w-[90vw] overflow-hidden 
-                  transition-all duration-500 ease-in-out rounded-full hover:rounded-lg shadow-lg bg-black z-[20]
-                  `}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <video
-        ref={videoRef}
-        autoPlay
-        loop
-        muted
-        className="w-full h-full object-cover transition-all duration-500 ease-in-out"
-      >
-        <source src="/video.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-    </div>
+        
           {/* how it works 1 container*/}
           <div className='h-[100vh] w-[100vw] flex justify-center items-center  mt-[100vh]'>
                 {/*step 1*/}
-                 <div ref={step1ConRef} className='step1-container w-[80%] md:w-[40%] h-[60%] md:h-[75%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
+                 <div ref={step1ConRef} className='scrollele step1-container w-[80%] md:w-[40%] h-[60%] md:h-[75%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
                   <div>
-                     <div ref={step1Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[10vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-3xl ml-[5%] mt-4'>
+                     <div ref={step1Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[8vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-2xl md:text-3xl ml-[5%] mt-4'>
 
                            Step 01
                      </div>
                      <br/>
-                     <h1 ref={step1HeadingRef} className='font-glacial text-[#18375d] text-3xl font-bold ml-[5%]'>Select a Service</h1>
+                     <h1 ref={step1HeadingRef} className='font-glacial text-[#18375d] text-2xl md:text-3xl font-bold ml-[5%]'>Select a Service</h1>
                      <br/>
-                     <div ref={step1ParagraphRef} className='w-[60%]  text-2xl/8  font-glacial text-[#18375d] font-medium ml-[5%] space-y-6  mb-4'>
+                     <div ref={step1ParagraphRef} className='w-[60%] text-xl  md:text-2xl/8  font-glacial text-[#18375d] font-medium ml-[5%] space-y-6  mb-4'>
                     
                      Open the DOUM app, browse through available services, and choose the one you need.
                      </div>
@@ -1558,16 +1691,16 @@ const handleMouseLeave = () => {
            {/* how it works 2 container*/}
            <div className='h-[100vh] w-[100vw] flex justify-center items-center'>
                 {/*step 2*/}
-                 <div ref={step2ConRef} className=' step2-container w-[80%] md:w-[40%] h-[60%] md:h-[75%] mt-[20vh] ml-[0] md:ml-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
+                 <div ref={step2ConRef} className='scrollele step2-container w-[80%] md:w-[40%] h-[60%] md:h-[75%] mt-[20vh] ml-[0] md:ml-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
                   <div>
-                     <div ref={step2Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[10vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-3xl ml-[5%] mt-[10%] md:mt-[5%]'>
+                     <div ref={step2Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[8vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-2xl md:text-3xl ml-[5%] mt-[10%] md:mt-[5%]'>
 
                            Step 02
                      </div>
                      <br/>
-                     <h1 ref={step2HeadingRef} className='font-glacial text-[#18375d] text-3xl font-bold ml-[5%]'>Choose an Expert & Schedule</h1>
+                     <h1 ref={step2HeadingRef} className='font-glacial text-[#18375d] text-2xl md:text-3xl font-bold ml-[5%]'>Choose an Expert & Schedule</h1>
                      <br/>
-                     <div ref={step2ParagraphRef} className=' w-[80%] md:w-[70%]  text-2xl/8  font-glacial text-[#18375d] font-medium ml-[5%] space-y-6  mb-4'>
+                     <div ref={step2ParagraphRef} className=' w-[80%] md:w-[70%] text-xl  md:text-2xl/8  font-glacial text-[#18375d] font-medium ml-[5%] space-y-6  mb-4'>
                     
                      View expert profiles, check ratings, and select the best one. Pick a date & time that suits you
                      </div>
@@ -1579,16 +1712,16 @@ const handleMouseLeave = () => {
            {/* how it works 3 container*/}
            <div className='h-[100vh] w-[100vw] flex justify-center items-center'>
                 {/*step 3*/}
-                 <div ref={step3ConRef} className='step3-container w-[80%] md:w-[40%] h-[60%] md:h-[75%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
+                 <div ref={step3ConRef} className='scrollele step3-container w-[80%] md:w-[40%] h-[60%] md:h-[75%] mt-[20vh] mr-[0] md:mr-[15vw] rounded-2xl flex flex-col justify-center items-center bg-[#bbd7f4]'>
                   <div>
-                     <div ref={step2Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[10vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-3xl ml-[5%] mt-[10%] md:mt-[8%]'>
+                     <div ref={step2Ref} className='bg-[#18375d] rounded-full w-[40vw] md:w-[10vw] h-[8vh] md:h-[10Vh] whitespace-nowrap flex justify-center items-center font-glacial text-white font-bold text-2xl md:text-3xl ml-[5%] mt-[10%] md:mt-[8%]'>
 
                            Step 03
                      </div>
                      <br/>
-                     <h1 ref={step3HeadingRef} className='font-glacial text-[#18375d] text-3xl font-bold ml-[5%]'>Confirm & Relax</h1>
+                     <h1 ref={step3HeadingRef} className='font-glacial text-[#18375d] text-2xl md:text-3xl font-bold ml-[5%]'>Confirm & Relax</h1>
                      <br/>
-                     <div ref={step3ParagraphRef} className='w-[80%] md:w-[80%]  text-2xl/8  font-glacial text-[#18375d] font-medium ml-[5%] space-y-6  mb-4 md:mb-8'>
+                     <div ref={step3ParagraphRef} className='w-[80%] md:w-[80%] text-xl  md:text-2xl/8  font-glacial text-[#18375d] font-medium ml-[5%] space-y-6  mb-4 md:mb-8'>
                     
                      Complete your booking, make payment if required, and let our expert handle the job while you sit back!
                      </div>
@@ -1599,13 +1732,13 @@ const handleMouseLeave = () => {
           </div>
           {/*why us*/}
                {/*main text part*/}
- <div id='whyUs' className='mt-0 md:mt-[100vh] h-[100vh] w-[100vw] bg-[#e1eefd] flex justify-center items-center '>
+ <div id='whyUs' className='scrollele mt-0 md:mt-[100vh] h-[100vh] w-[100vw] bg-[#e1eefd] flex justify-center items-center '>
                          <h1 className='text-[#18375d] text-3xl font-bold font-glacial' >WHY CHOOSE DOUM</h1>
               </div>
               {/*data container part */}
               <div className='h-[100vh] w-[100vw] bg-[#e1eefd] flex flex-col justify-end items-center z-[50]'>
               <div ref={whyDoumRef} className=' h-[85%] w-[90%] md:w-[75%] bg-[#18375d] rounded-2xl flex'>
-    <div className=" yus w-full md:w-1/2 flex flex-col justify-start gap-20  pl-6 md:pl-10 overflow-y-scroll overflow-x-hidden">
+    <div className=" scrollele yus w-full md:w-1/2 flex flex-col justify-start gap-20  pl-6 md:pl-10 overflow-y-scroll overflow-x-hidden">
       
     <div className="h-[50vh]"></div>
       <div className="h-[50vh]"></div>
@@ -1654,7 +1787,7 @@ const handleMouseLeave = () => {
 
        </div>
 
-       <div className=' feature-wrapper w-[80vw] md:w-[55vw] h-[150vh] flex flex-col justify-evenly items-center'>
+       <div className=' scrollele feature-wrapper w-[80vw] md:w-[55vw] h-[150vh] flex flex-col justify-evenly items-center'>
         <h1 className='text-[#18375d] text-2xl md:text-3xl whitespace-nowrap font-glacial font-bold'>All features that you can enjoy</h1>
         <div className='w-full h-[90%] flex flex-col justify-evenly items-center '>
           <div className='feature-container w-[110%] md:w-[60%] h-[7%] bg-[#18375d] rounded-2xl flex'>
@@ -1726,11 +1859,11 @@ const handleMouseLeave = () => {
 
 
        </div>
-       <div id='faq' className='Faq-container h-[510vh] w-[100vw] overflow-auto bg-[#19375d] flex flex-col items-center justify-evenly  relative z-10  pb-[100vh]'>
+       <div id='faq' className='scrollele Faq-container h-[510vh] w-[100vw] overflow-auto bg-[#19375d] flex flex-col items-center justify-evenly  relative z-10  pb-[100vh]'>
          <div className='headings h-[80vh] w-full flex flex-col justify-center items-center gap-[5vh] text-center'>
-         <h1 className=' text-5xl font-bold font-glacial text-white '>FREQUENTLY ASKED QUESTION</h1>
-         <h4 className='text-4xl font-thin text-white font-glacial'>know us further</h4>
-         <h5 className='text-2xl font-thin text-white font-glacial opacity-[0.7]'> Scroll down slowly</h5>
+         <h1 className= {`text-4xl md:text-5xl font-bold font-glacial text-white ${leagueSpartan.className}`} >FREQUENTLY ASKED QUESTION</h1>
+         <h4 className='text-3xl md:text-4xl font-thin text-white font-glacial'>know us further</h4>
+        <div className='flex w-[70vh] justify-center items-center text-xl md:text-2xl font-thin text-white font-glacial opacity-[0.7]'><h5 className='text-2xl font-thin text-white font-glacial opacity-[0.7] whitespace-nowrap'> Scroll down slowly</h5> <RiArrowDownDoubleFill /></div> 
          </div>
          
           <div className='FAQS w-full h-[430vh]  flex flex-col justify-evenly items-center overflow-hidden gap-8 relative z-10'>
@@ -1884,10 +2017,10 @@ const handleMouseLeave = () => {
 
        {/* Card Hover */}
        <div className='h-[160vh] w-[100vw] bg-[#e1eefd] overflow-y-hidden m-[-5vh] flex flex-col justify-center text-center'>
-        <div ref={hoverCircle} className=' h-[150vw] md:h-[80vw] w-[150vw] md:w-[80vw] mt-[-140vh] md:mt-[-60vw] rounded-full bg-[#004aad] flex flex-col mx-[-25vw] md:mx-[12vw] absolute -z-9'></div>
-        <h1 ref={hoverh11} className='text-5xl font-bold font-glacial text-[#e1eefd]  mt-[-15vh] relative  z-5'>We’re more than just an app,</h1>
-        <h1 ref={hoverh12} className='text-5xl font-bold font-glacial text-[#e1eefd]  mt-[5vh] relative  z-5 ml-[2vw]'>we’re your trusted home partner!</h1>
-        <div className= 'hover container w-full h-[80vh] self-center mt-[20vh] relative z-[15] flex justify-center items-center gap-[1%] invisible md:visible overflow-x-hidden '>
+        <div ref={hoverCircle} className=' h-[140vw] md:h-[80vw] w-[140vw] md:w-[80vw] mt-[-140vh] md:mt-[-60vw] rounded-full bg-[#004aad] flex flex-col mx-[-20vw] md:mx-[12vw] absolute -z-9'></div>
+        <h1 ref={hoverh11} className='text-4xl md:text-5xl px-4 font-bold font-glacial text-[#e1eefd]  mt-[-15vh] relative  z-5'>We’re more than just an app,</h1>
+        <h1 ref={hoverh12} className='text-4xl md:text-5xl font-bold font-glacial text-[#e1eefd]  mt-[5vh] relative  z-5 ml-[2vw]'>we’re your trusted home partner!</h1>
+        <div className= 'scrollele hover container w-full h-[80vh] self-center mt-[20vh] relative z-[15] flex justify-center items-center gap-[1%] invisible md:visible overflow-x-hidden '>
            <div className= 'hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/8.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Beyond Bookings,We Build Trust </div>
            <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/9.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>More Than Service,We Offer Care</div>
            <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/10.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Not Just an App,a Helping Hand </div>
@@ -1916,7 +2049,7 @@ const handleMouseLeave = () => {
     <div 
       key={index}
       ref={el => mobHoverRef.current[index] = el} 
-      className='w-[90%] h-[40vh] rounded-3xl flex items-center justify-center transition-all duration-300 overflow-hidden'
+      className='w-[90%] h-[40vh] rounded-3xl flex items-end justify-start text-left transition-all duration-300 overflow-hidden'
       style={{
         backgroundImage: `url(${item.image})`,
         backgroundSize: 'cover',
@@ -1924,13 +2057,13 @@ const handleMouseLeave = () => {
         filter: 'grayscale(100%)'
       }}
     >
-      <h2 className='text-white text-2xl font-bold opacity-0 transition-opacity duration-300 text-center px-4'>{item.text}</h2>
+      <h2 className='text-white text-2xl font-bold opacity-0 transition-opacity duration-300 text-left mb-[3vh] px-4 mega_shadow'>{item.text}</h2>
     </div>
   ))}
 </div>
 
         {/* waitlist form */}
-        <div id='waitlist' className='form-section h-[140vh] w-[100vw]  flex justify-between z-[20]'>
+        <div id='waitlist' className='scrollele form-section h-[140vh] w-[100vw]  flex justify-between z-[10]'>
         <Toaster />
           <div className='circleCon  h-full w-[25%] ml-[-30vw] overflow-x-visible hidden md:inline-block'> <div className='formCircle h-[175vh] w-[175vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
              <div className='headingCon  mr-[27vh] h-[25%] w-[40%]'>
@@ -1949,7 +2082,7 @@ const handleMouseLeave = () => {
             
 
             </div></div>
-          <div className='FormCon  h-full w-full md:w-[65%]  mt-[10vh] flex justify-center items-center flex-col '>
+          <div className='FormCon h-[60%] md:h-full w-full md:w-[65%]  mt-[10vh] flex justify-center items-center flex-col '>
             <form className='ml:0 md:ml-[10vw] h-[50%] w-[90%] md:w-[65%] bg-[#bbd7f47a] rounded-2xl mb-[2vh] drop-shadow-2xl flex flex-col items-center justify-evenly'onSubmit={handleSubmit(onSubmit,onError)} id='myForm'>
             
               <div className='names flex h-[20%] w-[90%]  items-center justify-between '>
@@ -1977,7 +2110,7 @@ const handleMouseLeave = () => {
               <div className='phone no flex h-[20%] w-[90%]  items-start justify-between flex-col '>
               <label className='font-glacial text-[#18375d] text-lg font-medium'>Phone no.</label>
               <div className="w-full h-[60%] flex justify-between">
-  <div className="w-[20%] h-[100%] bg-[#a2c1e7] rounded-lg flex justify-center items-center text-[#18375d] text-lg gap-2">
+  <div className="w-[20%] h-[90%] mt-[0.75%] md:mt-0 md:h-[100%] bg-[#a2c1e7] rounded-lg flex justify-center items-center text-[#18375d] text-lg gap-2">
     <div
       className="h-[20%] w-[20%]"
       style={{
@@ -2019,7 +2152,7 @@ const handleMouseLeave = () => {
 
         </div>
               {/*footer */}
-   <div className='footer h-auto min-h-[75vh] w-[100vw] md:w-[75vw] mt-[20vh] mb-[-20vh] rounded-3xl mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 py-8' style={style2}>
+   <div className='scrollele footer h-auto min-h-[75vh] w-[100vw] md:w-[75vw] mt-[20vh] mb-[-20vh] rounded-3xl mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 py-8 z-[11]' style={style2}>
    <div className='col1 h-auto w-full md:w-[25%] flex flex-col justify-center mt-6 px-4' >
       <div className='logo h-[100px] w-[80%] items-start mx-auto md:mx-0' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}> </div>
       <br/>

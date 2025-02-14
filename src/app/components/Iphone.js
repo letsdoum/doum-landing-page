@@ -1,17 +1,29 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
-import { Canvas, useLoader } from '@react-three/fiber'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
+import { Canvas, useLoader, useThree } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Loading from '../loading'
+import { Html } from '@react-three/drei'
 gsap.registerPlugin({ScrollTrigger})
 
 function Model() {
+
+    const setInitialState = () => {
+        ScrollTrigger.getAll().forEach(st => {
+            st.scroll(window.scrollY);
+            st.refresh();
+        });
+    }
     const modelRef = useRef()
     const model2Ref = useRef()
     const result = useLoader(GLTFLoader, '/IP 4.glb')
     const result2 = useLoader(GLTFLoader, '/IP 5.glb')
+    setInitialState();
+    requestAnimationFrame(setInitialState);
+    
     
     useEffect(() => {
         // Ensure first model is visible and second is hidden initially
@@ -23,6 +35,14 @@ function Model() {
     
     useGSAP(() => {
         if (!modelRef.current || !model2Ref.current) return
+
+        
+
+        ScrollTrigger.config({
+            syncInterval: 0.1,  // Sync more frequently
+            autoRefreshEvents: "visibilitychange,DOMContentLoaded,load", // Optimize refresh events
+            limitCallbacks: true
+        });
         
         // Set initial visibility
         modelRef.current.visible = true
@@ -33,9 +53,16 @@ function Model() {
                 trigger: "#model-section",
                 start: 'top top',
                 end: 'bottom -50%',
-                scrub: true,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
                 invalidateOnRefresh: true, // Recalculate on resize/refresh
-  fastScrollEnd: true, // Better handling of fast scrolling
+                fastScrollEnd: true, // Better handling of fast scrolling
             }
         })
         const tl2 = gsap.timeline({
@@ -43,7 +70,14 @@ function Model() {
                 trigger: "#model-section",
                 start: 'top 30%',
                 end: 'bottom 60%',
-                scrub: 2,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
                 invalidateOnRefresh: true, // Recalculate on resize/refresh
   fastScrollEnd: true, // Better handling of fast scrolling
             }
@@ -53,7 +87,14 @@ function Model() {
                 trigger: "#model-section",
                 start: 'top -150%',
                 end: 'bottom -250%',
-                scrub: 4,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
                 invalidateOnRefresh: true, // Recalculate on resize/refresh
   fastScrollEnd: true, // Better handling of fast scrolling
                 
@@ -64,7 +105,14 @@ function Model() {
                 trigger: "#model-section",
                 start: 'bottom -250%',
                 end: 'bottom -350%',
-                scrub: 4,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
                 invalidateOnRefresh: true, // Recalculate on resize/refresh
   fastScrollEnd: true, // Better handling of fast scrolling
                 
@@ -92,7 +140,14 @@ function Model() {
                 trigger: "#model-section",
                 start: 'bottom -350%',
                 end: 'bottom -450%',
-                scrub: 4,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
                 invalidateOnRefresh: true, // Recalculate on resize/refresh
   fastScrollEnd: true, // Better handling of fast scrolling
                 
@@ -103,7 +158,14 @@ function Model() {
                 trigger: "#model-section",
                 start: 'bottom -450%',
                 end: 'bottom -550%',
-                scrub: 4,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
                 invalidateOnRefresh: true, // Recalculate on resize/refresh
   fastScrollEnd: true, // Better handling of fast scrolling
                 
@@ -114,7 +176,14 @@ function Model() {
                 trigger: "#model-section",
                 start: 'bottom -550%',
                 end: 'bottom -650%',
-                scrub: 4,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
                 invalidateOnRefresh: true, // Recalculate on resize/refresh
   fastScrollEnd: true, // Better handling of fast scrolling
                 
@@ -125,7 +194,14 @@ function Model() {
                 trigger: "#model-section",
                 start: 'bottom -650%',
                 end: 'bottom -750%',
-                scrub: 4,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
                 invalidateOnRefresh: true, // Recalculate on resize/refresh
   fastScrollEnd: true, // Better handling of fast scrolling
             }
@@ -135,7 +211,14 @@ function Model() {
                 trigger: "#model-section",
                 start: 'bottom -750%',
                 end: 'bottom -750%',
-                scrub: 4,
+                scrub: {
+        ease: "power1.out",
+        smoothing: 0.5,
+        duration: 0.5
+    },
+    preventOverlaps: true,
+    fastScrollEnd: true,
+    immediateRender: false,
                 invalidateOnRefresh: true, // Recalculate on resize/refresh
   fastScrollEnd: true, // Better handling of fast scrolling
                 
@@ -146,7 +229,14 @@ function Model() {
                 trigger: "#model-section",
                 start: 'bottom -750%',
                 end: 'bottom -790%',
-                scrub: 4,
+                scrub: {
+        ease: "power1.out",
+        smoothing: 0.5,
+        duration: 0.5
+    },
+    preventOverlaps: true,
+    fastScrollEnd: true,
+    immediateRender: false,
                 invalidateOnRefresh: true, // Recalculate on resize/refresh
   fastScrollEnd: true, // Better handling of fast scrolling
                 
@@ -300,7 +390,7 @@ function Model() {
         <>
             <primitive 
                 object={result.scene} 
-                scale={[0.5, 0.5, 0.5]} 
+                scale={[18, 18, 18]} 
                 ref={modelRef}
             />
             <primitive 
@@ -312,6 +402,12 @@ function Model() {
     )
 }
  function Model2(){
+    const setInitialState = () => {
+        ScrollTrigger.getAll().forEach(st => {
+            st.scroll(window.scrollY);
+            st.refresh();
+        });
+    }
     const modelRef = useRef()
     const model2Ref = useRef()
     const model3Ref = useRef()
@@ -320,6 +416,9 @@ function Model() {
     const result2 = useLoader(GLTFLoader, '/IP 2.glb')
     const result3 = useLoader(GLTFLoader, '/IP 3.glb' )
     const result4 = useLoader(GLTFLoader, '/IP 6.glb')
+
+    setInitialState();
+    requestAnimationFrame(setInitialState);
     useEffect(() => {
         // Ensure first model is visible and second is hidden initially
         if (modelRef.current && model2Ref.current&& model3Ref.current.visible) {
@@ -334,13 +433,25 @@ function Model() {
 
     useGSAP(()=>{
         if(!modelRef.current||!model2Ref.current||!model3Ref) return
+        ScrollTrigger.config({
+            syncInterval: 0.1,  // Sync more frequently
+            autoRefreshEvents: "visibilitychange,DOMContentLoaded,load", // Optimize refresh events
+            limitCallbacks: true
+        });
         const tl = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
                 start: 'bottom -850%',
                 end: 'bottom -1050%',
                 
-                scrub: 4,
+                scrub: {
+        ease: "power1.out",
+        smoothing: 0.5,
+        duration: 0.5
+    },
+    preventOverlaps: true,
+    fastScrollEnd: true,
+    immediateRender: false,
                 onEnter: ()=>{
                     modelRef.current.visible = true
                     model2Ref.current.visible = false
@@ -363,6 +474,7 @@ function Model() {
                 }
             }
         })
+        
 
         
         tl.fromTo([modelRef.current.rotation, model2Ref.current.rotation,model3Ref.current.rotation], {
@@ -408,7 +520,14 @@ function Model() {
                 start: 'bottom -1050%',
                 end: 'bottom -1125%',
                 
-                scrub: 4,
+                scrub: {
+        ease: "power1.out",
+        smoothing: 0.5,
+        duration: 0.5
+    },
+    preventOverlaps: true,
+    fastScrollEnd: true,
+    immediateRender: false,
                 onEnter: ()=>{
                     modelRef.current.visible = false
                     model2Ref.current.visible = true
@@ -457,7 +576,14 @@ function Model() {
                 start: 'bottom -1130%',
                 end: 'bottom -1190%',
                 
-                scrub: 4,
+                scrub: {
+        ease: "power1.out",
+        smoothing: 0.5,
+        duration: 0.5
+    },
+    preventOverlaps: true,
+    fastScrollEnd: true,
+    immediateRender: false,
                 onEnter: ()=>{
                     modelRef.current.visible = false
                     model2Ref.current.visible = false
@@ -506,7 +632,14 @@ function Model() {
                 start: 'bottom -1190%',
                 end: 'bottom -1240%',
                 
-                scrub: 4,
+                scrub: {
+        ease: "power1.out",
+        smoothing: 0.5,
+        duration: 0.5
+    },
+    preventOverlaps: true,
+    fastScrollEnd: true,
+    immediateRender: false,
                 onEnter: ()=>{
                     model4Ref.visible = true
                 },
@@ -556,7 +689,14 @@ function Model() {
                 start: 'bottom -1270%',
                 end: 'bottom -1290%',
                 
-                scrub: 2,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
                 onUpdate: (self) => {
                     // Only use this method if your model has materials
                     if (model4Ref.current) {
@@ -593,20 +733,22 @@ function Model() {
             object={result.scene} 
             scale={[0.5, 0.5, 0.5]} 
             ref={modelRef}
+            visible={false}
         />
         <primitive 
             object={result2.scene} 
             scale={[0.5, 0.5, 0.5]} 
             ref={model2Ref}
+            visible={false}
         />
         <primitive
          object={result3.scene}
          scale={[0.5, 0.5, 0.5]}
-         ref={model3Ref}/>
+         ref={model3Ref} visible={false} />
          <primitive
          object={result4.scene}
          scale={[0.5, 0.5, 0.5]}
-         ref={model4Ref}/>
+         ref={model4Ref} visible={false}/>
     </>
     )
 
@@ -619,13 +761,18 @@ function Model() {
     const result = useLoader(GLTFLoader, '/IP 7.glb')
 
     useGSAP(()=>{
+        ScrollTrigger.config({
+            syncInterval: 0.1,  // Sync more frequently
+            autoRefreshEvents: "visibilitychange,DOMContentLoaded,load", // Optimize refresh events
+            limitCallbacks: true
+        });
         const tl =gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
                 start: 'bottom -1590%',
                 end: 'bottom -1690%',
                 
-                scrub: 4,
+                scrub: 1
                 
             }
         })
@@ -663,7 +810,14 @@ function Model() {
                 start: 'bottom -1720%',
                 end: 'bottom -1750%',
                 
-                scrub: 2,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
                 onUpdate: (self) => {
                     // Only use this method if your model has materials
                     if (modelRef.current) {
@@ -703,15 +857,59 @@ function Model() {
     )
 
  }
-function Iphone() {
+
+ const OptimizedMobileLighting = () => {
+    const { camera } = useThree();
+    
     return (
-        <div id="model-section" className="h-full w-full">
+      <>
+        {/* Main directional light - simulates sunlight */}
+        <directionalLight 
+          position={[5, 5, 5]} 
+          intensity={0.8}
+          castShadow
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+          shadow-camera-far={50}
+          shadow-camera-left={-10}
+          shadow-camera-right={10}
+          shadow-camera-top={10}
+          shadow-camera-bottom={-10}
+        />
+        
+        {/* Ambient light to prevent completely dark shadows */}
+        <ambientLight intensity={0.4} />
+        
+        {/* Fill light for softer shadows */}
+        <pointLight 
+          position={[-5, 0, -5]} 
+          intensity={0.2} 
+        />
+        
+        {/* Optional rim light for depth */}
+        <spotLight
+          position={[0, 5, -5]}
+          intensity={0.3}
+          angle={0.5}
+          penumbra={1}
+        />
+      </>
+    );
+  };
+
+
+  
+  
+  function Iphone() {
+    return (
+        <div id="model-section" className="h-full w-full flex justify-center items-center relative">
             <Canvas>
-                <ambientLight intensity={1} color='white'/>
-                <directionalLight intensity={1} position={[5,5,5]}color='white'/>
-                <Model />
-                <Model2/>
-                <Model3/>
+                <Suspense >
+                    <OptimizedMobileLighting/>
+                    <Model />
+                    <Model2/>
+                    <Model3/>
+                </Suspense>
             </Canvas>
         </div>
     )

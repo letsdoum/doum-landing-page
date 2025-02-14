@@ -1,3 +1,5 @@
+import { League_Spartan } from 'next/font/google';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -9,7 +11,8 @@ export default {
     extend: {
       fontFamily: {
         glacial: ['Glacial Indifference', 'sans-serif'],
-        agrandirW:['Agrandir-Regular', 'sans-serif']
+        agrandirW:['Agrandir-Regular', 'sans-serif'],
+        
       },
       backgroundImage:{
         'desktop-platform': "url(/desktop-platform.png)",

@@ -21,17 +21,49 @@ function Model(){
         }, [])
 
         useGSAP(()=>{
-            
+            const tl0 = gsap.timeline({
+                scrollTrigger:{
+                    trigger: "#model-section",
+                    start: 'top -50%',
+                    end: 'bottom -150%',
+                    scrub: 1,
+                    markers: true,
+                    onEnter:()=>{
+                        modelRef.current.visible = true;
+                        model2Ref.current.visible = false;
+                    },
+                    onEnterBack:()=>{
+                        modelRef.current.visible = true;
+                    },
+                    // onLeave:()=>{
+                    //     modelRef.current.visible = false ;
+                    // },
+                    onLeaveBack:()=>{
+                        modelRef.current.visible = false;
+                    }
+                    
+                }
+            })
             const tlR = gsap.timeline({
                         scrollTrigger:{
                             trigger: "#model-section",
                             start: 'top -150%',
                             end: 'bottom -250%',
-                            scrub: 4,
+                            scrub: {
+        ease: "power1.out",
+        smoothing: 0.5,
+        duration: 0.5
+    },
                             markers: true,
-                            onEnter:()=>{
+                            
+                            onEnterBack:()=>{
                                 modelRef.current.visible = true;
-                                model2Ref.current.visible = false;
+                            },
+                            // onLeave:()=>{
+                            //     modelRef.current.visible = false ;
+                            // },
+                            onLeaveBack:()=>{
+                                modelRef.current.visible = false;
                             }
                             
                         }
@@ -41,7 +73,11 @@ function Model(){
                             trigger: "#model-section",
                             start: 'bottom -250%',
                             end: 'bottom -350%',
-                            scrub: 4,
+                            scrub: {
+        ease: "power1.out",
+        smoothing: 0.5,
+        duration: 0.5
+    },
                             markers: true,
                             onUpdate: (self) => {
                                 // Get scroll direction and progress
@@ -67,7 +103,11 @@ function Model(){
                             trigger: "#model-section",
                             start: 'bottom -350%',
                             end: 'bottom -450%',
-                            scrub: 4,
+                            scrub: {
+        ease: "power1.out",
+        smoothing: 0.5,
+        duration: 0.5
+    },
                             markers: true,
                         }
                     })
@@ -76,7 +116,11 @@ function Model(){
                             trigger: "#model-section",
                             start: 'bottom -450%',
                             end: 'bottom -550%',
-                            scrub: 4,
+                            scrub: {
+        ease: "power1.out",
+        smoothing: 0.5,
+        duration: 0.5
+    },
                             markers: true,
                         }
                     })
@@ -85,14 +129,35 @@ function Model(){
                             trigger: "#model-section",
                             start: 'bottom -550%',
                             end: 'bottom -650%',
-                            scrub: 4,
+                            scrub: {
+        ease: "power1.out",
+        smoothing: 0.5,
+        duration: 0.5
+    },
                             markers: true,
-                            onLeave: ()=>{
-                                modelRef.current.visible = false;
-                                model2Ref.current.visible = false;
-                            }
+                            
                         }
                     })
+                    tl0.fromTo([modelRef.current.position, model2Ref.current.position],{
+                        x: 0,
+                        y: -20,
+                        z: -25,
+                    },{
+                        x: 0,
+                        y: 2,
+                        z: -25,
+                    },'plz work')
+
+                    tl0.fromTo([modelRef.current.rotation, model2Ref.current.rotation],{
+                        x: 0,
+                        y: 0,
+                        z: 0,
+                    },{
+                        x: 0,
+                        y: -Math.PI,
+                        z: 0,
+                    },'plz work')
+                    
                     tlR.fromTo([modelRef.current.rotation, model2Ref.current.rotation], {
                         x: 0,
                         y: Math.PI,
@@ -103,13 +168,13 @@ function Model(){
                         z: 0,
                     }, 'kbc')
                     .fromTo([modelRef.current.scale, model2Ref.current.scale], {
-                        x: 9,
-                        y: 9,
-                        z: 9,  
-                    }, {
                         x: 6.5,
                         y: 6.5,
-                        z: 6.5,
+                        z: 6.5, 
+                    }, {
+                        x: 4,
+                        y: 4,
+                        z: 4,
                     }, 'kbc')
                     
                     tlR2.fromTo([modelRef.current.rotation, model2Ref.current.rotation], {
@@ -154,9 +219,13 @@ function Model(){
                     const fadeOut = gsap.timeline({
                                 scrollTrigger:{
                                     trigger: "#model-section",
-                                    start: 'bottom -750%',
-                                    end: 'bottom -790%',
-                                    scrub: 4,
+                                    start: 'bottom -650%',
+                                    end: 'bottom -750%',
+                                    scrub: {
+        ease: "power1.out",
+        smoothing: 0.5,
+        duration: 0.5
+    },
                                     markers: true,
                                     onUpdate: (self) => {
                                         // Make everything transparent
@@ -174,6 +243,7 @@ function Model(){
                                     onLeave: () => {
                                         modelRef.current.visible = false;
                                         model2Ref.current.visible = false;
+                                        
                                     },
                                     onEnterBack: () => {
                                         if (model2Ref.current.visible) {
@@ -183,7 +253,27 @@ function Model(){
                                         }
                                     }
                                 }})
+            fadeOut.fromTo([modelRef.current.scale, model2Ref.current.scale],{
+                x:4,
+                y:4,
+                z:4
+            },{
+                x:20,
+                y:20,
+                z:20
+            },'youtoo') 
+            fadeOut.fromTo([modelRef.current.position, model2Ref.current.position],{
+                x:0,
+                y:2,
+                z:-25
+            },{
+                x:0,
+                y:10,
+                z:-25
+            },'youtoo') 
         })
+
+        
 
 
      
@@ -192,14 +282,14 @@ function Model(){
             <>
                 <primitive 
                     object={result.scene} 
-                    scale={[5, 5, 5]}
-                    position={[0,5,-25]} 
+                    scale={[6.5, 6.5, 6.5]}
+                    position={[0,2,-25]} 
                     ref={modelRef}
                 />
                 <primitive 
                     object={result2.scene} 
-                    scale={[5, 5, 5]} 
-                    position={[0,5,-25]} 
+                    scale={[6.5, 6.5, 6.5]} 
+                    position={[0,2,-25]} 
                     ref={model2Ref}
                 />
             </>
@@ -209,7 +299,7 @@ function Model(){
 function MobileAni() {
   return (
     
-        <div id="model-section" className="h-[100vh] w-full z-[20]">
+        <div id="model-section" className="h-full w-full z-[20]">
             <Canvas>
                 <ambientLight intensity={1} color='white'/>
                 <directionalLight intensity={1} position={[5,5,5]}color='white'/>
