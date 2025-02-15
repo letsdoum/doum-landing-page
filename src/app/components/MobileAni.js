@@ -5,6 +5,8 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import * as THREE from "three";
+
 gsap.registerPlugin(ScrollTrigger)
 function Model(){
 
@@ -297,6 +299,7 @@ function Model(){
 }
 
 function MobileAni() {
+  
   return (
     
         <div id="model-section" className="h-full w-full z-[20]">

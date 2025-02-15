@@ -81,6 +81,59 @@ function Navbar() {
          )
     })
 
+    const toServices=(e)=>{
+      e.preventDefault();
+        
+        // Get the services element
+        const services = document.getElementById('services');
+        
+        if (services) {
+          services.scrollIntoView({ behavior: 'smooth' });
+        }
+      };
+
+      const toHowItWorks=(e)=>{
+        e.preventDefault();
+          
+          // Get the services element
+          const howItWorks = document.getElementById('howItWorks');
+          
+          if (howItWorks) {
+            howItWorks.scrollIntoView({ behavior: 'smooth' });
+          }
+        };
+        const toWhyUs=(e)=>{
+            e.preventDefault();
+              
+              // Get the services element
+              const whyUs = document.getElementById('whyUs');
+              
+              if (whyUs) {
+                whyUs.scrollIntoView({ behavior: 'smooth' });
+              }
+            };
+            const toFAQ=(e)=>{
+                e.preventDefault();
+                  
+                  // Get the services element
+                  const faq = document.getElementById('faq');
+                  
+                  if (faq) {
+                    faq.scrollIntoView({ behavior: 'smooth' });
+                  }
+                };
+
+                const toWaitlist=(e)=>{
+                    e.preventDefault();
+                      
+                      // Get the services element
+                      const waitlist = document.getElementById('waitlist');
+                      
+                      if (waitlist) {
+                        waitlist.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    };
+
     
      
        
@@ -91,13 +144,13 @@ function Navbar() {
     return (
         <>
         <div ref={barRef} className='hidden md:flex h-[15vh] w-[50vw] rounded-full bg-[#bbd7f47a] justify-center items-center drop-shadow-2xl fixed top-12 left-1/20 z-20 object-contain gap-6 backdrop-blur-xl min-w-[320px] overflow-hidden'>
-            <Link href='#services' className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem ' ref={el => linksRef.current[0] = el}>Services</Link>
-            <Link href='#howItWorks' className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[1] = el}>How it works</Link>
+            <Link href='#services' onClick={toServices} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem ' ref={el => linksRef.current[0] = el}>Services</Link>
+            <Link href='#howItWorks' onClick={toHowItWorks} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[1] = el}>How it works</Link>
             <a  href='/Blog'className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[2] = el}>Blogs</a>
             <div ref={divRef} className='h-full w-1/6' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}></div>
-            <Link href='#whyUs' className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[3] = el}>Why us</Link>
-            <Link href='#faq' className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[4] = el}>FAQs</Link>
-            <Link href='#waitlist' className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[5] = el}>Join Waitlist</Link>
+            <Link href='#whyUs' onClick={toWhyUs} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[3] = el}>Why us</Link>
+            <Link href='#faq' onClick={toFAQ} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[4] = el}>FAQs</Link>
+            <Link href='#waitlist' onClick={toWaitlist} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[5] = el}>Join Waitlist</Link>
         </div>
        
         <div ref={mobBarRef} className='flex md:hidden h-[10vh] w-[95%] fixed rounded-full bg-[#bbd7f47a] backdrop-blur-xl flex justify-between items-center top-4 fixed z-[200]'>

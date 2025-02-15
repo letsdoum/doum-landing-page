@@ -194,7 +194,7 @@ function Hero() {
         if (width >= 768) { // Desktop breakpoint
             setStyle2({
                 
-                backgroundImage: "url('/footerbg.webp')",
+                backgroundImage: "url('/footer-bg.webp')",
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
@@ -206,7 +206,7 @@ function Hero() {
         } else { // Mobile breakpoint
             setStyle2({
                 
-                backgroundImage: "url('/footerbgmob.webp')",
+                backgroundImage: "url('/footer-bg.webp')",
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
@@ -242,12 +242,47 @@ function Hero() {
   // //     }
   // //   })
   // // }, [])
-  useGSAP(() => {
-    const scrollele = conRef.current
-    const xval = scrollele.scrollWidth
+  const services = [
+    { id: 1, name: 'AC repairing', image: '/services/AC.webp' },
+    { id: 2, name: 'Bathroom Fixture', image: '/services/bathroom fixture.webp' },
+    { id: 3, name: 'Carpet Cleaning', image: '/services/carpet cleaning.webp' },
+    { id: 4, name: 'Ceiling fan Service', image: '/services/ceiling fan.webp' },
+    { id: 5, name: 'Chimney service', image: '/services/chimney.webp' },
+    { id: 6, name: 'Cook service', image: '/services/cook.webp' },
+    { id: 7, name: 'Electricial service', image: '/services/electrician.webp' },
+    { id: 8, name: 'Fridge Servicing', image: '/services/fridge.webp' },
+    { id: 9, name: 'Handyman', image: '/services/Handyman.webp' },
+    { id: 10, name: 'home cleaning service', image: '/services/home cleaning service.webp' },
+    { id: 11, name: 'home theatre service', image: '/services/home theatre repair.webp' },
+    { id: 12, name: 'induction cooktop repair', image: '/services/induction cooktop repair.webp' },
+    { id: 13, name: 'inverter & UPS repair', image: '/services/inverter and UPS repair.webp' },
+    { id: 14, name: 'laptop & computer repair', image: '/services/laptop and computer repair service.webp' },
+    { id: 15, name: 'Microwave servicing', image: '/services/Microwave.webp' },
+    { id: 16, name: 'Mover services', image: '/services/Movers and Good Carriers.webp' },
+    { id: 17, name: 'Pest Control', image: '/services/pest control.webp' },
+    { id: 18, name: 'Plumber Services', image: '/services/plumbing.webp' },
+    { id: 19, name: 'Camera installation', image: '/services/security camera installation service.webp' },
+    { id: 20, name: 'Tank Cleaning', image: '/services/Septic Tank Cleaning.webp' },
+    { id: 21, name: 'Smart Home service', image: '/services/smart home service.webp' },
+    { id: 22, name: 'Sofa cleaning', image: '/services/sofa and upholstery cleaning service.webp' },
+    { id: 23, name: 'Solar Panel Installation', image: '/services/Solar Panel Installation and Repair.webp' },
+    { id: 24, name: 'Spa & Massage', image: '/services/Spa and Massage.webp' },
+    { id: 25, name: 'Switchboard Repair', image: '/services/switchboard.webp' },
+    { id: 26, name: 'TV repairing', image: '/services/tv-repair-67a596d70f1eb.webp' },
+    { id: 27, name: 'Washing Machine', image: '/services/washing-machine.webp' },
+    { id: 28, name: 'Water Purifier', image: '/services/water purifier.webp' },
+    { id: 29, name: 'Water Tank Cleaning', image: '/services/water tank cleaning.webp' }
+  ];
 
-    gsap.fromTo(scrollele, 
-      { x: window.innerWidth }, // Start from outside the screen
+  // Double the array for infinite scroll
+  const doubledServices = [...services, ...services];
+
+  useGSAP(() => {
+    const scrollele = conRef.current;
+    const xval = scrollele.scrollWidth / 2;  // Half because we doubled the content
+
+    gsap.fromTo(scrollele,
+      { x: 0 },
       {
         x: -xval,
         duration: 65,
@@ -257,8 +292,8 @@ function Hero() {
           x: gsap.utils.unitize(x => parseFloat(x) % xval)
         }
       }
-    )
-  }, )
+    );
+  }, { scope: conRef });
 
 
    const s1Ref = useRef()
@@ -1462,6 +1497,63 @@ useEffect(() => {
   window.addEventListener('resize', handleResize)
   return () => window.removeEventListener('resize', handleResize)
 }, [])
+useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
+
+const toServices=(e)=>{
+  e.preventDefault();
+    
+    // Get the services element
+    const services = document.getElementById('services');
+    
+    if (services) {
+      services.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const toHowItWorks=(e)=>{
+    e.preventDefault();
+      
+      // Get the services element
+      const howItWorks = document.getElementById('howItWorks');
+      
+      if (howItWorks) {
+        howItWorks.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+    const toWhyUs=(e)=>{
+        e.preventDefault();
+          
+          // Get the services element
+          const whyUs = document.getElementById('whyUs');
+          
+          if (whyUs) {
+            whyUs.scrollIntoView({ behavior: 'smooth' });
+          }
+        };
+        const toFAQ=(e)=>{
+            e.preventDefault();
+              
+              // Get the services element
+              const faq = document.getElementById('faq');
+              
+              if (faq) {
+                faq.scrollIntoView({ behavior: 'smooth' });
+              }
+            };
+
+            const toWaitlist=(e)=>{
+                e.preventDefault();
+                  
+                  // Get the services element
+                  const waitlist = document.getElementById('waitlist');
+                  
+                  if (waitlist) {
+                    waitlist.scrollIntoView({ behavior: 'smooth' });
+                  }
+                };
+
    
 
  
@@ -1473,7 +1565,7 @@ useEffect(() => {
     {/*3d model*/}
 
     
-        <div className='modelSec fixed flex justify-center items-center h-[150vh] w-[100vw] z-[15]'>
+        <div className='modelSec fixed flex justify-center items-center h-[150vh] w-[100vw] z-[5] pointer-events-none'>
         {aniWidth > 768 ? <Iphone /> : <MobileAni />}
         </div>
      
@@ -1481,9 +1573,9 @@ useEffect(() => {
       {/* video */}
       <div
       ref={videoConRef}
-      className={`fixed bottom-4 right-4 w-[40vw] md:w-[20vw] h-[7vh] md:h-[10vh] hover:h-[90vh] hover:md:h-[50vh] hover:w-[90vw] hover:md:w-[80vh] overflow-hidden 
+      className={`fixed bottom-4 right-4 w-[40vw] md:w-[20vw] h-[7vh] md:h-[10vh] hover:h-[90%] hover:md:h-[70%] hover:w-[90%] hover:md:w-[80%] overflow-hidden 
                   transition-all duration-500 ease-in-out rounded-full hover:rounded-lg shadow-lg bg-transparent z-[20]
-                  `}
+                 invisible md:visible `}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -1498,6 +1590,25 @@ useEffect(() => {
         Your browser does not support the video tag.
       </video>
     </div>    
+    <div
+      ref={videoConRef}
+      className={`fixed bottom-4 right-4 w-[40vw] md:w-[20vw] h-[7vh] md:h-[10vh] hover:h-[20%] hover:md:h-[20%] hover:w-[90%] hover:md:w-[90%] overflow-hidden 
+                  transition-all duration-500 ease-in-out rounded-full hover:rounded-lg shadow-lg bg-transparent z-[20] mb-[0] hover:mb-[30vh]
+                 visible md:invisible `}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <video
+        ref={videoRef}
+        autoPlay
+        loop
+        muted
+        className="w-full h-full object-cover  transition-all duration-500 ease-in-out"
+      >
+        <source src="/video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>  
           
      {/* hero */}
      
@@ -1505,7 +1616,7 @@ useEffect(() => {
       <div className='h-12 w-12 absolute top-[75vh] left-[15vw] invisible md:visible' style={{ backgroundImage: "url(/star.webp)", backgroundSize: 'contain', mixBlendMode:"multiply" }} ref={el => starRef.current[0] = el}></div>
       
       <div className='h-12 w-12  absolute top-[20vh] left-[80vw]' style={{ backgroundImage: "url(/star.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center', mixBlendMode:"multiply" }} ref={el => starRef.current[1] = el}></div>
-      <div className='mt-[0vh] md:mt-[20vh] h-[40vh] md:h-[10%] w-[50vw] min-w-[320px]' style={{ backgroundImage: 'url(/Hero-text.webp)', backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center', mixBlendMode: 'multiply' }}></div>
+      <div className='mt-[0vh] md:mt-[20vh] h-[40vh] md:h-[10%] w-[90vw] min-w-[320px]' style={{ backgroundImage: 'url(/Hero-text.webp)', backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center', mixBlendMode: 'multiply' }}></div>
       <div className='mt-[-15vh] md:mt-[-5vh]  h-16 w-400 overflow-hidden'><h4 className='text-xl md:text-2xl lg:text-3xl text-[#18375d] font-semibold font-glacial'>
         {"All Your Home Services, One Tap Away!".split(" ").map((letter, index) => (
           <span key={index} ref={el => h4Ref.current[index] = el} className='inline-block mr-1'>{letter}</span>
@@ -1516,49 +1627,36 @@ useEffect(() => {
         <div className='download w-full md:w-[50%] h-[45%] md:h-[80%] rounded-3xl ' style={{ backgroundImage: 'url("/applestore.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ref={el => getRef.current[1] = el}></div>
         
       </div>
-      {/* <div className='w-[80vw] h-[12vh] relative mt-[-205vh] hidden md:block' style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
+       <div className='w-[80vw] h-[12vh] relative mt-[-205vh] hidden md:block' style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
 
       </div>
-      <div className='block md:hidden h-[15vh] w-[70vw]   absolute mt-[65vh]'style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
+     <a href='/Blog'> <div className='block md:hidden h-[15vh] w-[70vw]   absolute z-[20] mt-[65vh]'style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
 
-      </div> */}
+      </div> </a>
 
     </div>
     {/* platform */}
-    <div className='w-full h-[150rem] md:h-[112.5rem] relative z-10 mt-[20vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
+    <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[20vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
         <div className='w-[70%] md:w-[40%] h-[10%] mt-[-80rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text-removebg-preview_upscayl_4x_realesrgan-x4plus.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
              {/*scroller*/}
-             <div className='scrollele scrollContainer w-[1775vw] md:w-[805vw] h-[35vh] md:h-[70vh] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-auto'  ref={conRef} >
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[0] = el} style={{ backgroundImage: 'url(/services/AC.webp)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >AC repairing</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[1] = el} style={{ backgroundImage: 'url("/services/bathroom fixture.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >Bathroom Fixture</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[2] = el} style={{ backgroundImage: 'url("/services/carpet cleaning.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Carpet Cleaning</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[3] = el} style={{ backgroundImage: 'url("/services/ceiling fan.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Ceiling fan Service</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[4] = el} style={{ backgroundImage: 'url(/services/chimney.webp)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Chimney service</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[5] = el} style={{ backgroundImage: 'url(/services/cook.webp)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Cook service</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[6] = el} style={{ backgroundImage: 'url(/services/electrician.webp)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Electricial service</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[7] = el} style={{ backgroundImage: 'url(/services/fridge.webp)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Fridge Servicing</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[8] = el} style={{ backgroundImage: 'url(/services/Handyman.webp)', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Handyman</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[9] = el} style={{ backgroundImage: 'url("/services/home cleaning service.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >home cleaning service</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[10] = el} style={{ backgroundImage: 'url("/services/home theatre repair.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}> home theatre service</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[11] = el} style={{ backgroundImage: 'url("/services/induction cooktop repair.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >induction cooktop repair</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[12] = el} style={{ backgroundImage: 'url("/services/inverter and UPS repair.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}> inverter& UPS repair</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[13] = el} style={{ backgroundImage: 'url("/services/laptop and computer repair service.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>laptop&computer repair</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[14] = el} style={{ backgroundImage: 'url("/services/Microwave.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Microwave servicing</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[15] = el} style={{ backgroundImage: 'url("/services/Movers and Good Carriers.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Mover services</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[16] = el} style={{ backgroundImage: 'url("/services/pest control.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Pest Control</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[17] = el} style={{ backgroundImage: 'url("/services/plumbing.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Plumber Services </div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[18] = el} style={{ backgroundImage: 'url("/services/security camera installation service.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }} >Camera installation</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[19] = el} style={{ backgroundImage: 'url("/services/Septic Tank Cleaning.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Tank Cleaning </div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[20] = el} style={{ backgroundImage: 'url("/services/smart home service.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Smart Home service</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[21] = el} style={{ backgroundImage: 'url("/services/sofa and upholstery cleaning service.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Sofa cleaning</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[22] = el} style={{ backgroundImage: 'url("/services/Solar Panel Installation and Repair.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Solar Panel Installation</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[23] = el} style={{ backgroundImage: 'url("/services/Spa and Massage.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Spa&Massage</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[24] = el} style={{ backgroundImage: 'url("/services/switchboard.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Switchboard Repair</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[25] = el} style={{ backgroundImage: 'url("/services/TV repair.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>TV repairing</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[26] = el} style={{ backgroundImage: 'url("/services/washing machine.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Washing Machine</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[27] = el} style={{ backgroundImage: 'url("/services/water purifier.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Water Purifier</div>
-                    <div className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh] 'ref={el => scrollRef.current[28] = el} style={{ backgroundImage: 'url("/services/water tank cleaning.webp")', backgroundRepeat: 'no-repeat', backgroundPosition: 'top' }}>Water Tank Cleaning</div>
-             </div>
+             <div 
+      className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[70vh] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-auto'
+      ref={conRef}
+    >
+      {doubledServices.map((service, index) => (
+        <div
+          key={`${service.id}-${index}`}
+          className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh]'
+          style={{
+            backgroundImage: `url("${service.image}")`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'top'
+          }}
+        >
+          {service.name}
+        </div>
+      ))}
+    </div>
           </div>
     </div>
         
@@ -1573,8 +1671,8 @@ useEffect(() => {
         <h1 ref={s1HeadingRef} className='font-light h-[10vh] md:h-[20vh] w-[40vw] md:w-[35vw] ml-12 text-2xl md:text-4xl text-[#18375d] absolute'>
           Finding Skilled Experts Just Got Easier!
         </h1>
-        <div ref={s1LinkRef} className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[20vh]'>
-          <Link href='#waitlist' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[15vh] md:mt-[-5vh] font-agrandirW text-lg md:text-2xl '>Join Waitlist <FaArrowCircleRight color='#18375d' /></Link>
+        <div ref={s1LinkRef} className='linkCon flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[20vh] z-[50]'>
+          <Link href='#waitlist' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[15vh] md:mt-[-5vh] font-agrandirW text-lg md:text-2xl 'onClick={toWaitlist}>Join Waitlist <FaArrowCircleRight color='#18375d' /></Link>
         </div>
         <div ref={s1ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services1.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
         <p ref={s1TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-10vw] md:mt-0 whitespace-nowrap text-sm'>Anytime, Anywhere...</p>
@@ -1593,7 +1691,7 @@ useEffect(() => {
               <div className='right h-[100%] w-[50%]'>
                 <div className='headinCon w-full h-[25%] flex flex-col text-right items-end justify-around mt-[7vh] md:mt-[30vh] pr-2 '>
                   <h1 ref={s2HeadingRef} className=' font-light h-[5vh] md:h-[20vh] w-[40vw] md:w-[35vw] mr-0 md:mr-12 text-2xl md:text-4xl text-[#18375d] '>Book Services in Just a Few Taps!</h1>
-                <div ref={s2LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-lg md:text-2xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[-10vh] md:mt-[-20vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[25vh] md:mt-[6rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+                <div ref={s2LinkRef}  className='linkCon flex flex-row w-[15rem] md:w-80 h-16 text-lg md:text-2xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[-10vh] md:mt-[-20vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[25vh] md:mt-[6rem]'onClick={toWaitlist}>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
               </div>
               
 
@@ -1605,7 +1703,7 @@ useEffect(() => {
       <div ref={s3Ref} className='scrollele service1 h-[100vh] w-full flex mt-[-40vh] md:mt-[0vh] items-center justify-between'>
             <div className='left flex flex-col items-start justify-center h-full w-[50%] ml-[-5vw] md:ml-[0] mt-0 md:mt-[-20vh]'>
                 <h1 ref={s3HeadingRef} className=' font-light h-[10vh] md:h-[20vh] w-[40vw] md:w-[35vw] ml-12 text-2xl md:text-4xl text-[#18375d] absolute'>Track Real-Time Updates for Every Booking!</h1>
-            <div ref={s3LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[3vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[25vh] md:mt-[5rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+            <div ref={s3LinkRef}  className='linkCon flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[3vh] font-agrandirW '><Link href='/'onClick={toWaitlist} className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[25vh] md:mt-[5rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
             <div ref={s3ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services3.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
             <p  ref={s3TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-10vw] md:mt-0 whitespace-nowrap'>Real-Time Tracking</p>
             </div>
@@ -1625,7 +1723,7 @@ useEffect(() => {
               <div className='right h-[100%] w-[50%]'>
                 <div className='headinCon w-full h-[40vh] md:h-[25%] flex flex-col text-right items-end justify-around mt-[7vh] md:mt-[30vh] pr-2 '>
                   <h1 ref={s4HeadingRef} className=' font-light h-[5vh] md:h-[20vh] w-[40vw] md:w-[35vw] mr-0 md:mr-12 text-2xl md:text-4xl text-[#18375d] '>Transparent Pricing and Hassle-Free Payments!</h1>
-                <div ref={s4LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-2xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[0vh] md:mt-[-5vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+                <div ref={s4LinkRef}  className='linkCon flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-2xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[0vh] md:mt-[-5vh] font-agrandirW '><Link href='/'onClick={toWaitlist} className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
               </div>
               
 
@@ -1637,7 +1735,7 @@ useEffect(() => {
       <div ref={s5Ref} className='scrollele service1 h-[100vh] w-full flex mt-[-40vh] md:mt-[0vh] items-center justify-between'>
             <div className='left flex flex-col items-start justify-center h-full w-[50%] ml-[-5vw] md:ml-[0] mt-0 md:mt-[-20vh]'>
                 <h1 ref={s5HeadingRef} className=' font-light h-[10vh] md:h-[20vh] w-[40vw] md:w-[35vw] ml-12 text-2xl md:text-4xl text-[#18375d] absolute'>Expert Services, Anytime, Anywhere!</h1>
-            <div ref={s5LinkRef}  className='flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[35vh] md:mt-[20vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+            <div ref={s5LinkRef}  className='linkCon flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[35vh] md:mt-[20vh] font-agrandirW '><Link href='/' onClick={toWaitlist} className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
             <div ref={s5ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services5.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
             <p ref={s5TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-15vw] md:mt-0 whitespace-nowrap'>Get Top-notch services instantly...</p>
             </div>
@@ -1887,7 +1985,7 @@ useEffect(() => {
 
             </div>
             <div className='QnA2 h-[50vh] w-full flex flex-col justify-between'>
-               <div className='Q2Container h-[20%] w-[70%] ml-[9%] flex justify-center items-end gap-[1%] '>
+               <div className='Q2Container h-[20%] w-[70%] ml-[9%] flex justify-center items-end gap-[5%] '>
                      <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
                      <div className='Q2 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What is DOUM?
@@ -2152,43 +2250,43 @@ useEffect(() => {
 
         </div>
               {/*footer */}
-   <div className='scrollele footer h-auto min-h-[75vh] w-[100%] md:w-[75%] mt-[20vh] mb-[-20vh] rounded-3xl mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 py-8 z-[11] mx-0 md:mx-[12%]' style={style2}>
+   <div className='scrollele footer h-auto min-h-[75vh] w-[100%] md:w-[100%] mt-[20vh] mb-[-20vh] rounded-3xl mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 py-8 z-[11] mx-0 md:mx-[0%]' style={style2}>
    <div className='col1 h-auto w-full md:w-[25%] flex flex-col justify-center mt-6 px-4' >
-      <div className='logo h-[100px] w-[80%] items-start mx-auto md:mx-0' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}> </div>
+      <div className='logo h-[100px] w-[80%] items-start mx-auto md:mx-0 mt[0] md:mt-[5vh]' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}> </div>
       <br/>
-      <div className='text-container text-xl text-[#18375d] font-glacial font-extralight text-center md:text-left'>
+      <div className='text-container text-xl text-[#ffffff] mega_shadow font-glacial font-extralight text-center md:text-left'>
       Salt Lake City, Kolkata, Kolkata 700091, West Bengal, India
       </div>
       <br/>
-      <div className='links flex justify-center md:justify-start gap-4'>
-        <Link href='/'><AiOutlineLinkedin color='#18375d' size={40} /></Link>
-        <Link href='/'><CiInstagram color='#18375d' size={40}  /></Link>
-        <Link href='/'><AiOutlineFacebook color='#18375d' size={40}  /></Link>
-        <Link href='/'><FaXTwitter color='#18375d' size={40}  /></Link>
+      <div className='links flex justify-center md:justify-start gap-4 text-[#ffffff] mega_shadow'>
+        <Link href='/'><AiOutlineLinkedin  size={40} /></Link>
+        <Link href='/'><CiInstagram  size={40}  /></Link>
+        <Link href='/'><AiOutlineFacebook  size={40}  /></Link>
+        <Link href='/'><FaXTwitter  size={40}  /></Link>
       </div>
    </div>
    <div className='col2 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center mt-6 px-4'>
-      <h1 className='text-[#18375d] font-glacial font-bold text-xl mb-4'>Navigation</h1>
-      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>Home</Link>
-      <Link href='/'className='font-light font-glacial text-md text-[#18375d] mb-2' >How it works</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>why us</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>FAQs</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>Join Waitlist</Link>
+      <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mb-4'>Navigation</h1>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Home</Link>
+      <Link href='/'className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2' >How it works</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>why us</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>FAQs</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Join Waitlist</Link>
    </div>
    <div className='col3 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 px-4'>
-      <h1 className='text-[#18375d] font-glacial font-bold text-xl mb-4'>Get in Touch</h1>
-      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>helpdesk@mydoum.com</Link>
-      <h1 className='text-[#18375d] font-glacial font-bold text-xl mt-4 mb-2'>Enquire</h1>
-      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>+91 8967908081</Link>
-      <h1 className='text-[#18375d] font-glacial font-bold text-xl mt-4 mb-2'>Support</h1>
-      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>+91 8420385246</Link>
+      <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mb-4'>Get in Touch</h1>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>helpdesk@mydoum.com</Link>
+      <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mt-4 mb-2'>Enquire</h1>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>+91 8967908081</Link>
+      <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mt-4 mb-2'>Support</h1>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>+91 8420385246</Link>
    </div>
    <div className='col4 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 px-4'>
-      <h1 className='text-[#18375d] font-glacial font-bold text-xl mb-4'>Legal</h1>
-      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>Terms of Use</Link>
-      <Link href='/'className='font-light font-glacial text-md text-[#18375d] mb-2' >Privacy Policy</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>Equal Opportunity Policy</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>Refund and Cancellation Policy</Link>
+      <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mb-4'>Legal</h1>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Terms of Use</Link>
+      <Link href='/'className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2' >Privacy Policy</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Equal Opportunity Policy</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Refund and Cancellation Policy</Link>
    </div>
    </div>     
 

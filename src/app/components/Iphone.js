@@ -818,6 +818,7 @@ function Model() {
                 preventOverlaps: true,
                 fastScrollEnd: true,
                 immediateRender: false,
+                once: true,
                 onUpdate: (self) => {
                     // Only use this method if your model has materials
                     if (modelRef.current) {
@@ -835,7 +836,7 @@ function Model() {
                     modelRef.current.visible = true;
                 },
                 onEnterBack: () => {
-                    modelRef.current.visible = true;
+                    modelRef.current.visible = false ;
                 },
                 onLeave: () => {
                     modelRef.current.visible = false;

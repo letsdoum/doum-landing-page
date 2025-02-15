@@ -56,13 +56,13 @@ html, body {
   background-image: url('/userdp.webp');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
 }
 .employeedp{
   background-image: url('/employeedp.webp');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
 }
 .hovCon{
   color: rgba(0,0,0,0);
@@ -193,6 +193,12 @@ html{
 }
 .modelSec{
     pointer-events: none;
+}
+.modelSec{
+  pointer-events: none;
+}
+.linkCon{
+  z-index: 500;
 }
 
 
