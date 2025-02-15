@@ -1562,13 +1562,14 @@ const toServices=(e)=>{
 
 {isLoading && <Loading />} 
 
-    {/*3d model*/}
+    
+      {/*3d model*/}
 
     
-        <div className='modelSec fixed flex justify-center items-center h-[150vh] w-[100vw] z-[5] pointer-events-none'>
+      <div className='modelSec fixed flex justify-center items-center h-[150vh] w-[100vw] z-[5] pointer-events-none'>
         {aniWidth > 768 ? <Iphone /> : <MobileAni />}
         </div>
-     
+
 
       {/* video */}
       <div
@@ -2161,7 +2162,7 @@ const toServices=(e)=>{
 </div>
 
         {/* waitlist form */}
-        <div id='waitlist' className='scrollele form-section h-[140vh] w-[100vw]  flex justify-between z-[10]'>
+        <div id='waitlist' className='scrollele form-section h-[140vh] w-[100vw]  flex justify-between z-[20]'>
         <Toaster />
           <div className='circleCon  h-full w-[25%] ml-[-30vw] overflow-x-visible hidden md:inline-block'> <div className='formCircle h-[175vh] w-[175vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
              <div className='headingCon  mr-[27vh] h-[25%] w-[40%]'>
@@ -2290,8 +2291,7 @@ const toServices=(e)=>{
    </div>
    </div>     
 
-       
-
+      
 
     </>
   )
