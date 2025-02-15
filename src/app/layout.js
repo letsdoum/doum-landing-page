@@ -38,12 +38,8 @@ export default function RootLayout({ children }) {
       
       <body
   className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-start items-center gap-8 bg-[#e1eefd] overflow-x-hidden min-h-screen w-full max-w-[100vw]`}
->
-        <ClientWrapper>
-        <Navbar/>
-        <Hero/>
-        </ClientWrapper>
-       
+>       <Navbar/>
+        {children}
         
       </body>
     </html>

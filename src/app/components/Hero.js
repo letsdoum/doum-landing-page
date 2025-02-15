@@ -6,10 +6,9 @@ import { FaArrowCircleRight } from "react-icons/fa";
 import Link from 'next/link'
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Mesh, TextureLoader } from 'three';
+
 gsap.registerPlugin(ScrollTrigger)
-import { Canvas, useLoader } from '@react-three/fiber'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+
 import { FaTools } from "react-icons/fa";
 import { FaUserTag } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
@@ -116,7 +115,7 @@ function Hero() {
   
 
   const tl = gsap.timeline()
-  useEffect(() => {
+  useGSAP(() => {
     tl.from(heroRef.current, {
       opacity: 0,
       y: 1000,
@@ -152,7 +151,7 @@ function Hero() {
       duration: 0.5,
       stagger: 0.05,
     }, 'wave')
-  }, [])
+  }, )
   const [style, setStyle] = useState({});
 
   useEffect(() => {
@@ -243,7 +242,7 @@ function Hero() {
   // //     }
   // //   })
   // // }, [])
-  useEffect(() => {
+  useGSAP(() => {
     const scrollele = conRef.current
     const xval = scrollele.scrollWidth
 
@@ -259,7 +258,7 @@ function Hero() {
         }
       }
     )
-  }, [])
+  }, )
 
 
    const s1Ref = useRef()
@@ -268,7 +267,7 @@ function Hero() {
    const s4Ref = useRef()
    const s5Ref = useRef()
   
-   useEffect(() => {
+   useGSAP(() => {
     gsap.from(s1Ref.current, {
       y: 100,
       duration: 0.7,
@@ -347,8 +346,8 @@ function Hero() {
 
 
    
-  }, [])
-  useEffect(() => {
+  }, )
+  useGSAP(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: s1Ref.current,
@@ -552,13 +551,13 @@ function Hero() {
 
     
     
-  }, [])
+  }, )
 
   const circleRef = useRef()
   const whyUsRef = useRef()
   const WhyUsImgRef =useRef()
 
-  useEffect(() => {
+  useGSAP(() => {
     gsap.fromTo(whyUsRef.current,
       {
         opacity: 0
@@ -614,7 +613,7 @@ function Hero() {
   const step1HeadingRef = useRef()
   const step1ParagraphRef = useRef()
 
-  useEffect(() => {
+  useGSAP(() => {
     // Ensure DOM elements exist
     if (!step1ConRef.current) return;
   
@@ -647,16 +646,13 @@ function Hero() {
       ease: "power2.out"
     }, "-=0.3");
   
-    return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
-    };
-  }, []);
+  });
   const step2ConRef = useRef()
   const step2Ref = useRef()
   const step2HeadingRef = useRef()
   const step2ParagraphRef = useRef()
 
-  useEffect(() => {
+  useGSAP(() => {
     // Ensure DOM elements exist
     if (!step2ConRef.current) return;
   
@@ -689,17 +685,15 @@ function Hero() {
       ease: "power2.out"
     }, "-=0.3");
   
-    return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
-    };
-  }, []);
+    
+  }, );
 
   const step3ConRef = useRef()
   const step3Ref = useRef()
   const step3HeadingRef = useRef()
   const step3ParagraphRef = useRef()
 
-  useEffect(() => {
+  useGSAP(() => {
     // Ensure DOM elements exist
     if (!step3ConRef.current) return;
   
@@ -732,14 +726,12 @@ function Hero() {
       ease: "power2.out"
     }, "-=0.3");
   
-    return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
-    };
-  }, []);
+    
+  }, );
   const [isVisible, setIsVisible] = useState(true)
   const howItWorksHeadingRef = useRef(null)
 
-  useEffect(() => {
+  useGSAP(() => {
     const heading = howItWorksHeadingRef.current
     
     gsap.to(heading, {
@@ -769,10 +761,8 @@ function Hero() {
       }
     })
   
-    return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill())
-    }
-  }, [])
+    
+  }, )
 
   const whyDoumRef = useRef()
   const textRefs = useRef([] )
@@ -800,7 +790,7 @@ function Hero() {
     }
   ]
 
-  useEffect(() => {
+  useGSAP(() => {
     const container = whyDoumRef.current
     const texts = textRefs.current
     const images = imageRefs.current
@@ -895,13 +885,10 @@ function Hero() {
       })
     })
 
-    return () => {
-      observer.disconnect()
-      ScrollTrigger.getAll().forEach(t => t.kill())
-    }
-  }, [])
+   
+  }, )
 
-  useEffect(() => {
+  useGSAP(() => {
     gsap.from(".Q1Container", {
       y: 100,
       opacity: 0,
@@ -961,8 +948,8 @@ function Hero() {
         scrub:2
       }
     })
-  }, [])
-  useEffect(() => {
+  }, )
+  useGSAP(() => {
     gsap.from(".Q3Container", {
       y: 100,
       opacity: 0,
@@ -991,8 +978,8 @@ function Hero() {
         scrub:2
       }
     })
-  }, [])
-  useEffect(() => {
+  }, )
+  useGSAP(() => {
     gsap.from(".Q4Container", {
       y: 100,
       opacity: 0,
@@ -1021,8 +1008,8 @@ function Hero() {
         scrub:2
       }
     })
-  }, [])
-  useEffect(() => {
+  }, )
+  useGSAP(() => {
     gsap.from(".Q5Container", {
       y: 100,
       opacity: 0,
@@ -1051,8 +1038,8 @@ function Hero() {
         scrub:2
       }
     })
-  }, [])
-  useEffect(() => {
+  }, )
+  useGSAP(() => {
     gsap.from(".Q6Container", {
       y: 100,
       opacity: 0,
@@ -1081,8 +1068,8 @@ function Hero() {
         scrub:2
       }
     })
-  }, [])
-  useEffect(() => {
+  }, )
+  useGSAP(() => {
     gsap.from(".Q7Container", {
       y: 100,
       opacity: 0,
@@ -1111,11 +1098,11 @@ function Hero() {
         scrub:2
       }
     })
-  }, [])
+  }, )
   const featureRefs = useRef([])
 
 // Add useEffect for animations
-useEffect(() => {
+useGSAP(() => {
   featureRefs.current.forEach((container) => {
     gsap.from(container, {
       scaleX: 0,
@@ -1130,9 +1117,9 @@ useEffect(() => {
       }
     })
   })
-}, [])
+}, )
  const mobHoverRef = useRef([])
- useEffect(() => {
+ useGSAP(() => {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -1149,12 +1136,8 @@ useEffect(() => {
     if (el) observer.observe(el);
   });
 
-  return () => {
-    mobHoverRef.current.forEach((el) => {
-      if (el) observer.unobserve(el);
-    });
-  };
-}, []);
+ 
+}, );
 
 const {
   register,
@@ -1231,7 +1214,7 @@ useEffect(() => {
 }, []);
 const stepsRef =useRef()
 
-  useEffect(() => {
+  useGSAP(() => {
     gsap.set(whyUsRef.current, { opacity: 0 });
 
     const tl = gsap.timeline({
@@ -1255,10 +1238,10 @@ const stepsRef =useRef()
       ease: "power2.inOut"
     });
 
-    return () => tl.scrollTrigger.kill();
-  }, []);
+   
+  }, );
 
-useEffect(() => {
+useGSAP(() => {
 
   gsap.to('.Faq-container', {
     
@@ -1277,11 +1260,11 @@ useEffect(() => {
   });
 
 
-}, []);
+});
 const hoverCircle=useRef()
 const hoverh11 = useRef()
 const hoverh12 = useRef()
-useEffect(() => {
+useGSAP(() => {
   const htl = gsap.timeline({
     scrollTrigger: {
       trigger: hoverCircle.current,
@@ -1304,12 +1287,10 @@ useEffect(() => {
     stagger: 0.2             // Added stagger for sequential fade-in
   });
 
-  return () => {
-    htl.scrollTrigger.kill();
-  };
-}, []);
+  
+});
 
-useEffect(() => {
+useGSAP(() => {
   const htl = gsap.timeline({
     scrollTrigger: {
       trigger: '.formCircle',
@@ -1332,10 +1313,8 @@ useEffect(() => {
     stagger: 0.2             // Added stagger for sequential fade-in
   });
 
-  return () => {
-    htl.scrollTrigger.kill();
-  };
-}, []);
+  
+}, );
 const videoConRef =useRef()
 const videoRef= useRef()
 const handleMouseEnter = () => {
@@ -1470,9 +1449,22 @@ useEffect(() => {
 //     };
 //   }, []);
 
+ const [aniWidth,setAniWidth] = useState(0)
+ useEffect(() => {
+  // Set initial width
+  setAniWidth(window.innerWidth)
+  
+  // Handle resize
+  function handleResize() {
+    setAniWidth(window.innerWidth)
+  }
+  
+  window.addEventListener('resize', handleResize)
+  return () => window.removeEventListener('resize', handleResize)
+}, [])
+   
 
-
-
+ 
   return (
     <>
 
@@ -1481,8 +1473,8 @@ useEffect(() => {
     {/*3d model*/}
 
     
-        <div className='fixed flex justify-center items-center h-[150vh] w-[100vw] z-[15]'>
-          {window.innerWidth>768?<Iphone/>:<MobileAni/>}
+        <div className='modelSec fixed flex justify-center items-center h-[150vh] w-[100vw] z-[15]'>
+        {aniWidth > 768 ? <Iphone /> : <MobileAni />}
         </div>
      
 
@@ -1522,10 +1514,18 @@ useEffect(() => {
       <div className='w-[50vw] md:w-[40vw] h-[25vh] flex flex-col md:flex-row justify-evenly md:justify-between items-center mb-[0] md:mb-[200vh] mt-[0vh] md:mt-[-10vh]'>
         <div className='download w-full md:w-[50%] h-[45%] md:h-[80%] rounded-3xl' style={{ backgroundImage: 'url(/playstore.webp)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ref={el => getRef.current[0] = el}></div>
         <div className='download w-full md:w-[50%] h-[45%] md:h-[80%] rounded-3xl ' style={{ backgroundImage: 'url("/applestore.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ref={el => getRef.current[1] = el}></div>
+        
       </div>
+      {/* <div className='w-[80vw] h-[12vh] relative mt-[-205vh] hidden md:block' style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
+
+      </div>
+      <div className='block md:hidden h-[15vh] w-[70vw]   absolute mt-[65vh]'style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
+
+      </div> */}
+
     </div>
     {/* platform */}
-    <div className='w-full h-[150rem] md:h-[112.5rem] relative z-10 mt-[0vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
+    <div className='w-full h-[150rem] md:h-[112.5rem] relative z-10 mt-[20vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
         <div className='w-[70%] md:w-[40%] h-[10%] mt-[-80rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text-removebg-preview_upscayl_4x_realesrgan-x4plus.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
              {/*scroller*/}
              <div className='scrollele scrollContainer w-[1775vw] md:w-[805vw] h-[35vh] md:h-[70vh] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-auto'  ref={conRef} >
@@ -1662,7 +1662,7 @@ useEffect(() => {
        </div>
 
        {/*how it works container */}
-       <div ref={stepsRef} className='h-[550vh] w-[100vh] bg-[#e1eefd] flex flex-col justify-start items-center'>
+       <div ref={stepsRef} className='h-[550vh] w-[100%] bg-[#e1eefd] flex flex-col justify-start items-center'>
          <h1 ref={howItWorksHeadingRef} className=' font-glacial text-[#18375d] text-xl md:text-4xl sticky top-[15vh] md:top-[25vh] mb-20 whitespace-nowrap font-medium ' >
            Book an Expert in 3 Easy steps
          </h1>
@@ -1787,7 +1787,7 @@ useEffect(() => {
 
        </div>
 
-       <div className=' scrollele feature-wrapper w-[80vw] md:w-[55vw] h-[150vh] flex flex-col justify-evenly items-center'>
+       <div className=' scrollele feature-wrapper w-[80%] md:w-[55%] h-[150vh] flex flex-col justify-evenly items-center mx-[10%] md:mx-[22%]'>
         <h1 className='text-[#18375d] text-2xl md:text-3xl whitespace-nowrap font-glacial font-bold'>All features that you can enjoy</h1>
         <div className='w-full h-[90%] flex flex-col justify-evenly items-center '>
           <div className='feature-container w-[110%] md:w-[60%] h-[7%] bg-[#18375d] rounded-2xl flex'>
@@ -2016,7 +2016,7 @@ useEffect(() => {
        </div>
 
        {/* Card Hover */}
-       <div className='h-[160vh] w-[100vw] bg-[#e1eefd] overflow-y-hidden m-[-5vh] flex flex-col justify-center text-center'>
+       <div className='h-[160vh] w-[100%] bg-[#e1eefd] overflow-y-hidden m-[0%] flex flex-col justify-center text-center'>
         <div ref={hoverCircle} className=' h-[140vw] md:h-[80vw] w-[140vw] md:w-[80vw] mt-[-140vh] md:mt-[-60vw] rounded-full bg-[#004aad] flex flex-col mx-[-20vw] md:mx-[12vw] absolute -z-9'></div>
         <h1 ref={hoverh11} className='text-4xl md:text-5xl px-4 font-bold font-glacial text-[#e1eefd]  mt-[-15vh] relative  z-5'>We’re more than just an app,</h1>
         <h1 ref={hoverh12} className='text-4xl md:text-5xl font-bold font-glacial text-[#e1eefd]  mt-[5vh] relative  z-5 ml-[2vw]'>we’re your trusted home partner!</h1>
@@ -2073,7 +2073,7 @@ useEffect(() => {
               </div>  
              <div className='contact-info h-[8%] w-[30%] mr-[45vh] mb-[0vh] '>
              <p className='font-glacial text-[#e1eefd] text-2xl font-light'>+91 8967908081</p>
-             <p className='font-glacial text-[#e1eefd] text-2xl font-light'> info@mydoum.com</p>
+             <p className='font-glacial text-[#e1eefd] text-2xl font-light'> helpdesk@mydoum.com</p>
              </div>
              <div className='whatsapp h-[5%] w-[35%] mr-[23vh]' >
               <Link href='/' className='font-glacial text-[#e1eefd] text-2xl font-thin whitespace-nowrap flex items-center justify-start gap-4 ml-[-13vh]   '>Need help? Message us! <div><BsWhatsapp color='#e1eefd' /></div>  </Link> </div>
@@ -2152,7 +2152,7 @@ useEffect(() => {
 
         </div>
               {/*footer */}
-   <div className='scrollele footer h-auto min-h-[75vh] w-[100vw] md:w-[75vw] mt-[20vh] mb-[-20vh] rounded-3xl mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 py-8 z-[11]' style={style2}>
+   <div className='scrollele footer h-auto min-h-[75vh] w-[100%] md:w-[75%] mt-[20vh] mb-[-20vh] rounded-3xl mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 py-8 z-[11] mx-0 md:mx-[12%]' style={style2}>
    <div className='col1 h-auto w-full md:w-[25%] flex flex-col justify-center mt-6 px-4' >
       <div className='logo h-[100px] w-[80%] items-start mx-auto md:mx-0' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}> </div>
       <br/>
@@ -2177,7 +2177,7 @@ useEffect(() => {
    </div>
    <div className='col3 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 px-4'>
       <h1 className='text-[#18375d] font-glacial font-bold text-xl mb-4'>Get in Touch</h1>
-      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>info@mydoum.com</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>helpdesk@mydoum.com</Link>
       <h1 className='text-[#18375d] font-glacial font-bold text-xl mt-4 mb-2'>Enquire</h1>
       <Link href='/' className='font-light font-glacial text-md text-[#18375d] mb-2'>+91 8967908081</Link>
       <h1 className='text-[#18375d] font-glacial font-bold text-xl mt-4 mb-2'>Support</h1>

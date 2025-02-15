@@ -191,5 +191,8 @@ body::-webkit-scrollbar-thumb {
 html{
   scroll-behavior: smooth;
 }
+.modelSec{
+    pointer-events: none;
+}
 
 

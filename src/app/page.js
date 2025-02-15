@@ -1,8 +1,15 @@
+'use client'
 import React from 'react'
+import Hero from './components/Hero'
+import ClientWrapper from './components/ClientWrapper'
 
 function page() {
   return (
-    <div>Hello doum</div>
+    <div className='w-screen'>
+      
+    <Hero/>
+    </div>
+   
   )
 }
 
