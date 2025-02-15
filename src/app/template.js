@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Loading from './loading';
 
-export default function Template({ children }) {
+function TemplateContent() {
   const [isLoading, setIsLoading] = useState(false);
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -39,5 +39,13 @@ export default function Template({ children }) {
       </div>
       {isLoading && <Loading />}
     </>
+  );
+}
+
+export default function Template({ children }) {
+  return (
+    <Suspense fallback={<Loading />}>
+      <TemplateContent>{children}</TemplateContent>
+    </Suspense>
   );
 }
