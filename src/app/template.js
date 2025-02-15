@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Loading from './loading';
 
-function TemplateContent() {
+function TemplateContent({ children }) {  // Added children prop here
   const [isLoading, setIsLoading] = useState(false);
   const pathname = usePathname();
   const searchParams = useSearchParams();
