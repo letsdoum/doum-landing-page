@@ -1,5 +1,7 @@
 // Move viewport config from metadata to viewport export
 
+import { Suspense } from "react";
+
   export default function NotFound() {
     return (
       <Suspense fallback={<div>Loading...</div>}>
