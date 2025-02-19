@@ -441,8 +441,8 @@ function Model() {
         const tl = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -850%',
-                end: 'bottom -1050%',
+                start: 'bottom -800%',
+                end: 'bottom -1000%',
                 
                 scrub: {
         ease: "power1.out",
@@ -517,8 +517,8 @@ function Model() {
         const tl2 = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -1050%',
-                end: 'bottom -1125%',
+                start: 'bottom -1000%',
+                end: 'bottom -1075%',
                 
                 scrub: {
         ease: "power1.out",
@@ -573,8 +573,8 @@ function Model() {
         const tl3 = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -1130%',
-                end: 'bottom -1190%',
+                start: 'bottom -1075%',
+                end: 'bottom -1140%',
                 
                 scrub: {
         ease: "power1.out",
@@ -629,8 +629,8 @@ function Model() {
         const tl4= gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -1190%',
-                end: 'bottom -1240%',
+                start: 'bottom -1150%',
+                end: 'bottom -1190%',
                 
                 scrub: {
         ease: "power1.out",
@@ -687,7 +687,7 @@ function Model() {
             scrollTrigger: {
                 trigger: "#model-section",
                 start: 'bottom -1270%',
-                end: 'bottom -1290%',
+                end: 'bottom -1280%',
                 
                 scrub: {
                     ease: "power1.out",
@@ -904,7 +904,7 @@ function Model() {
   function Iphone() {
     return (
         <div id="model-section" className="h-full w-full flex justify-center items-center relative">
-            <Canvas>
+            <Canvas style={{pointerEvents:"none"}}>
                 <Suspense >
                     <OptimizedMobileLighting/>
                     <Model />

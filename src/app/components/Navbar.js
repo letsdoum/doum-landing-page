@@ -3,6 +3,8 @@ import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { RiMenu3Fill } from "react-icons/ri";
+import { useRouter, usePathname } from "next/navigation";
+import { Router } from 'next/router';
 
 
 function Navbar() {
@@ -81,16 +83,22 @@ function Navbar() {
          )
     })
 
-    const toServices=(e)=>{
+    const toServices = (e) => {
       e.preventDefault();
+      
+      // Get the services element
+      const services = document.getElementById('scroller');
+      
+      if (services) {
+        const offset = 20 * window.innerHeight / 100; // 10vh in pixels
+        const elementPosition = services.getBoundingClientRect().top + window.scrollY;
         
-        // Get the services element
-        const services = document.getElementById('services');
-        
-        if (services) {
-          services.scrollIntoView({ behavior: 'smooth' });
-        }
-      };
+        window.scrollTo({
+          top: elementPosition - offset, // Scroll to 10vh before the element
+          behavior: 'smooth',
+        });
+      }
+    };
 
       const toHowItWorks=(e)=>{
         e.preventDefault();
@@ -134,8 +142,21 @@ function Navbar() {
                       }
                     };
 
-    
-     
+                    const pathname = usePathname();
+
+                    const handleClick = () => {
+                      if (pathname === "/") {
+                        window.location.reload(); // Refresh if already on "/"
+                      } else {
+                        window.location.href = "/"; // Navigate to "/"
+                      }
+                    };
+                    const handleNavigation = (sectionId) => {
+                       
+                        // Redirect to / and append the hash for scrolling
+                        window.location.href = `/#${sectionId}`;
+                      
+                    };
        
        
 
@@ -144,13 +165,14 @@ function Navbar() {
     return (
         <>
         <div ref={barRef} className='hidden md:flex h-[15vh] w-[50vw] rounded-full bg-[#bbd7f47a] justify-center items-center drop-shadow-2xl fixed top-12 left-1/20 z-20 object-contain gap-6 backdrop-blur-xl min-w-[320px] overflow-hidden'>
-            <Link href='#services' onClick={toServices} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem ' ref={el => linksRef.current[0] = el}>Services</Link>
-            <Link href='#howItWorks' onClick={toHowItWorks} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[1] = el}>How it works</Link>
+        <Link href='/#services' onClick={toServices} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem ' ref={el => linksRef.current[0] = el}>Services</Link>
+
+            <Link href='/#howItWorks' onClick={toHowItWorks} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[1] = el}>How it works</Link>
             <a  href='/Blog'className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[2] = el}>Blogs</a>
-            <div ref={divRef} className='h-full w-1/6' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}></div>
-            <Link href='#whyUs' onClick={toWhyUs} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[3] = el}>Why us</Link>
-            <Link href='#faq' onClick={toFAQ} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[4] = el}>FAQs</Link>
-            <Link href='#waitlist' onClick={toWaitlist} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[5] = el}>Join Waitlist</Link>
+            <div ref={divRef} className='h-full w-1/6' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply', cursor: "pointer" }}   onClick={handleClick}></div>
+            <Link href='/#whyUs' onClick={toWhyUs} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[3] = el}>Why us</Link>
+            <Link href='/#faq' onClick={toFAQ} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[4] = el}>FAQs</Link>
+            <Link href='/#waitlist' onClick={toWaitlist} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[5] = el}>Join Waitlist</Link>
         </div>
        
         <div ref={mobBarRef} className='flex md:hidden h-[10vh] w-[95%] fixed rounded-full bg-[#bbd7f47a] backdrop-blur-xl flex justify-between items-center top-4 fixed z-[200]'>
