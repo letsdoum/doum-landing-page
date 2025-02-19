@@ -79,7 +79,7 @@ function Hero() {
   const paraRef = useRef()
   const getRef = useRef([])
   const starRef = useRef([])
-  const h4Ref = useRef([])
+  const h4Ref = useRef()
 
   const s1HeadingRef = useRef(null)
   const s1LinkRef = useRef(null)
@@ -250,7 +250,7 @@ function Hero() {
     { id: 5, name: 'Chimney service', image: '/services/chimney.webp' },
     { id: 6, name: 'Cook service', image: '/services/cook.webp' },
     { id: 7, name: 'Electricial service', image: '/services/electrician.webp' },
-    { id: 8, name: 'Fridge Servicing', image: '/services/fridge.webp' },
+    { id: 8, name: 'Fridge Servicing', image: '/services/Fridge.webp' },
     { id: 9, name: 'Handyman', image: '/services/Handyman.webp' },
     { id: 10, name: 'home cleaning service', image: '/services/home cleaning service.webp' },
     { id: 11, name: 'home theatre service', image: '/services/home theatre repair.webp' },
@@ -260,7 +260,7 @@ function Hero() {
     { id: 15, name: 'Microwave servicing', image: '/services/Microwave.webp' },
     { id: 16, name: 'Mover services', image: '/services/Movers and Good Carriers.webp' },
     { id: 17, name: 'Pest Control', image: '/services/pest control.webp' },
-    { id: 18, name: 'Plumber Services', image: '/services/plumbing.webp' },
+    { id: 18, name: 'Plumber Services', image: '/services/Plumbing.webp' },
     { id: 19, name: 'Camera installation', image: '/services/security camera installation service.webp' },
     { id: 20, name: 'Tank Cleaning', image: '/services/Septic Tank Cleaning.webp' },
     { id: 21, name: 'Smart Home service', image: '/services/smart home service.webp' },
@@ -308,14 +308,14 @@ function Hero() {
       duration: 0.7,
       
       opacity: 0,
-      ease: 'power4.out',
+      ease: 'linear',
       scrollTrigger: {
         trigger: s1Ref.current,
         scroller: 'body',
         
         scrub: 4,
         start: 'top 35%',
-        end: 'bottom 90%'
+        end: 'bottom 120%'
       }
     })
     gsap.from(s2Ref.current, {
@@ -323,14 +323,14 @@ function Hero() {
       duration: 0.7,
       
       opacity: 0,
-      ease: 'power4.out',
+      ease: 'linear',
       scrollTrigger: {
         trigger: s2Ref.current,
         scroller: 'body',
         
         scrub: 4,
         start: 'top 35%',
-        end: 'bottom 90%'
+        end: 'bottom 120%'
       }
     })
     gsap.from(s3Ref.current, {
@@ -338,14 +338,14 @@ function Hero() {
       duration: 0.7,
       
       opacity: 0,
-      ease: 'power4.out',
+      ease: 'linear',
       scrollTrigger: {
         trigger: s3Ref.current,
         scroller: 'body',
         
         scrub: 4,
         start: 'top 35%',
-        end: 'bottom 90%'
+        end: 'bottom 120%'
       }
     })
     gsap.from(s4Ref.current, {
@@ -353,14 +353,14 @@ function Hero() {
       duration: 0.7,
       
       opacity: 0,
-      ease: 'power4.out',
+      ease: 'linear',
       scrollTrigger: {
         trigger: s4Ref.current,
         scroller: 'body',
         
         scrub: 4,
         start: 'top 35%',
-        end: 'bottom 90%'
+        end: 'bottom 120%'
       }
     })
     gsap.from(s5Ref.current, {
@@ -368,14 +368,14 @@ function Hero() {
       duration: 0.7,
       
       opacity: 0,
-      ease: 'power4.out',
+      ease: 'linear',
       scrollTrigger: {
         trigger: s5Ref.current,
         scroller: 'body',
         
         scrub: 4,
         start: 'top 35%',
-        end: 'bottom 90%'
+        end: 'bottom 120%'
       }
     })
 
@@ -1328,12 +1328,12 @@ useGSAP(() => {
 useGSAP(() => {
   const htl = gsap.timeline({
     scrollTrigger: {
-      trigger: '.formCircle',
-      start: 'center bottom', // Changed from 'bottom bottom'
-      end: 'center center',   // Changed from 'top top'
-      toggleActions: 'play none none reverse',
-      scrub: 1,              // Reduced from 4 for smoother animation
-          }
+      trigger: ".formCircle",
+      start: "top 85%",  // Triggers earlier (was 'center bottom')
+      end: "top 100%", // Ends earlier (was 'bottom center')
+      toggleActions: "play none none reverse",
+      scrub: 1,          
+    },
   });
 
   htl.from('.formCircle', {
@@ -1566,7 +1566,7 @@ const toServices=(e)=>{
       {/*3d model*/}
 
     
-      <div className='modelSec fixed flex justify-center items-center h-[150vh] w-[100vw] z-[5] pointer-events-none'>
+      <div className='modelSec fixed flex justify-center items-center h-[150vh] w-[100vw] z-[15] pointer-events-none' style={{pointerEvents:'none'}}>
         {aniWidth > 768 ? <Iphone /> : <MobileAni />}
         </div>
 
@@ -1574,9 +1574,9 @@ const toServices=(e)=>{
       {/* video */}
       <div
       ref={videoConRef}
-      className={`fixed bottom-4 right-4 w-[40vw] md:w-[20vw] h-[7vh] md:h-[10vh] hover:h-[90%] hover:md:h-[70%] hover:w-[90%] hover:md:w-[80%] overflow-hidden 
-                  transition-all duration-500 ease-in-out rounded-full hover:rounded-lg shadow-lg bg-transparent z-[20]
-                 invisible md:visible `}
+      className={`fixed bottom-4 right-4 w-[40vw] md:w-[20vw] h-[7vh] md:h-[10vh] hover:h-[90%] hover:md:h-[80%] hover:w-[90%] hover:md:w-[85%] overflow-hidden 
+                  transition-all duration-500 ease-in-out rounded-full hover:rounded-lg shadow-lg bg-transparent z-[50] 
+                 invisible md:visible  `}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -1619,18 +1619,16 @@ const toServices=(e)=>{
       <div className='h-12 w-12  absolute top-[20vh] left-[80vw]' style={{ backgroundImage: "url(/star.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center', mixBlendMode:"multiply" }} ref={el => starRef.current[1] = el}></div>
       <div className='mt-[0vh] md:mt-[20vh] h-[40vh] md:h-[10%] w-[90vw] min-w-[320px]' style={{ backgroundImage: 'url(/Hero-text.webp)', backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center', mixBlendMode: 'multiply' }}></div>
       <div className='mt-[-15vh] md:mt-[-5vh]  h-16 w-400 overflow-hidden'><h4 className='text-xl md:text-2xl lg:text-3xl text-[#18375d] font-semibold font-glacial'>
-        {"All Your Home Services, One Tap Away!".split(" ").map((letter, index) => (
-          <span key={index} ref={el => h4Ref.current[index] = el} className='inline-block mr-1'>{letter}</span>
-        ))}
+      All Your Home Services, One Tap Away!
       </h4></div>
       <div className='w-[50vw] md:w-[40vw] h-[25vh] flex flex-col md:flex-row justify-evenly md:justify-between items-center mb-[0] md:mb-[200vh] mt-[0vh] md:mt-[-10vh]'>
         <div className='download w-full md:w-[50%] h-[45%] md:h-[80%] rounded-3xl' style={{ backgroundImage: 'url(/playstore.webp)',  backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ref={el => getRef.current[0] = el}></div>
         <div className='download w-full md:w-[50%] h-[45%] md:h-[80%] rounded-3xl ' style={{ backgroundImage: 'url("/applestore.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ref={el => getRef.current[1] = el}></div>
         
       </div>
-       <div className='w-[80vw] h-[12vh] relative mt-[-205vh] hidden md:block' style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
+      <a href='/Blog'> <div className='w-[80vw] h-[12vh] relative mt-[-205vh] hidden md:block' style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
 
-      </div>
+      </div></a>
      <a href='/Blog'> <div className='block md:hidden h-[15vh] w-[70vw]   absolute z-[20] mt-[65vh]'style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
 
       </div> </a>
@@ -1640,7 +1638,7 @@ const toServices=(e)=>{
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[20vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
         <div className='w-[70%] md:w-[40%] h-[10%] mt-[-80rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text-removebg-preview_upscayl_4x_realesrgan-x4plus.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
              {/*scroller*/}
-             <div 
+             <div id='scroller'
       className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[70vh] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-auto'
       ref={conRef}
     >
@@ -1690,7 +1688,7 @@ const toServices=(e)=>{
              </p>
               </div>
               <div className='right h-[100%] w-[50%]'>
-                <div className='headinCon w-full h-[25%] flex flex-col text-right items-end justify-around mt-[7vh] md:mt-[30vh] pr-2 '>
+                <div className='headinCon w-full h-[25%] flex flex-col text-right items-end justify-around mt-[7vh] md:mt-[35vh] pr-2 '>
                   <h1 ref={s2HeadingRef} className=' font-light h-[5vh] md:h-[20vh] w-[40vw] md:w-[35vw] mr-0 md:mr-12 text-2xl md:text-4xl text-[#18375d] '>Book Services in Just a Few Taps!</h1>
                 <div ref={s2LinkRef}  className='linkCon flex flex-row w-[15rem] md:w-80 h-16 text-lg md:text-2xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[-10vh] md:mt-[-20vh] font-agrandirW '><Link href='/' className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[25vh] md:mt-[6rem]'onClick={toWaitlist}>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
               </div>
@@ -1722,7 +1720,7 @@ const toServices=(e)=>{
              </p>
               </div>
               <div className='right h-[100%] w-[50%]'>
-                <div className='headinCon w-full h-[40vh] md:h-[25%] flex flex-col text-right items-end justify-around mt-[7vh] md:mt-[30vh] pr-2 '>
+                <div className='headinCon w-full h-[40vh] md:h-[25%] flex flex-col text-right items-end justify-around mt-[7vh] md:mt-[35vh] pr-2 '>
                   <h1 ref={s4HeadingRef} className=' font-light h-[5vh] md:h-[20vh] w-[40vw] md:w-[35vw] mr-0 md:mr-12 text-2xl md:text-4xl text-[#18375d] '>Transparent Pricing and Hassle-Free Payments!</h1>
                 <div ref={s4LinkRef}  className='linkCon flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-2xl font-light items-center mr-[-10vw] md:mr-[-2vw] whitespace-nowrap justify-start  mt-[0vh] md:mt-[-5vh] font-agrandirW '><Link href='/'onClick={toWaitlist} className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
               </div>
@@ -2120,14 +2118,14 @@ const toServices=(e)=>{
         <h1 ref={hoverh11} className='text-4xl md:text-5xl px-4 font-bold font-glacial text-[#e1eefd]  mt-[-15vh] relative  z-5'>We’re more than just an app,</h1>
         <h1 ref={hoverh12} className='text-4xl md:text-5xl font-bold font-glacial text-[#e1eefd]  mt-[5vh] relative  z-5 ml-[2vw]'>we’re your trusted home partner!</h1>
         <div className= 'scrollele hover container w-full h-[80vh] self-center mt-[20vh] relative z-[15] flex justify-center items-center gap-[1%] invisible md:visible overflow-x-hidden '>
-           <div className= 'hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/8.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Beyond Bookings,We Build Trust </div>
-           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/9.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>More Than Service,We Offer Care</div>
-           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/10.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Not Just an App,a Helping Hand </div>
-           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/11.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Your Home,Our Responsibility </div>
-           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/12.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Service with a Personal Touch </div>
-           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/13.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Here for Every Home, Every Need </div>
-           <div className='hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/14.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>From Quick Fixes to Lasting Trust </div>
-           <div className='hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow' style={{ backgroundImage: 'url(/hover/15.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>A Relationship, Not Just a Transaction </div>
+           <div className= 'hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow text-start mega_shadow_pc' style={{ backgroundImage: 'url(/hover/8.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Beyond Bookings,We Build Trust </div>
+           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow text-start mega_shadow_pc' style={{ backgroundImage: 'url(/hover/9.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>More Than Service,We Offer Care</div>
+           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow text-start mega_shadow_pc' style={{ backgroundImage: 'url(/hover/10.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Not Just an App,a Helping Hand </div>
+           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow text-start mega_shadow_pc' style={{ backgroundImage: 'url(/hover/11.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Your Home,Our Responsibility </div>
+           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow text-start mega_shadow_pc' style={{ backgroundImage: 'url(/hover/12.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Service with a Personal Touch </div>
+           <div className=' hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow text-start mega_shadow_pc' style={{ backgroundImage: 'url(/hover/13.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>Here for Every Home, Every Need </div>
+           <div className='hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow text-start mega_shadow_pc' style={{ backgroundImage: 'url(/hover/14.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>From Quick Fixes to Lasting Trust </div>
+           <div className='hovCon bg-red-600 w-[10%] h-[95%] grayscale hover:grayscale-0 text-opacity-0 hover:text-opacity-100 text-3xl flex flex-col justify-end items-start px-[3%] py-[3%] rounded-2xl hover:w-[27%] hover:bg-emerald-600 transition-all duration-700 flex-1 hover:text-shadow text-start mega_shadow_pc' style={{ backgroundImage: 'url(/hover/15.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>A Relationship, Not Just a Transaction </div>
           
             
 
@@ -2252,7 +2250,7 @@ const toServices=(e)=>{
         </div>
               {/*footer */}
    <div className='scrollele footer h-auto min-h-[75vh] w-[100%] md:w-[100%] mt-[20vh] mb-[-20vh] rounded-3xl mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 py-8 z-[11] mx-0 md:mx-[0%]' style={style2}>
-   <div className='col1 h-auto w-full md:w-[25%] flex flex-col justify-center mt-6 px-4' >
+   <div className='col1 h-auto w-full md:w-[25%] flex flex-col justify-center mt-6 md:mt-12 px-4' >
       <div className='logo h-[100px] w-[80%] items-start mx-auto md:mx-0 mt[0] md:mt-[5vh]' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}> </div>
       <br/>
       <div className='text-container text-xl text-[#ffffff] mega_shadow font-glacial font-extralight text-center md:text-left'>
@@ -2266,7 +2264,7 @@ const toServices=(e)=>{
         <Link href='/'><FaXTwitter  size={40}  /></Link>
       </div>
    </div>
-   <div className='col2 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center mt-6 px-4'>
+   <div className='col2 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center mt-6 md:mt-20 px-4'>
       <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mb-4'>Navigation</h1>
       <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Home</Link>
       <Link href='/'className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2' >How it works</Link>
@@ -2274,7 +2272,7 @@ const toServices=(e)=>{
       <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>FAQs</Link>
       <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Join Waitlist</Link>
    </div>
-   <div className='col3 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 px-4'>
+   <div className='col3 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 md:mt-20 px-4'>
       <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mb-4'>Get in Touch</h1>
       <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>helpdesk@mydoum.com</Link>
       <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mt-4 mb-2'>Enquire</h1>
@@ -2282,7 +2280,7 @@ const toServices=(e)=>{
       <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mt-4 mb-2'>Support</h1>
       <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>+91 8420385246</Link>
    </div>
-   <div className='col4 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 px-4'>
+   <div className='col4 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 md:mt-20 px-4'>
       <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mb-4'>Legal</h1>
       <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Terms of Use</Link>
       <Link href='/'className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2' >Privacy Policy</Link>
