@@ -312,9 +312,9 @@ function Hero() {
       scrollTrigger: {
         trigger: s1Ref.current,
         scroller: 'body',
-        
+       
         scrub: 4,
-        start: 'top 35%',
+        start: 'top 150%',
         end: 'bottom 120%'
       }
     })
@@ -387,7 +387,7 @@ function Hero() {
       scrollTrigger: {
         trigger: s1Ref.current,
         start: "top 60%",
-        end: "bottom 100%",
+        end: "bottom 150%",
         scrub: 2,
         
       }
@@ -428,7 +428,7 @@ function Hero() {
       scrollTrigger: {
         trigger: s2Ref.current,
         start: "top 60%",
-        end: "bottom 100%",
+        end: "bottom 150%",
         scrub: 2,
         
       }
@@ -467,7 +467,7 @@ function Hero() {
       scrollTrigger: {
         trigger: s3Ref.current,
         start: "top 60%",
-        end: "bottom 100%",
+        end: "bottom 150%",
         scrub: 2,
        
       }
@@ -506,7 +506,7 @@ function Hero() {
       scrollTrigger: {
         trigger: s4Ref.current,
         start: "top 60%",
-        end: "bottom 100%",
+        end: "bottom 150%",
         scrub: 2,
         
       }
@@ -546,7 +546,7 @@ function Hero() {
       scrollTrigger: {
         trigger: s5Ref.current,
         start: "top 60%",
-        end: "bottom 100%",
+        end: "bottom 150%",
         scrub: 2,
         
       }
@@ -954,12 +954,13 @@ function Hero() {
       }
     })
   }, [])
-  useEffect(() => {
+  useGSAP(() => {
     gsap.from(".Q2Container", {
       y: 100,
       opacity: 0,
       duration: 0.8,
       ease: "power2.out",
+      marker: true,
       scrollTrigger: {
         trigger: ".Q2Container",
         start: "top bottom",
@@ -975,6 +976,7 @@ function Hero() {
       duration: 0.8,
       ease: "power2.out",
       delay: 0.3,
+      marker: true,
       scrollTrigger: {
         trigger: ".A2Container",
         start: "top bottom",
@@ -983,7 +985,7 @@ function Hero() {
         scrub:2
       }
     })
-  }, )
+  } )
   useGSAP(() => {
     gsap.from(".Q3Container", {
       y: 100,
@@ -1702,7 +1704,7 @@ const toServices=(e)=>{
       <div ref={s3Ref} className='scrollele service1 h-[100vh] w-full flex mt-[-40vh] md:mt-[0vh] items-center justify-between'>
             <div className='left flex flex-col items-start justify-center h-full w-[50%] ml-[-5vw] md:ml-[0] mt-0 md:mt-[-20vh]'>
                 <h1 ref={s3HeadingRef} className=' font-light h-[10vh] md:h-[20vh] w-[40vw] md:w-[35vw] ml-12 text-2xl md:text-4xl text-[#18375d] absolute'>Track Real-Time Updates for Every Booking!</h1>
-            <div ref={s3LinkRef}  className='linkCon flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[3vh] font-agrandirW '><Link href='/'onClick={toWaitlist} className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[25vh] md:mt-[5rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+            <div ref={s3LinkRef}  className='linkCon flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-2xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[3vh] font-agrandirW '><Link href='/'onClick={toWaitlist} className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[25vh] md:mt-[5rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
             <div ref={s3ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services3.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
             <p  ref={s3TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-10vw] md:mt-0 whitespace-nowrap'>Real-Time Tracking</p>
             </div>
@@ -1734,7 +1736,7 @@ const toServices=(e)=>{
       <div ref={s5Ref} className='scrollele service1 h-[100vh] w-full flex mt-[-40vh] md:mt-[0vh] items-center justify-between'>
             <div className='left flex flex-col items-start justify-center h-full w-[50%] ml-[-5vw] md:ml-[0] mt-0 md:mt-[-20vh]'>
                 <h1 ref={s5HeadingRef} className=' font-light h-[10vh] md:h-[20vh] w-[40vw] md:w-[35vw] ml-12 text-2xl md:text-4xl text-[#18375d] absolute'>Expert Services, Anytime, Anywhere!</h1>
-            <div ref={s5LinkRef}  className='linkCon flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[35vh] md:mt-[20vh] font-agrandirW '><Link href='/' onClick={toWaitlist} className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+            <div ref={s5LinkRef}  className='linkCon flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-2xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[35vh] md:mt-[20vh] font-agrandirW '><Link href='/' onClick={toWaitlist} className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
             <div ref={s5ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services5.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
             <p ref={s5TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-15vw] md:mt-0 whitespace-nowrap'>Get Top-notch services instantly...</p>
             </div>
@@ -1760,7 +1762,7 @@ const toServices=(e)=>{
 
        {/*how it works container */}
        <div ref={stepsRef} className='h-[550vh] w-[100%] bg-[#e1eefd] flex flex-col justify-start items-center'>
-         <h1 ref={howItWorksHeadingRef} className=' font-glacial text-[#18375d] text-xl md:text-4xl sticky top-[15vh] md:top-[25vh] mb-20 whitespace-nowrap font-medium ' >
+         <h1 ref={howItWorksHeadingRef} className=' font-glacial text-[#18375d] text-xl md:text-4xl sticky top-[15vh] md:top-[25vh] my-20 whitespace-nowrap font-medium ' >
            Book an Expert in 3 Easy steps
          </h1>
         
@@ -1984,7 +1986,7 @@ const toServices=(e)=>{
 
             </div>
             <div className='QnA2 h-[50vh] w-full flex flex-col justify-between'>
-               <div className='Q2Container h-[20%] w-[70%] ml-[9%] flex justify-center items-end gap-[5%] '>
+               <div className='Q2Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
                      <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
                      <div className='Q2 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What is DOUM?
