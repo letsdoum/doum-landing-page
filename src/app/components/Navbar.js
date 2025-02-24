@@ -190,12 +190,12 @@ function Navbar() {
             }}><RiMenu3Fill color='#18375d' /></button></div>
         </div>
         <div ref={panelRef} className='flex flex-col h-[85vh] w-[90vw] justify-evenly bg-[#bbd7f47a] rounded-3xl backdrop-blur-xl fixed right-[-100vw] mr-[3vw] top-[13vh] z-[200] opacity-0 text-[#18375d]'>
-            <Link href='/' className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[0] = el}>Services</Link>
-            <Link href='/' className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[1] = el}>How it Works</Link>
+            <Link href='/'  onClick={()=>{toServices; tl2.reverse()}} className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[0] = el}>Services</Link>
+            <Link href='/' onClick={()=>{toHowItWorks; tl2.reverse()}} className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[1] = el}>How it Works</Link>
             <a href='/Blog' className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[2] = el}>Blog</a>
-            <Link href='/' className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[3] = el}>Why Us</Link>
-            <Link href='/' className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[4] = el}>FAQs</Link>
-            <Link href='/' className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[5] = el}>Join Waitlist</Link>
+            <Link href='/' onClick={()=>{toWhyUs; tl2.reverse()}} className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[3] = el}>Why Us</Link>
+            <Link href='/' onClick={()=>{toFAQ; tl2.reverse()}} className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[4] = el}>FAQs</Link>
+            <Link href='/' onClick={()=>{toWaitlist; tl2.reverse()}} className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[5] = el}>Join Waitlist</Link>
         </div>
         </>
     )
