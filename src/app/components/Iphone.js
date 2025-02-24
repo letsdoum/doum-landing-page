@@ -769,7 +769,7 @@ function Model() {
         const tl =gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -1590%',
+                start: 'bottom -1550%',
                 end: 'bottom -1690%',
                 
                 scrub: 1
