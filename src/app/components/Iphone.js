@@ -230,42 +230,51 @@ function Model() {
                 start: 'bottom -750%',
                 end: 'bottom -790%',
                 scrub: {
-        ease: "power1.out",
-        smoothing: 0.5,
-        duration: 0.5
-    },
-    preventOverlaps: true,
-    fastScrollEnd: true,
-    immediateRender: false,
-                invalidateOnRefresh: true, // Recalculate on resize/refresh
-  fastScrollEnd: true, // Better handling of fast scrolling
-                
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
+                invalidateOnRefresh: true,
+                fastScrollEnd: true,
                 onUpdate: (self) => {
-                    // Make everything transparent
-                    modelRef.current.traverse((node) => {
-                        if (node.material) {
-                            node.material.opacity = 1 - self.progress;
+                    const progress = self.progress;
+                    [modelRef, model2Ref].forEach(ref => {
+                        if (ref.current) {
+                            ref.current.traverse((node) => {
+                                if (node.material) {
+                                    node.material.transparent = true;
+                                    node.material.opacity = 1 - progress;
+                                    node.material.needsUpdate = true;
+                                }
+                            });
                         }
-                    })
-                    model2Ref.current.traverse((node) => {
-                        if (node.material) {
-                            node.material.opacity = 1 - self.progress;
-                        }
-                    })
+                    });
+
+                    // If progress is complete, hide the models
+                    if (progress === 1) {
+                        modelRef.current.visible = false;
+                        model2Ref.current.visible = false;
+                    }
                 },
                 onLeave: () => {
                     modelRef.current.visible = false;
                     model2Ref.current.visible = false;
                 },
                 onEnterBack: () => {
-                    if (model2Ref.current.visible) {
-                        model2Ref.current.visible = true;
-                    } else {
-                        modelRef.current.visible = true;
-                    }
+                    // Only make visible if we're not at the end of the animation
+                    
+                        if (model2Ref.current.visible) {
+                            model2Ref.current.visible = true;
+                        } else {
+                            modelRef.current.visible = true;
+                        }
+                    
                 }
             }
-        })
+        });
         tl.fromTo([modelRef.current.scale, model2Ref.current.scale], {
             x: 18,
             y: 18,

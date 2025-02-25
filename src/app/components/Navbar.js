@@ -131,16 +131,20 @@ function Navbar() {
                   }
                 };
 
-                const toWaitlist=(e)=>{
-                    e.preventDefault();
-                      
-                      // Get the services element
-                      const waitlist = document.getElementById('waitlist');
-                      
-                      if (waitlist) {
-                        waitlist.scrollIntoView({ behavior: 'smooth' });
-                      }
-                    };
+                const toWaitlist = (e) => {
+                  e.preventDefault();
+              
+                  const waitlist = document.getElementById('waitlist');
+              
+                  if (waitlist) {
+                      const margin = window.innerHeight * 0.03;
+              
+                      window.scrollTo({
+                          top: waitlist.offsetTop + margin,
+                          behavior: 'smooth'
+                      });
+                  }
+              };
 
                     const pathname = usePathname();
 

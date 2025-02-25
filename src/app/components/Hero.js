@@ -1545,16 +1545,20 @@ const toServices=(e)=>{
               }
             };
 
-            const toWaitlist=(e)=>{
-                e.preventDefault();
-                  
-                  // Get the services element
-                  const waitlist = document.getElementById('waitlist');
-                  
-                  if (waitlist) {
-                    waitlist.scrollIntoView({ behavior: 'smooth' });
-                  }
-                };
+            const toWaitlist = (e) => {
+              e.preventDefault();
+          
+              const waitlist = document.getElementById('waitlist');
+          
+              if (waitlist) {
+                  const margin = window.innerHeight * 0.1;
+          
+                  window.scrollTo({
+                      top: waitlist.offsetTop + margin,
+                      behavior: 'smooth'
+                  });
+              }
+          };
 
    
 
@@ -1631,13 +1635,13 @@ const toServices=(e)=>{
       <a href='/Blog'> <div className='w-[80vw] h-[12vh] relative mt-[-205vh] hidden md:block' style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
 
       </div></a>
-     <a href='/Blog'> <div className='block md:hidden h-[15vh] w-[70vw]   absolute z-[20] mt-[65vh]'style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
+     <a href='/Blog'> <div className='block md:hidden h-[15vh] w-[70vw] ml-[-35vw]  absolute z-[20] mt-[-5vh]'style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
 
       </div> </a>
 
     </div>
     {/* platform */}
-    <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[20vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
+    <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[10vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
         <div className='w-[70%] md:w-[40%] h-[10%] mt-[-80rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text-removebg-preview_upscayl_4x_realesrgan-x4plus.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
              {/*scroller*/}
              <div id='scroller'
@@ -2170,8 +2174,8 @@ const toServices=(e)=>{
               Be One of the First 100 to Get a Free Service!
               </h1>
               </div>  
-             <div className='contact-info h-[8%] w-[30%] mr-[45vh] mb-[0vh] '>
-             <p className='font-glacial text-[#e1eefd] text-2xl font-light'>+91 8967908081</p>
+             <div className='contact-info h-[8%] w-[30%] mr-[45vh] mb-[0vh] mt-[-10vh] '>
+             
              <p className='font-glacial text-[#e1eefd] text-2xl font-light'> helpdesk@mydoum.com</p>
              </div>
              <div className='whatsapp h-[5%] w-[35%] mr-[23vh]' >
