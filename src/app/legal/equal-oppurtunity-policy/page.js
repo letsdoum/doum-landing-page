@@ -4,7 +4,7 @@ import React from 'react'
 function equalOppurtunityPolicy() {
     return (
       <>
-        <Navbar2/>
+       <div className=' w-full ml-[20vw] md:ml-[5vw]'><Navbar2/></div>
         <div className="bg-white text-[#18375d] p-6 md:p-12 max-w-4xl mx-auto font-glacial mt-[5vh] md:mt-[25vh] rounded-lg">
           <h1 className="text-3xl font-bold text-center mb-6">EQUAL OPPORTUNITY POLICY</h1>
           <p className="text-gray-700 text-center">Date of Issue: 18th February 2025</p>

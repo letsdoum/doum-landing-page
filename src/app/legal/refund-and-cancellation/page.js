@@ -4,7 +4,7 @@ import React from 'react'
 function refundAndCancellation() {
     return (
       <>
-      <Navbar2/>
+      <div className=' w-full ml-[20vw] md:ml-[5vw]'><Navbar2/></div>
         <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg text-[#18375d] font-glacial mt-[5vh] md:mt-[25vh]">
           <h1 className="text-3xl font-bold mb-4">Refund & Cancellation Policy</h1>
           <p className="text-gray-600 mb-6">Last Updated: 8th February 2025</p>

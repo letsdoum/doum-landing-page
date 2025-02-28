@@ -4,7 +4,7 @@ import React from 'react'
 function termsOfUse() {
     return (
       <>
-      <Navbar2/>
+      <div className=' w-full ml-[20vw] md:ml-[5vw]'><Navbar2/></div>
         <div className="bg-[#e1eefd] mt-[5vh] md:mt-[25vh] text-[#18375d] min-h-screen p-6">
           <div className="max-w-4xl mx-auto bg-white p-8 shadow-lg rounded-lg font-glacial">
             <h1 className="text-3xl font-bold mb-4">TERMS AND CONDITIONS</h1>
