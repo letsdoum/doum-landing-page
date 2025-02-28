@@ -1513,6 +1513,14 @@ const toServices=(e)=>{
       services.scrollIntoView({ behavior: 'smooth' });
     }
   };
+  const toHome = (e) => {
+    e.preventDefault();
+  
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   const toHowItWorks=(e)=>{
     e.preventDefault();
@@ -1565,6 +1573,8 @@ const toServices=(e)=>{
  
   return (
     <>
+
+
 
 {isLoading && <Loading />} 
 
@@ -1972,7 +1982,7 @@ const toServices=(e)=>{
           <div className='FAQS w-full h-[430vh]  flex flex-col justify-evenly items-center overflow-hidden gap-8 relative z-10'>
             <div className='QnA1 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q1Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
+                     <div className='userdp h-20 w-20 rounded-full bg-gray-400'></div>
                      <div className='Q1 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-center px-[2%] mr-[11vw]'>
                      Hi, I’m new to DOUM and have a lot of questions about how it works. Can you help?
 
@@ -1991,7 +2001,7 @@ const toServices=(e)=>{
             </div>
             <div className='QnA2 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q2Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
+                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
                      <div className='Q2 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What is DOUM?
 
@@ -2010,7 +2020,7 @@ const toServices=(e)=>{
             </div>
             <div className='QnA3 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q3Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
+                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
                      <div className='Q3 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      Okay. So, do you offer regular or subscription-based services?
 
@@ -2030,7 +2040,7 @@ const toServices=(e)=>{
             </div>
             <div className='QnA4 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q4Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
+                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
                      <div className='Q4 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What happens if an expert doesn’t show up on time?
 
@@ -2049,7 +2059,7 @@ const toServices=(e)=>{
             </div>
             <div className='QnA5 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q5Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
+                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
                      <div className='Q5 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      Amazing. So, are there any charges for cancelling or rescheduling bookings?
 
@@ -2068,7 +2078,7 @@ const toServices=(e)=>{
             </div>
             <div className='QnA6 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q6Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
+                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
                      <div className='Q6 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What happens if I’m not satisfied with the service?
 
@@ -2088,7 +2098,7 @@ const toServices=(e)=>{
             </div>
             <div className='QnA7 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q7Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
+                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
                      <div className='Q7 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      Got It. What if I require an instant service?
 
@@ -2174,12 +2184,12 @@ const toServices=(e)=>{
               Be One of the First 100 to Get a Free Service!
               </h1>
               </div>  
-             <div className='contact-info h-[8%] w-[30%] mr-[45vh] mb-[0vh] mt-[-10vh] '>
+             <div className='contact-info h-[8%] w-[30%] mr-[45vh] mb-[0vh] mt-[-18vh] '>
              
-             <p className='font-glacial text-[#e1eefd] text-2xl font-light'> helpdesk@mydoum.com</p>
+             <a href='mailto:helpdesk@mydoum.com' className='font-glacial text-[#e1eefd] text-2xl font-light'> helpdesk@mydoum.com</a>
              </div>
-             <div className='whatsapp h-[5%] w-[35%] mr-[23vh]' >
-              <Link href='/' className='font-glacial text-[#e1eefd] text-2xl font-thin whitespace-nowrap flex items-center justify-start gap-4 ml-[-13vh]   '>Need help? Message us! <div><BsWhatsapp color='#e1eefd' /></div>  </Link> </div>
+             <div className='whatsapp h-[5%] w-[35%] mr-[23vh] mt-[-5vh]' >
+              <a href='https://wa.me/918967908081' className='font-glacial text-[#e1eefd] text-2xl font-thin whitespace-nowrap flex items-center justify-start gap-4 ml-[-13vh]   '>Need help? Message us! <div><BsWhatsapp color='#e1eefd' /></div>  </a> </div>
               <div className='address font-glacial text-[#e1eefd] text-2xl font-light h-[10%] w-[40%] mr-[28vh] '>Salt Lake City, Kolkata,Kolkata 700091,West Bengal, India</div>
 
             
@@ -2272,15 +2282,15 @@ const toServices=(e)=>{
    </div>
    <div className='col2 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center mt-6 md:mt-20 px-4'>
       <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mb-4'>Navigation</h1>
-      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Home</Link>
-      <Link href='/'className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2' >How it works</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>why us</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>FAQs</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Join Waitlist</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2' onClick={toHome}>Home</Link>
+      <Link href='/'className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'onClick={toHowItWorks} >How it works</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'onClick={toWhyUs}>why us</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'onClick={toFAQ}>FAQs</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'onClick={toWaitlist}>Join Waitlist</Link>
    </div>
    <div className='col3 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 md:mt-20 px-4'>
       <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mb-4'>Get in Touch</h1>
-      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>helpdesk@mydoum.com</Link>
+      <a href='mailto:helpdesk@mydoum.com' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>helpdesk@mydoum.com</a>
       <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mt-4 mb-2'>Enquire</h1>
       <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>+91 8967908081</Link>
       <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mt-4 mb-2'>Support</h1>
@@ -2288,10 +2298,10 @@ const toServices=(e)=>{
    </div>
    <div className='col4 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 md:mt-20 px-4'>
       <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mb-4'>Legal</h1>
-      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Terms of Use</Link>
-      <Link href='/'className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2' >Privacy Policy</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Equal Opportunity Policy</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Refund and Cancellation Policy</Link>
+      <a href='/legal/terms-of-use' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Terms of Use</a>
+      <a href='/legal/privacy-policy'className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2' >Privacy Policy</a>
+      <a href='/legal/refund-and-cancellation' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Equal Opportunity Policy</a>
+      <a href='/legal/equal-oppurtunity-policy' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Refund and Cancellation Policy</a>
    </div>
    </div>     
 

@@ -5,6 +5,7 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
 import { IoIosArrowBack } from "react-icons/io";
 import Link from 'next/link';
+import Navbar2 from '../components/Navbar2';
 
 function blog() {
 
@@ -44,7 +45,10 @@ function blog() {
         return () => window.removeEventListener('resize', updateStyle);
       }, []);
   return (
-    <div className='flex flex-col justify-center items-center'>
+    
+    <div className='flex flex-col justify-center items-center w-screen'>
+        <div className=' w-full ml-[40vw]'><Navbar2/></div>
+        
         <h1 className='text-[#18375d] text-4xl mx-[5vw] md:mx-0 md:text-5xl font-bold font-glacial mt-[30vh] text-center'>PARTNERSHIP WITH MICROSOFT FOR STARTUPS</h1>
         <div className='h-[110vh] w-[90vw] rounded-3xl  mt-[5vh]' style={style}>
                 
@@ -71,7 +75,7 @@ function blog() {
 
 Stay tuned—exciting times ahead!
         </div>
-        <div className='w-[32.5vw] h-[30vh]  rounded-2xl self-start mt-[5vh] md:mt-[-10vh] mx-[5vw] md:mx-[0vw]' style={{ backgroundImage: 'url(/microsoftB.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+        <div className='w-[32.5vw] h-[30vh]  rounded-2xl self-start mt-[5vh] md:mt-[-10vh] mx-[5vw] md:mx-[5vw]' style={{ backgroundImage: 'url(/microsoftB.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
 
         </div>
         <a href='/'> <div className='flex whitespace-nowrap text-3xl font-medium self-start mt-[10vh] text-[#18375d]'>

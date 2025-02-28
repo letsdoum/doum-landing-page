@@ -719,6 +719,29 @@ function Model() {
                         });
                     }
                 },
+                onUpdate: (self) => {
+                    const progress = self.progress;
+                    [modelRef, model2Ref].forEach(ref => {
+                        if (ref.current) {
+                            ref.current.traverse((node) => {
+                                if (node.material) {
+                                    node.material.transparent = true;
+                                    node.material.opacity = 1 - progress;
+                                    node.material.needsUpdate = true;
+                                }
+                            });
+                        }
+                    });
+
+                    // If progress is complete, hide the models
+                    if (progress === 1) {
+                        modelRef.current.visible = false;
+                        model2Ref.current.visible = false;
+                        model3Ref.current.visible = false;
+                        model4Ref.current.visible = false;
+                    }
+                },
+                
                 onEnter: () => {
                     model4Ref.current.visible = true;
                 },
@@ -726,9 +749,15 @@ function Model() {
                     model4Ref.current.visible = true;
                 },
                 onLeave: () => {
+                    modelRef.current.visible = false;
+                    model2Ref.current.visible = false;
+                    model3Ref.current.visible = false;
                     model4Ref.current.visible = false;
                 },
                 onLeaveBack: () => {
+                    modelRef.current.visible = false;
+                    model2Ref.current.visible = false;
+                    model3Ref.current.visible = false;
                     model4Ref.current.visible = false;
                 }
             }
@@ -779,7 +808,7 @@ function Model() {
             scrollTrigger:{
                 trigger: "#model-section",
                 start: 'bottom -1550%',
-                end: 'bottom -1690%',
+                end: 'bottom -1650%',
                 
                 scrub: 1
                 
@@ -816,8 +845,8 @@ function Model() {
         const fadeOut = gsap.timeline({
             scrollTrigger: {
                 trigger: "#model-section",
-                start: 'bottom -1720%',
-                end: 'bottom -1750%',
+                start: 'bottom -1650%',
+                end: 'bottom -1680%',
                 
                 scrub: {
                     ease: "power1.out",
