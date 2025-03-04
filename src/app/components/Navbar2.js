@@ -20,7 +20,7 @@ function Navbar2() {
                           
                         };
   return (
-    <div className='h-[10vh] md:h-[15vh] w-screen  flex items-center justify-between fixed ml-[-18vw] md:ml-[-21vw] mega-shadow top-0'>
+    <div className='h-[10vh] md:h-[15vh] w-screen  flex items-center justify-between  ml-[-18vw] md:ml-[-21vw] mega-shadow top-0'>
         <div  className='h-full w-1/6' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply', cursor: "pointer" }}   onClick={handleClick}></div>
         <div className='h-full w-[14.2%]   flex-row items-center justify-evenly mr-[10vw] md:mr-[2vw] text-[#18375d] text-md md:text-lg font-glacial whitespace-nowrap md:whitespace-normal hidden md:flex cursor-pointer'onClick={handleClick}><FaHome size={30} /> Return Home</div>   
         <div className='h-full w-[14.2%] text-[#18375d] text-md md:text-lg   md:hidden flex items-center cursor-pointer'onClick={handleClick}><FaHome size={30} /></div>

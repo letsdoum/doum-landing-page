@@ -35,6 +35,7 @@ import Navbar from './Navbar';
 import { RiArrowDownDoubleFill } from "react-icons/ri";
 import { League_Spartan } from "next/font/google";
 import Loading from '../loading';
+import IphoneRes from './IphoneRes';
 
 // function Model() {
 
@@ -825,103 +826,86 @@ function Hero() {
     }
   ]
 
-  useGSAP(() => {
-    const container = whyDoumRef.current
-    const texts = textRefs.current
-    const images = imageRefs.current
-    const options = {
-      root: container,
-      threshold: 0.5,
-      rootMargin: "-25% 0px -25% 0px"
-    }
-  
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const index = texts.indexOf(entry.target)
-        if (entry.isIntersecting) {
-          // Highlight active text
-          gsap.to(entry.target, {
-            scale: 1.2,
-            opacity: 1,
-            color: "#ffffff",
-            duration: 0.3
-          })
-          // Show corresponding image
-          gsap.to(images[index], {
-            opacity: 1,
-            duration: 0.3
-          })
-        } else {
-          // Dim inactive text
-          gsap.to(entry.target, {
-            scale: 0.8,
-            opacity: 0.5,
-            color: "#ffffff80",
-            duration: 0.3
-          })
-          // Hide corresponding image
-          gsap.to(images[index], {
-            opacity: 0,
-            duration: 0.3
-          })
-        }
-      })
-    }, options)
-    texts.forEach(text => {
-      if (text) observer.observe(text)
-    })
-    
-    // const tl = gsap.timeline({
-    //   scrollTrigger: {
-    //     trigger: container,
-    //     start: "top top",
-    //     end: "+=300%",
-    //     scrub: 1,
-    //     onEnter: () => {
-    //       document.body.style.overflow = 'hidden'
-    //       container.style.overflow = 'auto'
-    //     },
-    //     onLeave: () => {
-    //       document.body.style.overflow = 'auto'
-    //       container.style.overflow = 'hidden'
-    //     },
-    //     onEnterBack: () => {
-    //       document.body.style.overflow = 'hidden'
-    //       container.style.overflow = 'auto'
-    //     },
-    //     onLeaveBack: () => {
-    //       document.body.style.overflow = 'auto'
-    //       container.style.overflow = 'hidden'
-    //     }
-    //   }
-    // })
+// In your Hero component, modify the useGSAP section for whyUsData:
 
-    texts.forEach((text, index) => {
-      if (!text) return // Guard clause
-      
-      tl.fromTo(text,
-        {
-          scale: 0.8,
-          opacity: 0.5,
-          color: "#ffffff80"
-        },
-        {
+useGSAP(() => {
+  const container = whyDoumRef.current;
+  const texts = textRefs.current;
+  const images = imageRefs.current;
+
+  // Set initial state for first item
+  if (texts[0] && images[0]) {
+    gsap.set(texts[0], {
+      scale: 1.2,
+      opacity: 1,
+      color: "#ffffff"
+    });
+    gsap.set(images[0], {
+      opacity: 1
+    });
+  }
+
+  // Set initial state for other items
+  texts.slice(1).forEach((text, index) => {
+    if (text) {
+      gsap.set(text, {
+        scale: 0.8,
+        opacity: 0.5,
+        color: "#ffffff80"
+      });
+    }
+    if (images[index + 1]) {
+      gsap.set(images[index + 1], {
+        opacity: 0
+      });
+    }
+  });
+
+  const options = {
+    root: container,
+    threshold: 0.5,
+    rootMargin: "-25% 0px -25% 0px"
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const index = texts.indexOf(entry.target);
+      if (entry.isIntersecting) {
+        gsap.to(entry.target, {
           scale: 1.2,
           opacity: 1,
           color: "#ffffff",
-          duration: 1,
-          ease: "power2.inOut"
-        }, index
-      ).to(text, {
-        scale: 0.8,
-        opacity: 0.5,
-        color: "#ffffff80",
-        duration: 1
-      })
-    })
+          duration: 0.3
+        });
+        gsap.to(images[index], {
+          opacity: 1,
+          duration: 0.3
+        });
+      } else {
+        gsap.to(entry.target, {
+          scale: 0.8,
+          opacity: 0.5,
+          color: "#ffffff80",
+          duration: 0.3
+        });
+        gsap.to(images[index], {
+          opacity: 0,
+          duration: 0.3
+        });
+      }
+    });
+  }, options);
 
-   
-  }, )
+  texts.forEach(text => {
+    if (text) observer.observe(text);
+  });
+
+  return () => {
+    texts.forEach(text => {
+      if (text) observer.unobserve(text);
+    });
+  };
+}, []);
 
   useGSAP(() => {
     gsap.from(".Q1Container", {
@@ -1583,9 +1567,12 @@ const toServices=(e)=>{
 
     
       <div className='modelSec fixed flex justify-center items-center h-[150vh] w-[100vw] z-[15] pointer-events-none' style={{pointerEvents:'none'}}>
-        {aniWidth > 768 ? <Iphone /> : <MobileAni />}
+        {aniWidth > 768 ? <IphoneRes/> : <MobileAni />}
         </div>
-
+       
+       {/* <div className='modelSec fixed flex justify-center items-center h-[150vh] w-[100vw] z-[15] pointer-events-none' style={{pointerEvents:'none'}}>
+       <IphoneRes/>
+        </div> */}
 
       {/* video */}
       <div
@@ -1652,16 +1639,16 @@ const toServices=(e)=>{
     </div>
     {/* platform */}
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[10vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
-        <div className='w-[70%] md:w-[40%] h-[10%] mt-[-80rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text-removebg-preview_upscayl_4x_realesrgan-x4plus.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
+        <div className='w-[70%] md:w-[40%] h-[17%] mt-[-80rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
              {/*scroller*/}
              <div id='scroller'
-      className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[70vh] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-auto'
+      className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[160%] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-auto'
       ref={conRef}
     >
       {doubledServices.map((service, index) => (
         <div
           key={`${service.id}-${index}`}
-          className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh]'
+          className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[2vh]'
           style={{
             backgroundImage: `url("${service.image}")`,
             backgroundRepeat: 'no-repeat',
@@ -1846,14 +1833,14 @@ const toServices=(e)=>{
           {/*why us*/}
                {/*main text part*/}
  <div id='whyUs' className='scrollele mt-0 md:mt-[100vh] h-[100vh] w-[100vw] bg-[#e1eefd] flex justify-center items-center '>
-                         <h1 className='text-[#18375d] text-3xl font-bold font-glacial' >WHY CHOOSE DOUM</h1>
+                         <h1 className='text-[#18375d] text-3xl font-bold font-glacial mt-0 md:mt-[20%]' >WHY CHOOSE DOUM</h1>
               </div>
               {/*data container part */}
-              <div className='h-[100vh] w-[100vw] bg-[#e1eefd] flex flex-col justify-end items-center z-[50]'>
+              <div className='h-[100vh] w-[100vw] bg-[#e1eefd] flex flex-col justify-end items-center z-[5]'>
               <div ref={whyDoumRef} className=' h-[85%] w-[90%] md:w-[75%] bg-[#18375d] rounded-2xl flex'>
     <div className=" scrollele yus w-full md:w-1/2 flex flex-col justify-start gap-20  pl-6 md:pl-10 overflow-y-scroll overflow-x-hidden">
       
-    <div className="h-[50vh]"></div>
+    
       <div className="h-[50vh]"></div>
       <div className="h-[50vh]"></div>
       <div className="h-[50vh]"></div>
@@ -1862,7 +1849,7 @@ const toServices=(e)=>{
         <div
           key={index}
           ref={el => textRefs.current[index] = el}
-          className="transition-all duration-300 w-full px-6"
+          className="transition-all duration-300 w-full px-12"
           
         >
           <h3 className="text-2xl font-bold text-white/50">{item.heading}</h3>
@@ -1972,15 +1959,15 @@ const toServices=(e)=>{
 
 
        </div>
-       <div id='faq' className='scrollele Faq-container h-[510vh] w-[100vw] overflow-auto bg-[#19375d] flex flex-col items-center justify-evenly  relative z-10  pb-[100vh]'>
+       <div id='faq' className='scrollele Faq-container h-[510vh] w-[100vw] overflow-auto overflow-y-visible bg-[#19375d] flex flex-col items-center justify-evenly  relative z-10  pb-[100vh]'>
          <div className='headings h-[80vh] w-full flex flex-col justify-center items-center gap-[5vh] text-center'>
          <h1 className= {`text-4xl md:text-5xl font-bold font-glacial text-white ${leagueSpartan.className}`} >FREQUENTLY ASKED QUESTION</h1>
          <h4 className='text-3xl md:text-4xl font-thin text-white font-glacial'>know us further</h4>
         <div className='flex w-[70vh] justify-center items-center text-xl md:text-2xl font-thin text-white font-glacial opacity-[0.7]'><h5 className='text-2xl font-thin text-white font-glacial opacity-[0.7] whitespace-nowrap'> Scroll down slowly</h5> <RiArrowDownDoubleFill /></div> 
          </div>
          
-          <div className='FAQS w-full h-[430vh]  flex flex-col justify-evenly items-center overflow-hidden gap-8 relative z-10'>
-            <div className='QnA1 h-[50vh] w-full flex flex-col justify-between'>
+          <div className='FAQS w-full h-[95%]  flex flex-col justify-evenly items-center overflow-hidden gap-8 relative z-10  bottom-0 '>
+            <div className='QnA1 h-[15%] w-full flex flex-col justify-between pt-[5vh]'>
                <div className='Q1Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
                      <div className='userdp h-20 w-20 rounded-full bg-gray-400'></div>
                      <div className='Q1 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-center px-[2%] mr-[11vw]'>
@@ -2105,7 +2092,7 @@ const toServices=(e)=>{
 
                      </div>
                </div>
-               <div className='A7Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%]  '>
+               <div className='A7Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%] pb-[2vh]  '>
                      
                      <div className='A7 h-full w-[70%] md:w-[40%]  bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
                      Currently, we only provide service scheduling. Soon we will be adding instant services in under 10 minutes.
@@ -2178,25 +2165,25 @@ const toServices=(e)=>{
         {/* waitlist form */}
         <div id='waitlist' className='scrollele form-section h-[140vh] w-[100vw]  flex justify-between z-[20]'>
         <Toaster />
-          <div className='circleCon  h-full w-[25%] ml-[-30vw] overflow-x-visible hidden md:inline-block'> <div className='formCircle h-[175vh] w-[175vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
-             <div className='headingCon  mr-[27vh] h-[25%] w-[40%]'>
-              <h1 className='text-[#e1eefd] text-5xl font-glacial font-bold '>
-              Be One of the First 100 to Get a Free Service!
+          <div className='circleCon  h-full w-[25%] ml-[-35vw] overflow-x-visible hidden md:inline-block'> <div className='formCircle h-[175vh] w-[175vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
+             <div className='headingCon  mr-[22vh] h-[25%] w-[40%] mt-[-8vh]'>
+              <h1 className='text-[#e1eefd] text-4xl font-glacial font-bold '>
+              Be among the First 100 to enjoy a FREE service along with Exciting Surprise Gifts! Don't miss out!
               </h1>
               </div>  
-             <div className='contact-info h-[8%] w-[30%] mr-[45vh] mb-[0vh] mt-[-18vh] '>
+             <div className='contact-info h-[8%] w-[30%] mr-[39vh] mb-[0vh] mt-[-12vh] '>
              
              <a href='mailto:helpdesk@mydoum.com' className='font-glacial text-[#e1eefd] text-2xl font-light'> helpdesk@mydoum.com</a>
              </div>
-             <div className='whatsapp h-[5%] w-[35%] mr-[23vh] mt-[-5vh]' >
+             <div className='whatsapp h-[5%] w-[35%] mr-[17vh] mt-[-10vh]' >
               <a href='https://wa.me/918967908081' className='font-glacial text-[#e1eefd] text-2xl font-thin whitespace-nowrap flex items-center justify-start gap-4 ml-[-13vh]   '>Need help? Message us! <div><BsWhatsapp color='#e1eefd' /></div>  </a> </div>
-              <div className='address font-glacial text-[#e1eefd] text-2xl font-light h-[10%] w-[40%] mr-[28vh] '>Salt Lake City, Kolkata,Kolkata 700091,West Bengal, India</div>
+              <div className='address font-glacial text-[#e1eefd] text-2xl font-light h-[10%] w-[40%] mr-[22vh] mt-[-5vh] '>Salt Lake City, Kolkata,Kolkata 700091,West Bengal, India</div>
 
             
 
             </div></div>
           <div className='FormCon h-[60%] md:h-full w-full md:w-[65%]  mt-[10vh] flex justify-center items-center flex-col '>
-            <form className='ml:0 md:ml-[10vw] h-[50%] w-[90%] md:w-[65%] bg-[#bbd7f47a] rounded-2xl mb-[2vh] drop-shadow-2xl flex flex-col items-center justify-evenly'onSubmit={handleSubmit(onSubmit,onError)} id='myForm'>
+            <form className='ml:0 md:ml-[10vw] h-[50%] md:h-[40%] mt-0 md:mt-[5vh] w-[90%] md:w-[65%] bg-[#bbd7f47a] rounded-2xl mb-[2vh] drop-shadow-2xl flex flex-col items-center justify-evenly'onSubmit={handleSubmit(onSubmit,onError)} id='myForm'>
             
               <div className='names flex h-[20%] w-[90%]  items-center justify-between '>
                 <div className='firstname h-full w-[45%] flex flex-col'>
@@ -2259,7 +2246,7 @@ const toServices=(e)=>{
               
 
             </form>
-            <button  type='submit' className='ml:0 md:ml-[10vw] bg-[#004aad] text-[#e1eefd] text-lg font-glacial font-medium w-[50%] h-[7.5%] rounded-2xl' onClick={() => document.getElementById("myForm").requestSubmit()}
+            <button  type='submit' className='ml:0 md:ml-[10vw] bg-[#004aad] text-[#e1eefd] text-lg font-glacial font-medium w-[50%] h-[7.5%] md:h-[5%] rounded-2xl' onClick={() => document.getElementById("myForm").requestSubmit()}
               >Claim Your Spot Now</button>
           </div>
 
@@ -2274,10 +2261,10 @@ const toServices=(e)=>{
       </div>
       <br/>
       <div className='links flex justify-center md:justify-start gap-4 text-[#ffffff] mega_shadow'>
-        <Link href='/'><AiOutlineLinkedin  size={40} /></Link>
-        <Link href='/'><CiInstagram  size={40}  /></Link>
-        <Link href='/'><AiOutlineFacebook  size={40}  /></Link>
-        <Link href='/'><FaXTwitter  size={40}  /></Link>
+        <Link target="_blank" href='https://www.linkedin.com/company/letsdoumit/'><AiOutlineLinkedin  size={40} /></Link>
+        <Link target="_blank" href='https://www.instagram.com/letsdoum?igsh=MWY2YXNyODRhZG51aw=='><CiInstagram  size={40}  /></Link>
+        <Link target="_blank" href='https://www.facebook.com/'><AiOutlineFacebook  size={40}  /></Link>
+        <Link target="_blank" href='https://x.com/'><FaXTwitter  size={40}  /></Link>
       </div>
    </div>
    <div className='col2 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center mt-6 md:mt-20 px-4'>

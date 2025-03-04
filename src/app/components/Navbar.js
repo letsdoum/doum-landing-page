@@ -117,7 +117,12 @@ function Navbar() {
               const whyUs = document.getElementById('whyUs');
               
               if (whyUs) {
-                whyUs.scrollIntoView({ behavior: 'smooth' });
+                const margin = window.innerHeight * 0.02;
+              
+                window.scrollTo({
+                    top: whyUs.offsetTop + margin,
+                    behavior: 'smooth'
+                });
               }
             };
             const toFAQ=(e)=>{
@@ -127,7 +132,12 @@ function Navbar() {
                   const faq = document.getElementById('faq');
                   
                   if (faq) {
-                    faq.scrollIntoView({ behavior: 'smooth' });
+                    const margin = window.innerHeight * 0.04;
+              
+                      window.scrollTo({
+                          top: faq.offsetTop + margin,
+                          behavior: 'smooth'
+                      });
                   }
                 };
 
@@ -137,7 +147,7 @@ function Navbar() {
                   const waitlist = document.getElementById('waitlist');
               
                   if (waitlist) {
-                      const margin = window.innerHeight * 0.03;
+                      const margin = window.innerHeight * 0.2;
               
                       window.scrollTo({
                           top: waitlist.offsetTop + margin,
