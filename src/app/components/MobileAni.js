@@ -303,7 +303,7 @@ function MobileAni() {
   return (
     
         <div id="model-section" className="h-full w-full z-[20]">
-            <Canvas>
+            <Canvas s style={{pointerEvents:"none"}}>
                 <ambientLight intensity={1} color='white'/>
                 <directionalLight intensity={1} position={[5,5,5]}color='white'/>
                 <Model />
