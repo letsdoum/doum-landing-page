@@ -42,6 +42,16 @@ function termsOfUse() {
                 "Refunds (if applicable) will be processed within 7-10 business days.",
                 "DOUM reserves the right to cancel a booking due to unforeseen circumstances and will offer alternatives where possible."
               ]} />
+
+              <Section title="5. SERVICE QUALITY & LIABILITY" content={["	DOUM verifies Experts to the best of its ability but does not guarantee the quality of services provided.",'	Any issues related to service quality must be reported within 24 hours of service completion.','	DOUM is not liable for any direct, indirect, incidental, or consequential damages arising from the use of its Platform or services.']}/>
+              <Section title="6. USER RESPONSIBILITIES" content={["	Users must ensure a safe and appropriate environment for service execution.",'	Users must not engage in abusive, unlawful, or discriminatory behavior towards Experts.','	Any misuse of the Platform, including fraudulent bookings, false complaints, or attempts to bypass the Platform for direct service engagements, may result in account suspension or legal action']}/>
+              <Section title='7. PRIVACY & DATA PROTECTION' content={["	DOUM collects and processes personal data in accordance with its Privacy Policy.",'	User data may be shared with Experts only to the extent necessary to fulfill service requests.','	DOUM implements reasonable security measures to protect user data but is not liable for breaches beyond its control.']}/>
+              <Section title='8. THIRD-PARTY LINKS & ADVERTISEMENTS' content={['	The Platform may contain links to third-party websites, ads, or services. DOUM is not responsible for the content, policies, or practices of such third parties.','	Users engaging with third-party services do so at their own risk.']}/>
+              <Section title='9.TERMINATION' content={['	DOUM reserves the right to terminate or suspend user accounts without prior notice if found in violation of these Terms.','	Users may delete their accounts by contacting DOUM support.','	Upon termination, any pending service requests will be canceled, and any outstanding dues must be settled.']}/>
+              <Section title='10. DISPUTE RESOLUTION' content={['	Disputes will first be resolved through negotiation. If unresolved, disputes will be subject to arbitration in Kolkata, West Bengal.','	Users agree to waive class action rights and must file individual claims.']}/> 
+              <Section title='11. MODIFICATIONS TO TERMS' content={['1.	DOUM may update these Terms periodically. Continued use of the Platform constitutes acceptance of revised Terms.','2.	Users will be notified of significant changes via email or in-app notifications.']}/>
+              <Section title='12. CONTACT INFORMATION' content={['For any questions or concerns regarding these Terms, contact us at:Email: helpdesk@mydoum.com']} />
+
             </div>
           </div>
         </div>
