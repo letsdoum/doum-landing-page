@@ -63,6 +63,7 @@ function EqualOpportunityPolicy() {
         ))}
 
 <p className="text-gray-700 mt-6">For any concerns or guidance regarding this Policy, employees may email at helpdesk@mydoum.com.</p>
+<br/>
 <p className="text-gray-700">DOUM is committed to creating a workplace where everyone is treated with dignity and has equal opportunities to thrive.</p>
       </div>
     </>

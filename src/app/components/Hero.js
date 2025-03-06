@@ -2287,8 +2287,8 @@ const toServices=(e)=>{
       <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mb-4'>Legal</h1>
       <a href='/legal/terms-of-use' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Terms of Use</a>
       <a href='/legal/privacy-policy'className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2' >Privacy Policy</a>
-      <a href='/legal/refund-and-cancellation' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Equal Opportunity Policy</a>
-      <a href='/legal/equal-oppurtunity-policy' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Refund and Cancellation Policy</a>
+      <a href='/legal/equal-oppurtunity-policy' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Equal Opportunity Policy</a>
+      <a href='/legal/refund-and-cancellation' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Refund and Cancellation Policy</a>
    </div>
    </div>     
 
