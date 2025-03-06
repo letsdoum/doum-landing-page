@@ -35,6 +35,7 @@ import Navbar from './Navbar';
 import { RiArrowDownDoubleFill } from "react-icons/ri";
 import { League_Spartan } from "next/font/google";
 import Loading from '../loading';
+import IphoneRes from './IphoneRes';
 
 // function Model() {
 
@@ -44,7 +45,7 @@ import Loading from '../loading';
 //         trigger: modelRef.current,
 //         scroller:'body',
 //         scrub:1,
-//         markers:true,
+//        
 //         start: 'top 80%',
 //         end: 'bottom 200%'
 //       }
@@ -387,7 +388,7 @@ function Hero() {
       scrollTrigger: {
         trigger: s1Ref.current,
         start: "top 60%",
-        end: "bottom 100%",
+        end: "bottom 150%",
         scrub: 2,
         
       }
@@ -428,7 +429,7 @@ function Hero() {
       scrollTrigger: {
         trigger: s2Ref.current,
         start: "top 60%",
-        end: "bottom 100%",
+        end: "bottom 150%",
         scrub: 2,
         
       }
@@ -467,7 +468,7 @@ function Hero() {
       scrollTrigger: {
         trigger: s3Ref.current,
         start: "top 60%",
-        end: "bottom 100%",
+        end: "bottom 150%",
         scrub: 2,
        
       }
@@ -506,7 +507,7 @@ function Hero() {
       scrollTrigger: {
         trigger: s4Ref.current,
         start: "top 60%",
-        end: "bottom 100%",
+        end: "bottom 150%",
         scrub: 2,
         
       }
@@ -546,7 +547,7 @@ function Hero() {
       scrollTrigger: {
         trigger: s5Ref.current,
         start: "top 60%",
-        end: "bottom 100%",
+        end: "bottom 150%",
         scrub: 2,
         
       }
@@ -825,103 +826,86 @@ function Hero() {
     }
   ]
 
-  useGSAP(() => {
-    const container = whyDoumRef.current
-    const texts = textRefs.current
-    const images = imageRefs.current
-    const options = {
-      root: container,
-      threshold: 0.5,
-      rootMargin: "-25% 0px -25% 0px"
-    }
-  
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const index = texts.indexOf(entry.target)
-        if (entry.isIntersecting) {
-          // Highlight active text
-          gsap.to(entry.target, {
-            scale: 1.2,
-            opacity: 1,
-            color: "#ffffff",
-            duration: 0.3
-          })
-          // Show corresponding image
-          gsap.to(images[index], {
-            opacity: 1,
-            duration: 0.3
-          })
-        } else {
-          // Dim inactive text
-          gsap.to(entry.target, {
-            scale: 0.8,
-            opacity: 0.5,
-            color: "#ffffff80",
-            duration: 0.3
-          })
-          // Hide corresponding image
-          gsap.to(images[index], {
-            opacity: 0,
-            duration: 0.3
-          })
-        }
-      })
-    }, options)
-    texts.forEach(text => {
-      if (text) observer.observe(text)
-    })
-    
-    // const tl = gsap.timeline({
-    //   scrollTrigger: {
-    //     trigger: container,
-    //     start: "top top",
-    //     end: "+=300%",
-    //     scrub: 1,
-    //     onEnter: () => {
-    //       document.body.style.overflow = 'hidden'
-    //       container.style.overflow = 'auto'
-    //     },
-    //     onLeave: () => {
-    //       document.body.style.overflow = 'auto'
-    //       container.style.overflow = 'hidden'
-    //     },
-    //     onEnterBack: () => {
-    //       document.body.style.overflow = 'hidden'
-    //       container.style.overflow = 'auto'
-    //     },
-    //     onLeaveBack: () => {
-    //       document.body.style.overflow = 'auto'
-    //       container.style.overflow = 'hidden'
-    //     }
-    //   }
-    // })
+// In your Hero component, modify the useGSAP section for whyUsData:
 
-    texts.forEach((text, index) => {
-      if (!text) return // Guard clause
-      
-      tl.fromTo(text,
-        {
-          scale: 0.8,
-          opacity: 0.5,
-          color: "#ffffff80"
-        },
-        {
+useGSAP(() => {
+  const container = whyDoumRef.current;
+  const texts = textRefs.current;
+  const images = imageRefs.current;
+
+  // Set initial state for first item
+  if (texts[0] && images[0]) {
+    gsap.set(texts[0], {
+      scale: 1.2,
+      opacity: 1,
+      color: "#ffffff"
+    });
+    gsap.set(images[0], {
+      opacity: 1
+    });
+  }
+
+  // Set initial state for other items
+  texts.slice(1).forEach((text, index) => {
+    if (text) {
+      gsap.set(text, {
+        scale: 0.8,
+        opacity: 0.5,
+        color: "#ffffff80"
+      });
+    }
+    if (images[index + 1]) {
+      gsap.set(images[index + 1], {
+        opacity: 0
+      });
+    }
+  });
+
+  const options = {
+    root: container,
+    threshold: 0.5,
+    rootMargin: "-25% 0px -25% 0px"
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const index = texts.indexOf(entry.target);
+      if (entry.isIntersecting) {
+        gsap.to(entry.target, {
           scale: 1.2,
           opacity: 1,
           color: "#ffffff",
-          duration: 1,
-          ease: "power2.inOut"
-        }, index
-      ).to(text, {
-        scale: 0.8,
-        opacity: 0.5,
-        color: "#ffffff80",
-        duration: 1
-      })
-    })
+          duration: 0.3
+        });
+        gsap.to(images[index], {
+          opacity: 1,
+          duration: 0.3
+        });
+      } else {
+        gsap.to(entry.target, {
+          scale: 0.8,
+          opacity: 0.5,
+          color: "#ffffff80",
+          duration: 0.3
+        });
+        gsap.to(images[index], {
+          opacity: 0,
+          duration: 0.3
+        });
+      }
+    });
+  }, options);
 
-   
-  }, )
+  texts.forEach(text => {
+    if (text) observer.observe(text);
+  });
+
+  return () => {
+    texts.forEach(text => {
+      if (text) observer.unobserve(text);
+    });
+  };
+}, []);
 
   useGSAP(() => {
     gsap.from(".Q1Container", {
@@ -954,7 +938,7 @@ function Hero() {
       }
     })
   }, [])
-  useEffect(() => {
+  useGSAP(() => {
     gsap.from(".Q2Container", {
       y: 100,
       opacity: 0,
@@ -964,6 +948,7 @@ function Hero() {
         trigger: ".Q2Container",
         start: "top bottom",
         end: "bottom center",
+       
         toggleActions: "play none none reverse",
         scrub:2
       }
@@ -974,11 +959,12 @@ function Hero() {
       opacity: 0,
       duration: 0.8,
       ease: "power2.out",
-      delay: 0.3,
+      
       scrollTrigger: {
         trigger: ".A2Container",
         start: "top bottom",
         end: "bottom center",
+       
         toggleActions: "play none none reverse",
         scrub:2
       }
@@ -1511,6 +1497,14 @@ const toServices=(e)=>{
       services.scrollIntoView({ behavior: 'smooth' });
     }
   };
+  const toHome = (e) => {
+    e.preventDefault();
+  
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   const toHowItWorks=(e)=>{
     e.preventDefault();
@@ -1543,22 +1537,28 @@ const toServices=(e)=>{
               }
             };
 
-            const toWaitlist=(e)=>{
-                e.preventDefault();
-                  
-                  // Get the services element
-                  const waitlist = document.getElementById('waitlist');
-                  
-                  if (waitlist) {
-                    waitlist.scrollIntoView({ behavior: 'smooth' });
-                  }
-                };
+            const toWaitlist = (e) => {
+              e.preventDefault();
+          
+              const waitlist = document.getElementById('waitlist');
+          
+              if (waitlist) {
+                  const margin = window.innerHeight * 0.1;
+          
+                  window.scrollTo({
+                      top: waitlist.offsetTop + margin,
+                      behavior: 'smooth'
+                  });
+              }
+          };
 
    
 
  
   return (
     <>
+
+
 
 {isLoading && <Loading />} 
 
@@ -1567,9 +1567,12 @@ const toServices=(e)=>{
 
     
       <div className='modelSec fixed flex justify-center items-center h-[150vh] w-[100vw] z-[15] pointer-events-none' style={{pointerEvents:'none'}}>
-        {aniWidth > 768 ? <Iphone /> : <MobileAni />}
+        {aniWidth > 768 ? <IphoneRes/> : <MobileAni />}
         </div>
-
+       
+       {/* <div className='modelSec fixed flex justify-center items-center h-[150vh] w-[100vw] z-[15] pointer-events-none' style={{pointerEvents:'none'}}>
+       <IphoneRes/>
+        </div> */}
 
       {/* video */}
       <div
@@ -1629,23 +1632,23 @@ const toServices=(e)=>{
       <a href='/Blog'> <div className='w-[80vw] h-[12vh] relative mt-[-205vh] hidden md:block' style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
 
       </div></a>
-     <a href='/Blog'> <div className='block md:hidden h-[15vh] w-[70vw]   absolute z-[20] mt-[65vh]'style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
+     <a href='/Blog'> <div className='block md:hidden h-[15vh] w-[70vw] ml-[-35vw]  absolute z-[20] mt-[-5vh]'style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
 
       </div> </a>
 
     </div>
     {/* platform */}
-    <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[20vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
-        <div className='w-[70%] md:w-[40%] h-[10%] mt-[-80rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text-removebg-preview_upscayl_4x_realesrgan-x4plus.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
+    <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[10vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
+        <div className='w-[70%] md:w-[40%] h-[17%] mt-[-80rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
              {/*scroller*/}
              <div id='scroller'
-      className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[70vh] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-auto'
+      className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[160%] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-auto'
       ref={conRef}
     >
       {doubledServices.map((service, index) => (
         <div
           key={`${service.id}-${index}`}
-          className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[3vh]'
+          className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[2vh]'
           style={{
             backgroundImage: `url("${service.image}")`,
             backgroundRepeat: 'no-repeat',
@@ -1702,7 +1705,7 @@ const toServices=(e)=>{
       <div ref={s3Ref} className='scrollele service1 h-[100vh] w-full flex mt-[-40vh] md:mt-[0vh] items-center justify-between'>
             <div className='left flex flex-col items-start justify-center h-full w-[50%] ml-[-5vw] md:ml-[0] mt-0 md:mt-[-20vh]'>
                 <h1 ref={s3HeadingRef} className=' font-light h-[10vh] md:h-[20vh] w-[40vw] md:w-[35vw] ml-12 text-2xl md:text-4xl text-[#18375d] absolute'>Track Real-Time Updates for Every Booking!</h1>
-            <div ref={s3LinkRef}  className='linkCon flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[3vh] font-agrandirW '><Link href='/'onClick={toWaitlist} className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[25vh] md:mt-[5rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+            <div ref={s3LinkRef}  className='linkCon flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-2xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[20vh] md:mt-[3vh] font-agrandirW '><Link href='/'onClick={toWaitlist} className='flex mx-16 items-center gap-4 text-[#18375d] p-0 mt-[25vh] md:mt-[5rem]'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
             <div ref={s3ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services3.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
             <p  ref={s3TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-10vw] md:mt-0 whitespace-nowrap'>Real-Time Tracking</p>
             </div>
@@ -1734,7 +1737,7 @@ const toServices=(e)=>{
       <div ref={s5Ref} className='scrollele service1 h-[100vh] w-full flex mt-[-40vh] md:mt-[0vh] items-center justify-between'>
             <div className='left flex flex-col items-start justify-center h-full w-[50%] ml-[-5vw] md:ml-[0] mt-0 md:mt-[-20vh]'>
                 <h1 ref={s5HeadingRef} className=' font-light h-[10vh] md:h-[20vh] w-[40vw] md:w-[35vw] ml-12 text-2xl md:text-4xl text-[#18375d] absolute'>Expert Services, Anytime, Anywhere!</h1>
-            <div ref={s5LinkRef}  className='linkCon flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-3xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[35vh] md:mt-[20vh] font-agrandirW '><Link href='/' onClick={toWaitlist} className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
+            <div ref={s5LinkRef}  className='linkCon flex flex-row w-[15rem] md:w-80 h-16 text-xl md:text-2xl font-light items-center ml-[-3vw] md:ml-[-1vw] whitespace-nowrap justify-start absolute mt-[35vh] md:mt-[20vh] font-agrandirW '><Link href='/' onClick={toWaitlist} className='flex mx-16 items-center gap-4 text-[#18375d] p-0'>Join Waitlist <FaArrowCircleRight color='#18375d' /> </Link></div> 
             <div ref={s5ImageRef} className='imageContainer h-[27vh] w-[48vw] mt-[7vh] md:mt-[65vh] ml-[55vw] md:ml-0 rounded-xl' style={{ backgroundImage: 'url(/services5.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div>
             <p ref={s5TextRef} className='text-[#18375d] font-glacial ml-[55vw] md:ml-[13vw] mt-[-15vw] md:mt-0 whitespace-nowrap'>Get Top-notch services instantly...</p>
             </div>
@@ -1760,7 +1763,7 @@ const toServices=(e)=>{
 
        {/*how it works container */}
        <div ref={stepsRef} className='h-[550vh] w-[100%] bg-[#e1eefd] flex flex-col justify-start items-center'>
-         <h1 ref={howItWorksHeadingRef} className=' font-glacial text-[#18375d] text-xl md:text-4xl sticky top-[15vh] md:top-[25vh] mb-20 whitespace-nowrap font-medium ' >
+         <h1 ref={howItWorksHeadingRef} className=' font-glacial text-[#18375d] text-xl md:text-4xl sticky top-[15vh] md:top-[25vh] mb-20 mt-[5vh] md:mt-[10vh]  whitespace-nowrap font-medium ' >
            Book an Expert in 3 Easy steps
          </h1>
         
@@ -1830,14 +1833,14 @@ const toServices=(e)=>{
           {/*why us*/}
                {/*main text part*/}
  <div id='whyUs' className='scrollele mt-0 md:mt-[100vh] h-[100vh] w-[100vw] bg-[#e1eefd] flex justify-center items-center '>
-                         <h1 className='text-[#18375d] text-3xl font-bold font-glacial' >WHY CHOOSE DOUM</h1>
+                         <h1 className='text-[#18375d] text-3xl font-bold font-glacial mt-0 md:mt-[20%]' >WHY CHOOSE DOUM</h1>
               </div>
               {/*data container part */}
-              <div className='h-[100vh] w-[100vw] bg-[#e1eefd] flex flex-col justify-end items-center z-[50]'>
+              <div className='h-[100vh] w-[100vw] bg-[#e1eefd] flex flex-col justify-end items-center z-[5]'>
               <div ref={whyDoumRef} className=' h-[85%] w-[90%] md:w-[75%] bg-[#18375d] rounded-2xl flex'>
     <div className=" scrollele yus w-full md:w-1/2 flex flex-col justify-start gap-20  pl-6 md:pl-10 overflow-y-scroll overflow-x-hidden">
       
-    <div className="h-[50vh]"></div>
+    
       <div className="h-[50vh]"></div>
       <div className="h-[50vh]"></div>
       <div className="h-[50vh]"></div>
@@ -1846,7 +1849,7 @@ const toServices=(e)=>{
         <div
           key={index}
           ref={el => textRefs.current[index] = el}
-          className="transition-all duration-300 w-full px-6"
+          className="transition-all duration-300 w-full px-12"
           
         >
           <h3 className="text-2xl font-bold text-white/50">{item.heading}</h3>
@@ -1956,17 +1959,17 @@ const toServices=(e)=>{
 
 
        </div>
-       <div id='faq' className='scrollele Faq-container h-[510vh] w-[100vw] overflow-auto bg-[#19375d] flex flex-col items-center justify-evenly  relative z-10  pb-[100vh]'>
+       <div id='faq' className='scrollele Faq-container h-[510vh] w-[100vw] overflow-auto overflow-y-visible bg-[#19375d] flex flex-col items-center justify-evenly  relative z-10  pb-[100vh]'>
          <div className='headings h-[80vh] w-full flex flex-col justify-center items-center gap-[5vh] text-center'>
          <h1 className= {`text-4xl md:text-5xl font-bold font-glacial text-white ${leagueSpartan.className}`} >FREQUENTLY ASKED QUESTION</h1>
          <h4 className='text-3xl md:text-4xl font-thin text-white font-glacial'>know us further</h4>
         <div className='flex w-[70vh] justify-center items-center text-xl md:text-2xl font-thin text-white font-glacial opacity-[0.7]'><h5 className='text-2xl font-thin text-white font-glacial opacity-[0.7] whitespace-nowrap'> Scroll down slowly</h5> <RiArrowDownDoubleFill /></div> 
          </div>
          
-          <div className='FAQS w-full h-[430vh]  flex flex-col justify-evenly items-center overflow-hidden gap-8 relative z-10'>
-            <div className='QnA1 h-[50vh] w-full flex flex-col justify-between'>
+          <div className='FAQS w-full h-[95%]  flex flex-col justify-evenly items-center overflow-hidden gap-8 relative z-10  bottom-0 '>
+            <div className='QnA1 h-[15%] w-full flex flex-col justify-between pt-[5vh]'>
                <div className='Q1Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
+                     <div className='userdp h-20 w-20 rounded-full bg-gray-400'></div>
                      <div className='Q1 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-center px-[2%] mr-[11vw]'>
                      Hi, I’m new to DOUM and have a lot of questions about how it works. Can you help?
 
@@ -1984,8 +1987,8 @@ const toServices=(e)=>{
 
             </div>
             <div className='QnA2 h-[50vh] w-full flex flex-col justify-between'>
-               <div className='Q2Container h-[20%] w-[70%] ml-[9%] flex justify-center items-end gap-[5%] '>
-                     <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
+               <div className='Q2Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
+                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
                      <div className='Q2 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What is DOUM?
 
@@ -2004,7 +2007,7 @@ const toServices=(e)=>{
             </div>
             <div className='QnA3 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q3Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
+                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
                      <div className='Q3 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      Okay. So, do you offer regular or subscription-based services?
 
@@ -2024,7 +2027,7 @@ const toServices=(e)=>{
             </div>
             <div className='QnA4 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q4Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
+                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
                      <div className='Q4 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What happens if an expert doesn’t show up on time?
 
@@ -2043,7 +2046,7 @@ const toServices=(e)=>{
             </div>
             <div className='QnA5 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q5Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
+                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
                      <div className='Q5 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      Amazing. So, are there any charges for cancelling or rescheduling bookings?
 
@@ -2062,7 +2065,7 @@ const toServices=(e)=>{
             </div>
             <div className='QnA6 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q6Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
+                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
                      <div className='Q6 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What happens if I’m not satisfied with the service?
 
@@ -2082,14 +2085,14 @@ const toServices=(e)=>{
             </div>
             <div className='QnA7 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q7Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-[12vh] w-[12vh] rounded-full bg-gray-400'></div>
+                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
                      <div className='Q7 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      Got It. What if I require an instant service?
 
 
                      </div>
                </div>
-               <div className='A7Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%]  '>
+               <div className='A7Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%] pb-[2vh]  '>
                      
                      <div className='A7 h-full w-[70%] md:w-[40%]  bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
                      Currently, we only provide service scheduling. Soon we will be adding instant services in under 10 minutes.
@@ -2162,25 +2165,25 @@ const toServices=(e)=>{
         {/* waitlist form */}
         <div id='waitlist' className='scrollele form-section h-[140vh] w-[100vw]  flex justify-between z-[20]'>
         <Toaster />
-          <div className='circleCon  h-full w-[25%] ml-[-30vw] overflow-x-visible hidden md:inline-block'> <div className='formCircle h-[175vh] w-[175vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
-             <div className='headingCon  mr-[27vh] h-[25%] w-[40%]'>
-              <h1 className='text-[#e1eefd] text-5xl font-glacial font-bold '>
-              Be One of the First 100 to Get a Free Service!
+          <div className='circleCon  h-full w-[25%] ml-[-35vw] overflow-x-visible hidden md:inline-block'> <div className='formCircle h-[175vh] w-[175vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
+             <div className='headingCon  mr-[22vh] h-[25%] w-[40%] mt-[-8vh]'>
+              <h1 className='text-[#e1eefd] text-4xl font-glacial font-bold '>
+              Be among the First 100 to enjoy a FREE service along with Exciting Surprise Gifts! Don't miss out!
               </h1>
               </div>  
-             <div className='contact-info h-[8%] w-[30%] mr-[45vh] mb-[0vh] '>
-             <p className='font-glacial text-[#e1eefd] text-2xl font-light'>+91 8967908081</p>
-             <p className='font-glacial text-[#e1eefd] text-2xl font-light'> helpdesk@mydoum.com</p>
+             <div className='contact-info h-[8%] w-[30%] mr-[39vh] mb-[0vh] mt-[-12vh] '>
+             
+             <a href='mailto:helpdesk@mydoum.com' className='font-glacial text-[#e1eefd] text-2xl font-light'> helpdesk@mydoum.com</a>
              </div>
-             <div className='whatsapp h-[5%] w-[35%] mr-[23vh]' >
-              <Link href='/' className='font-glacial text-[#e1eefd] text-2xl font-thin whitespace-nowrap flex items-center justify-start gap-4 ml-[-13vh]   '>Need help? Message us! <div><BsWhatsapp color='#e1eefd' /></div>  </Link> </div>
-              <div className='address font-glacial text-[#e1eefd] text-2xl font-light h-[10%] w-[40%] mr-[28vh] '>Salt Lake City, Kolkata,Kolkata 700091,West Bengal, India</div>
+             <div className='whatsapp h-[5%] w-[35%] mr-[17vh] mt-[-10vh]' >
+              <a href='https://wa.me/918967908081' className='font-glacial text-[#e1eefd] text-2xl font-thin whitespace-nowrap flex items-center justify-start gap-4 ml-[-13vh]   '>Need help? Message us! <div><BsWhatsapp color='#e1eefd' /></div>  </a> </div>
+              <div className='address font-glacial text-[#e1eefd] text-2xl font-light h-[10%] w-[40%] mr-[22vh] mt-[-5vh] '>Salt Lake City, Kolkata,Kolkata 700091,West Bengal, India</div>
 
             
 
             </div></div>
           <div className='FormCon h-[60%] md:h-full w-full md:w-[65%]  mt-[10vh] flex justify-center items-center flex-col '>
-            <form className='ml:0 md:ml-[10vw] h-[50%] w-[90%] md:w-[65%] bg-[#bbd7f47a] rounded-2xl mb-[2vh] drop-shadow-2xl flex flex-col items-center justify-evenly'onSubmit={handleSubmit(onSubmit,onError)} id='myForm'>
+            <form className='ml:0 md:ml-[10vw] h-[50%] md:h-[40%] mt-0 md:mt-[5vh] w-[90%] md:w-[65%] bg-[#bbd7f47a] rounded-2xl mb-[2vh] drop-shadow-2xl flex flex-col items-center justify-evenly'onSubmit={handleSubmit(onSubmit,onError)} id='myForm'>
             
               <div className='names flex h-[20%] w-[90%]  items-center justify-between '>
                 <div className='firstname h-full w-[45%] flex flex-col'>
@@ -2243,7 +2246,7 @@ const toServices=(e)=>{
               
 
             </form>
-            <button  type='submit' className='ml:0 md:ml-[10vw] bg-[#004aad] text-[#e1eefd] text-lg font-glacial font-medium w-[50%] h-[7.5%] rounded-2xl' onClick={() => document.getElementById("myForm").requestSubmit()}
+            <button  type='submit' className='ml:0 md:ml-[10vw] bg-[#004aad] text-[#e1eefd] text-lg font-glacial font-medium w-[50%] h-[7.5%] md:h-[5%] rounded-2xl' onClick={() => document.getElementById("myForm").requestSubmit()}
               >Claim Your Spot Now</button>
           </div>
 
@@ -2258,23 +2261,23 @@ const toServices=(e)=>{
       </div>
       <br/>
       <div className='links flex justify-center md:justify-start gap-4 text-[#ffffff] mega_shadow'>
-        <Link href='/'><AiOutlineLinkedin  size={40} /></Link>
-        <Link href='/'><CiInstagram  size={40}  /></Link>
-        <Link href='/'><AiOutlineFacebook  size={40}  /></Link>
-        <Link href='/'><FaXTwitter  size={40}  /></Link>
+        <Link target="_blank" href='https://www.linkedin.com/company/letsdoumit/'><AiOutlineLinkedin  size={40} /></Link>
+        <Link target="_blank" href='https://www.instagram.com/letsdoum?igsh=MWY2YXNyODRhZG51aw=='><CiInstagram  size={40}  /></Link>
+        <Link target="_blank" href='https://www.facebook.com/'><AiOutlineFacebook  size={40}  /></Link>
+        <Link target="_blank" href='https://x.com/'><FaXTwitter  size={40}  /></Link>
       </div>
    </div>
    <div className='col2 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center mt-6 md:mt-20 px-4'>
       <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mb-4'>Navigation</h1>
-      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Home</Link>
-      <Link href='/'className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2' >How it works</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>why us</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>FAQs</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Join Waitlist</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2' onClick={toHome}>Home</Link>
+      <Link href='/'className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'onClick={toHowItWorks} >How it works</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'onClick={toWhyUs}>why us</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'onClick={toFAQ}>FAQs</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'onClick={toWaitlist}>Join Waitlist</Link>
    </div>
    <div className='col3 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 md:mt-20 px-4'>
       <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mb-4'>Get in Touch</h1>
-      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>helpdesk@mydoum.com</Link>
+      <a href='mailto:helpdesk@mydoum.com' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>helpdesk@mydoum.com</a>
       <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mt-4 mb-2'>Enquire</h1>
       <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>+91 8967908081</Link>
       <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mt-4 mb-2'>Support</h1>
@@ -2282,10 +2285,10 @@ const toServices=(e)=>{
    </div>
    <div className='col4 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 md:mt-20 px-4'>
       <h1 className='text-[#ffffff] mega_shadow font-glacial font-bold text-xl mb-4'>Legal</h1>
-      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Terms of Use</Link>
-      <Link href='/'className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2' >Privacy Policy</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Equal Opportunity Policy</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Refund and Cancellation Policy</Link>
+      <a href='/legal/terms-of-use' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Terms of Use</a>
+      <a href='/legal/privacy-policy'className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2' >Privacy Policy</a>
+      <a href='/legal/equal-oppurtunity-policy' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Equal Opportunity Policy</a>
+      <a href='/legal/refund-and-cancellation' className='font-light font-glacial text-md text-[#ffffff] mega_shadow mb-2'>Refund and Cancellation Policy</a>
    </div>
    </div>     
 

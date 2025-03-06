@@ -10,6 +10,9 @@ import { Html } from '@react-three/drei'
 gsap.registerPlugin({ScrollTrigger})
 
 function Model() {
+    const getScrollOffset = () => {
+        return window.innerHeight < 700 ? window.innerHeight * 0.5 : 0; // 50vh offset for smaller screens
+    };
 
     const setInitialState = () => {
         ScrollTrigger.getAll().forEach(st => {
@@ -36,7 +39,7 @@ function Model() {
     useGSAP(() => {
         if (!modelRef.current || !model2Ref.current) return
 
-        
+        const heightOffset = getScrollOffset();
 
         ScrollTrigger.config({
             syncInterval: 0.1,  // Sync more frequently
@@ -52,7 +55,8 @@ function Model() {
             scrollTrigger:{
                 trigger: "#model-section",
                 start: 'top top',
-                end: 'bottom -50%',
+                end: `+=${window.innerHeight*3/2}`,
+                
                 scrub: {
                     ease: "power1.out",
                     smoothing: 0.5,
@@ -85,8 +89,8 @@ function Model() {
         const tlR = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'top -150%',
-                end: 'bottom -250%',
+                start: `top+=${window.innerHeight * 2.0}`, // -150vh
+                end: `top+=${(window.innerHeight * 3.0)+heightOffset}`, // -250vh
                 scrub: {
                     ease: "power1.out",
                     smoothing: 0.5,
@@ -103,8 +107,8 @@ function Model() {
         const tlR2 = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -250%',
-                end: 'bottom -350%',
+                start: `top+=${window.innerHeight * 4.0}`, // -150vh
+                end: `top+=${(window.innerHeight * 5.0)+heightOffset}`, // -250vh
                 scrub: {
                     ease: "power1.out",
                     smoothing: 0.5,
@@ -138,8 +142,8 @@ function Model() {
         const tlR3 = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -350%',
-                end: 'bottom -450%',
+                start: `top+=${window.innerHeight * 5.0}`, // -150vh
+                end: `top+=${window.innerHeight * 6.0}`, // -250vh
                 scrub: {
                     ease: "power1.out",
                     smoothing: 0.5,
@@ -156,8 +160,8 @@ function Model() {
         const tlR4 = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -450%',
-                end: 'bottom -550%',
+                start: `top+=${window.innerHeight * 6.0}`, // -150vh
+                end: `top+=${window.innerHeight * 7.0}`, // -250vh
                 scrub: {
                     ease: "power1.out",
                     smoothing: 0.5,
@@ -174,8 +178,8 @@ function Model() {
         const tlR5 = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -550%',
-                end: 'bottom -650%',
+                start: `top+=${window.innerHeight * 7.0}`, // -150vh
+                end: `top+=${window.innerHeight * 8.0}`, // -250vh
                 scrub: {
                     ease: "power1.out",
                     smoothing: 0.5,
@@ -192,8 +196,8 @@ function Model() {
         const tl3 = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -650%',
-                end: 'bottom -750%',
+                start: `top+=${window.innerHeight * 8.0}`, // -150vh
+                end: `top+=${window.innerHeight * 9.0}`, // -250vh
                 scrub: {
                     ease: "power1.out",
                     smoothing: 0.5,
@@ -209,8 +213,8 @@ function Model() {
         const tl4 = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -750%',
-                end: 'bottom -750%',
+                start: `top+=${window.innerHeight * 9.0}`, // -150vh
+                end: `top+=${window.innerHeight * 9.0}`, // -250vh
                 scrub: {
         ease: "power1.out",
         smoothing: 0.5,
@@ -227,8 +231,8 @@ function Model() {
         const fadeOut = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -750%',
-                end: 'bottom -790%',
+                start: `top+=${window.innerHeight * 9.0}`, // -150vh
+                end: `top+=${window.innerHeight * 9.4}`, // -250vh
                 scrub: {
                     ease: "power1.out",
                     smoothing: 0.5,
@@ -283,6 +287,8 @@ function Model() {
             x: 10,
             y: 10,
             z: 10,
+            immediateRender: false
+            
         }, 'hi')
         .fromTo([modelRef.current.rotation, model2Ref.current.rotation], {
             x: -Math.PI/4,
@@ -292,25 +298,28 @@ function Model() {
             x: 0,
             y: Math.PI,
             z: 0,
+            immediateRender: false
         }, '-=1')
-        .fromTo([modelRef.current.scale, model2Ref.current.scale], {
-            x: 10,
-            y: 10,
-            z: 10
-        }, {
-            x: 9,
-            y: 9,
-            z: 9,
-        })
+        // .fromTo([modelRef.current.scale, model2Ref.current.scale], {
+        //     x: 10,
+        //     y: 10,
+        //     z: 10
+        // }, {
+        //     x: 9,
+        //     y: 9,
+        //     z: 9,
+        //     immediateRender: false
+        // })
 
         tl2.fromTo([modelRef.current.position, model2Ref.current.position], {
-            x: 8,
-            y: -55,
+            x: 0,
+            y: -50,
             z: -15
         }, {
             x: 3,
             y: 6,
             z: -25,
+            immediateRender: false
         })
 
         tlR.fromTo([modelRef.current.rotation, model2Ref.current.rotation], {
@@ -394,12 +403,22 @@ function Model() {
         })
 
     }, [modelRef.current, model2Ref.current])
+    useEffect(() => {
+        // Set initial transform when the component mounts
+        if (modelRef.current) {
+            modelRef.current.scale.set(18, 18, 18);
+            modelRef.current.rotation.set(-Math.PI/4, Math.PI, 0);
+            modelRef.current.position.set(3, -50, -15);
+        }
+    }, []);
 
     return (
         <>
             <primitive 
                 object={result.scene} 
                 scale={[18, 18, 18]} 
+                position={[3,-50,-15]}
+                rotation={[-Math.PI/4,Math.PI,0]}
                 ref={modelRef}
             />
             <primitive 
@@ -411,6 +430,10 @@ function Model() {
     )
 }
  function Model2(){
+
+    const getScrollOffset = () => {
+        return window.innerHeight < 700 ? window.innerHeight*0.3 : 0; // 50vh offset for smaller screens
+    };
     const setInitialState = () => {
         ScrollTrigger.getAll().forEach(st => {
             st.scroll(window.scrollY);
@@ -441,17 +464,21 @@ function Model() {
     }, [])
 
     useGSAP(()=>{
+        
+        
+
         if(!modelRef.current||!model2Ref.current||!model3Ref) return
+        const heightOffset = getScrollOffset();
         ScrollTrigger.config({
             syncInterval: 0.1,  // Sync more frequently
-            autoRefreshEvents: "visibilitychange,DOMContentLoaded,load", // Optimize refresh events
+            autoRefreshEvents: "visibilitychange,DOMContentLoaded,load,resize", // Optimize refresh events
             limitCallbacks: true
         });
         const tl = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -800%',
-                end: 'bottom -1000%',
+                start: `top+=${(window.innerHeight * 8.7)+heightOffset}`, // -150vh
+                end: `top+=${(window.innerHeight * 11.2)+heightOffset}`, // -250vh
                 
                 scrub: {
         ease: "power1.out",
@@ -526,8 +553,8 @@ function Model() {
         const tl2 = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -1000%',
-                end: 'bottom -1075%',
+                start: `top+=${(window.innerHeight * 11.2)+heightOffset}`, // -150vh
+                end: `top+=${(window.innerHeight * 11.9)+heightOffset}`, // -250vh
                 
                 scrub: {
         ease: "power1.out",
@@ -582,8 +609,8 @@ function Model() {
         const tl3 = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -1075%',
-                end: 'bottom -1140%',
+                start: `top+=${(window.innerHeight * 11.9)+heightOffset}`, // -150vh
+                end: `top+=${(window.innerHeight * 12.5)+heightOffset}`, // -250vh
                 
                 scrub: {
         ease: "power1.out",
@@ -638,8 +665,8 @@ function Model() {
         const tl4= gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -1150%',
-                end: 'bottom -1190%',
+                start: `top+=${(window.innerHeight * 12.6)+heightOffset}`, // -150vh
+                end: `top+=${(window.innerHeight * 13.1)+heightOffset}`, // -250vh
                 
                 scrub: {
         ease: "power1.out",
@@ -695,8 +722,8 @@ function Model() {
         const fadeOut = gsap.timeline({
             scrollTrigger: {
                 trigger: "#model-section",
-                start: 'bottom -1270%',
-                end: 'bottom -1280%',
+                start: `top+=${(window.innerHeight * 14.1)+heightOffset}`, // -150vh
+                end: `top+=${(window.innerHeight * 14.2)+heightOffset}`, // -250vh
                 
                 scrub: {
                     ease: "power1.out",
@@ -807,8 +834,8 @@ function Model() {
         const tl =gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: 'bottom -1550%',
-                end: 'bottom -1650%',
+                start: `top+=${window.innerHeight * 17}`, // -150vh
+                end: `top+=${window.innerHeight * 18}`, // -250vh
                 
                 scrub: 1
                 
@@ -939,7 +966,62 @@ function Model() {
 
   
   
-  function Iphone() {
+  function IphoneRes() {
+    useEffect(() => {
+        ScrollTrigger.config({
+            autoRefreshEvents: "visibilitychange,DOMContentLoaded,load,resize",
+            refreshPriority: 1,
+            ignoreMobileResize: true // Prevents refresh on mobile keyboard appear/disappear
+        });
+        
+        // Force recalculation on load
+        ScrollTrigger.refresh(true);
+        
+        return () => {
+            ScrollTrigger.getAll().forEach(st => st.kill());
+        };
+    }, []);
+    useEffect(() => {
+        // Function to handle fullscreen changes
+        const handleFullscreenChange = () => {
+          // Small delay to ensure DOM updates are complete
+          setTimeout(() => {
+            ScrollTrigger.refresh(true);
+          }, 100);
+        };
+    
+        // Function to handle resize
+        const handleResize = () => {
+          ScrollTrigger.refresh(true);
+        };
+    
+        // Configure ScrollTrigger
+        ScrollTrigger.config({
+          autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
+          refreshPriority: 1,
+          ignoreMobileResize: true
+        });
+    
+        // Add event listeners for fullscreen and resize
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+        window.addEventListener('resize', handleResize);
+    
+        // Initialize ScrollTrigger
+        ScrollTrigger.refresh(true);
+    
+        // Cleanup
+        return () => {
+          document.removeEventListener('fullscreenchange', handleFullscreenChange);
+          document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+          document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
+          document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
+          window.removeEventListener('resize', handleResize);
+          ScrollTrigger.getAll().forEach(st => st.kill());
+        };
+      }, []);
     return (
         <div id="model-section" className="h-full w-full flex justify-center items-center relative">
             <Canvas style={{pointerEvents:"none"}}>
@@ -954,4 +1036,4 @@ function Model() {
     )
 }
 
-export default Iphone
+export default IphoneRes

@@ -29,7 +29,7 @@ function Model(){
                     start: 'top -50%',
                     end: 'bottom -150%',
                     scrub: 1,
-                    markers: true,
+                    
                     onEnter:()=>{
                         modelRef.current.visible = true;
                         model2Ref.current.visible = false;
@@ -56,7 +56,7 @@ function Model(){
         smoothing: 0.5,
         duration: 0.5
     },
-                            markers: true,
+                            
                             
                             onEnterBack:()=>{
                                 modelRef.current.visible = true;
@@ -80,7 +80,7 @@ function Model(){
         smoothing: 0.5,
         duration: 0.5
     },
-                            markers: true,
+                            
                             onUpdate: (self) => {
                                 // Get scroll direction and progress
                                 const progress = self.progress;
@@ -110,7 +110,7 @@ function Model(){
         smoothing: 0.5,
         duration: 0.5
     },
-                            markers: true,
+                            
                         }
                     })
                     const tlR4 = gsap.timeline({
@@ -123,7 +123,7 @@ function Model(){
         smoothing: 0.5,
         duration: 0.5
     },
-                            markers: true,
+                            
                         }
                     })
                     const tlR5 = gsap.timeline({
@@ -136,7 +136,7 @@ function Model(){
         smoothing: 0.5,
         duration: 0.5
     },
-                            markers: true,
+                            
                             
                         }
                     })
@@ -228,7 +228,7 @@ function Model(){
         smoothing: 0.5,
         duration: 0.5
     },
-                                    markers: true,
+                                    
                                     onUpdate: (self) => {
                                         // Make everything transparent
                                         modelRef.current.traverse((node) => {
@@ -303,7 +303,7 @@ function MobileAni() {
   return (
     
         <div id="model-section" className="h-full w-full z-[20]">
-            <Canvas>
+            <Canvas s style={{pointerEvents:"none"}}>
                 <ambientLight intensity={1} color='white'/>
                 <directionalLight intensity={1} position={[5,5,5]}color='white'/>
                 <Model />

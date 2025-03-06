@@ -213,4 +213,6 @@ html{
 }
 
 
-
+.FAQS::-webkit-scrollbar{
+  display: none;
+}

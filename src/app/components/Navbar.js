@@ -117,7 +117,12 @@ function Navbar() {
               const whyUs = document.getElementById('whyUs');
               
               if (whyUs) {
-                whyUs.scrollIntoView({ behavior: 'smooth' });
+                const margin = window.innerHeight * 0.02;
+              
+                window.scrollTo({
+                    top: whyUs.offsetTop + margin,
+                    behavior: 'smooth'
+                });
               }
             };
             const toFAQ=(e)=>{
@@ -127,20 +132,29 @@ function Navbar() {
                   const faq = document.getElementById('faq');
                   
                   if (faq) {
-                    faq.scrollIntoView({ behavior: 'smooth' });
+                    const margin = window.innerHeight * 0.04;
+              
+                      window.scrollTo({
+                          top: faq.offsetTop + margin,
+                          behavior: 'smooth'
+                      });
                   }
                 };
 
-                const toWaitlist=(e)=>{
-                    e.preventDefault();
-                      
-                      // Get the services element
-                      const waitlist = document.getElementById('waitlist');
-                      
-                      if (waitlist) {
-                        waitlist.scrollIntoView({ behavior: 'smooth' });
-                      }
-                    };
+                const toWaitlist = (e) => {
+                  e.preventDefault();
+              
+                  const waitlist = document.getElementById('waitlist');
+              
+                  if (waitlist) {
+                      const margin = window.innerHeight * 0.2;
+              
+                      window.scrollTo({
+                          top: waitlist.offsetTop + margin,
+                          behavior: 'smooth'
+                      });
+                  }
+              };
 
                     const pathname = usePathname();
 
@@ -157,6 +171,74 @@ function Navbar() {
                         window.location.href = `/#${sectionId}`;
                       
                     };
+
+                    const toServicesMob=(e)=>{
+                      e.preventDefault();
+      
+                      // Get the services element
+                      const services = document.getElementById('scroller');
+                      
+                      if (services) {
+                        const offset = 20 * window.innerHeight / 100; // 10vh in pixels
+                        const elementPosition = services.getBoundingClientRect().top + window.scrollY;
+                        
+                        window.scrollTo({
+                          top: elementPosition - offset, // Scroll to 10vh before the element
+                          behavior: 'smooth',
+                        });
+                        tl2.reverse()
+                      }
+                    }
+                    const toHowItWorksMob =(e)=>{
+                      e.preventDefault();
+          
+                      // Get the services element
+                      const howItWorks = document.getElementById('howItWorks');
+                      
+                      if (howItWorks) {
+                        howItWorks.scrollIntoView({ behavior: 'smooth' });
+                        tl2.reverse()
+                      }
+                      
+
+                    }
+                    const toWhyUsMob=()=>{
+                      e.preventDefault();
+              
+                      // Get the services element
+                      const whyUs = document.getElementById('whyUs');
+                      
+                      if (whyUs) {
+                        whyUs.scrollIntoView({ behavior: 'smooth' });
+                        tl2.reverse()
+                      }
+                    }
+                    const toFAQMob=(e)=>{
+                      e.preventDefault();
+                  
+                      // Get the services element
+                      const faq = document.getElementById('faq');
+                      
+                      if (faq) {
+                        faq.scrollIntoView({ behavior: 'smooth' });
+                        tl2.reverse()
+                      }
+                    }
+                    const toWaitlistMob=(e)=>{
+                      e.preventDefault();
+              
+                      const waitlist = document.getElementById('waitlist');
+                  
+                      if (waitlist) {
+                          const margin = window.innerHeight * 0.03;
+                  
+                          window.scrollTo({
+                              top: waitlist.offsetTop + margin,
+                              behavior: 'smooth'
+                          });
+                          tl2.reverse()
+                      }
+                      }
        
        
 
@@ -190,12 +272,12 @@ function Navbar() {
             }}><RiMenu3Fill color='#18375d' /></button></div>
         </div>
         <div ref={panelRef} className='flex flex-col h-[85vh] w-[90vw] justify-evenly bg-[#bbd7f47a] rounded-3xl backdrop-blur-xl fixed right-[-100vw] mr-[3vw] top-[13vh] z-[200] opacity-0 text-[#18375d]'>
-            <Link href='/' className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[0] = el}>Services</Link>
-            <Link href='/' className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[1] = el}>How it Works</Link>
+            <Link href='/'  onClick={toServicesMob} className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[0] = el}>Services</Link>
+            <Link href='/' onClick={toHowItWorksMob} className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[1] = el}>How it Works</Link>
             <a href='/Blog' className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[2] = el}>Blog</a>
-            <Link href='/' className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[3] = el}>Why Us</Link>
-            <Link href='/' className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[4] = el}>FAQs</Link>
-            <Link href='/' className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[5] = el}>Join Waitlist</Link>
+            <Link href='/' onClick={toWhyUsMob} className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[3] = el}>Why Us</Link>
+            <Link href='/' onClick={toFAQMob} className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[4] = el}>FAQs</Link>
+            <Link href='/' onClick={toWaitlistMob} className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[5] = el}>Join Waitlist</Link>
         </div>
         </>
     )
