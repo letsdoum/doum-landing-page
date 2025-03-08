@@ -439,7 +439,7 @@ function Model() {
         if(window.innerHeight<700)
             return window.innerHeight*0.05
         if(window.innerHeight<1000){
-          const offset =window.innerHeight*-2.5
+          const offset =window.innerHeight*-3.5
           return offset
         }
         return 0 
