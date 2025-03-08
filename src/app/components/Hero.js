@@ -828,12 +828,13 @@ function Hero() {
 
 // In your Hero component, modify the useGSAP section for whyUsData:
 
+// Update the useGSAP section for whyUsData:
 useGSAP(() => {
   const container = whyDoumRef.current;
   const texts = textRefs.current;
   const images = imageRefs.current;
 
-  // Set initial state for first item
+  // Set initial states
   if (texts[0] && images[0]) {
     gsap.set(texts[0], {
       scale: 1.2,
@@ -841,7 +842,9 @@ useGSAP(() => {
       color: "#ffffff"
     });
     gsap.set(images[0], {
-      opacity: 1
+      opacity: 1,
+      duration: 0.5,
+      ease: "power2.inOut"
     });
   }
 
@@ -863,34 +866,40 @@ useGSAP(() => {
 
   const options = {
     root: container,
-    threshold: 0.5,
+    threshold: [0.3, 0.7], // Add multiple thresholds
     rootMargin: "-25% 0px -25% 0px"
   };
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const index = texts.indexOf(entry.target);
-      if (entry.isIntersecting) {
+      
+      // Only transition if visibility changes significantly
+      if (entry.intersectionRatio > 0.7) {
         gsap.to(entry.target, {
           scale: 1.2,
           opacity: 1,
           color: "#ffffff",
-          duration: 0.3
+          duration: 0.5,
+          ease: "power2.inOut"
         });
         gsap.to(images[index], {
           opacity: 1,
-          duration: 0.3
+          duration: 0.5,
+          ease: "power2.inOut"
         });
-      } else {
+      } else if (entry.intersectionRatio < 0.3) {
         gsap.to(entry.target, {
           scale: 0.8,
           opacity: 0.5,
           color: "#ffffff80",
-          duration: 0.3
+          duration: 0.5,
+          ease: "power2.inOut"
         });
         gsap.to(images[index], {
           opacity: 0,
-          duration: 0.3
+          duration: 0.5,
+          ease: "power2.inOut"
         });
       }
     });
@@ -1310,6 +1319,31 @@ useGSAP(() => {
 
   
 });
+useGSAP(() => {
+  const htl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".circleConMob",
+      start: 'center bottom', // Changed from 'bottom bottom'
+      end: 'center center',   // Changed from 'top top'
+      toggleActions: 'play none none reverse',
+      scrub: 1,              // Reduced from 4 for smoother animation
+          }
+  });
+
+  htl.from(".circleConMob", {
+    scale: 0,
+    duration: 1,
+    ease: "back.out(1.7)"    // Added easing for pop effect
+  });
+
+  htl.from(".circleConMob", {
+    opacity: 0,
+    duration: 1,
+    stagger: 0.2             // Added stagger for sequential fade-in
+  });
+
+  
+});
 
 useGSAP(() => {
   const htl = gsap.timeline({
@@ -1543,10 +1577,10 @@ const toServices=(e)=>{
               const waitlist = document.getElementById('waitlist');
           
               if (waitlist) {
-                  const margin = window.innerHeight * 0.1;
+                  const margin = window.innerHeight * 0.4;
           
                   window.scrollTo({
-                      top: waitlist.offsetTop + margin,
+                      top: waitlist.offsetTop - margin,
                       behavior: 'smooth'
                   });
               }
@@ -1621,7 +1655,7 @@ const toServices=(e)=>{
       
       <div className='h-12 w-12  absolute top-[20vh] left-[80vw]' style={{ backgroundImage: "url(/star.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center', mixBlendMode:"multiply" }} ref={el => starRef.current[1] = el}></div>
       <div className='mt-[0vh] md:mt-[20vh] h-[40vh] md:h-[10%] w-[90vw] min-w-[320px]' style={{ backgroundImage: 'url(/Hero-text.webp)', backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center', mixBlendMode: 'multiply' }}></div>
-      <div className='mt-[-15vh] md:mt-[-5vh]  h-16 w-400 overflow-hidden'><h4 className='text-xl md:text-2xl lg:text-3xl text-[#18375d] font-semibold font-glacial'>
+      <div className='mt-[-15vh] md:mt-[-5vh]  h-16 w-400 overflow-hidden'><h4 className='text-lg md:text-2xl lg:text-3xl text-[#18375d] font-semibold font-glacial'>
       All Your Home Services, One Tap Away!
       </h4></div>
       <div className='w-[50vw] md:w-[40vw] h-[25vh] flex flex-col md:flex-row justify-evenly md:justify-between items-center mb-[0] md:mb-[200vh] mt-[0vh] md:mt-[-10vh]'>
@@ -1639,7 +1673,7 @@ const toServices=(e)=>{
     </div>
     {/* platform */}
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[10vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
-        <div className='w-[70%] md:w-[40%] h-[17%] mt-[-80rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
+        <div className='w-[70%] md:w-[40%] h-[17%] mt-[-90rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
              {/*scroller*/}
              <div id='scroller'
       className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[160%] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-auto'
@@ -2161,11 +2195,16 @@ const toServices=(e)=>{
     </div>
   ))}
 </div>
+<div className='circleConMob flex md:none bg-[#004aad] rounded-full h-[120vw] w-[120vw] ml-[-8.75vw] justify-center items-center text-center'>
+        <h1 className='text-[#e1eefd] text-xl font-glacial font-bold px-[5%] pr-[10%]  '>
+              Be among the First 100 to enjoy a FREE service along with Exciting Surprise Gifts! Don't miss out!
+              </h1>
+        </div>
 
         {/* waitlist form */}
         <div id='waitlist' className='scrollele form-section h-[140vh] w-[100vw]  flex justify-between z-[20]'>
         <Toaster />
-          <div className='circleCon  h-full w-[25%] ml-[-35vw] overflow-x-visible hidden md:inline-block'> <div className='formCircle h-[175vh] w-[175vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
+          <div className='circleCon md:h-full md:w-[25%] ml-[-35vw] overflow-x-visible hidden md:inline-block'> <div className='formCircle h-[175vh] w-[175vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
              <div className='headingCon  mr-[22vh] h-[25%] w-[40%] mt-[-8vh]'>
               <h1 className='text-[#e1eefd] text-4xl font-glacial font-bold '>
               Be among the First 100 to enjoy a FREE service along with Exciting Surprise Gifts! Don't miss out!
@@ -2182,7 +2221,9 @@ const toServices=(e)=>{
             
 
             </div></div>
-          <div className='FormCon h-[60%] md:h-full w-full md:w-[65%]  mt-[10vh] flex justify-center items-center flex-col '>
+                
+
+          <div className='FormCon h-[60%] md:h-full w-full md:w-[65%] mt-[-35vh]  md:mt-[10vh] flex justify-center items-center flex-col '>
             <form className='ml:0 md:ml-[10vw] h-[50%] md:h-[40%] mt-0 md:mt-[5vh] w-[90%] md:w-[65%] bg-[#bbd7f47a] rounded-2xl mb-[2vh] drop-shadow-2xl flex flex-col items-center justify-evenly'onSubmit={handleSubmit(onSubmit,onError)} id='myForm'>
             
               <div className='names flex h-[20%] w-[90%]  items-center justify-between '>
