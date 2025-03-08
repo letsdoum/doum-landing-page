@@ -432,8 +432,18 @@ function Model() {
  function Model2(){
 
     const getScrollOffset = () => {
-        return window.innerHeight < 700 ? window.innerHeight*0.3 : 0; // 50vh offset for smaller screens
-    };
+        // return window.innerHeight < 700 ? window.innerHeight*0.3 : 0; // 50vh offset for smaller screens
+        
+        if(window.innerHeight<650)
+            return window.innerHeight*0.3
+        if(window.innerHeight<700)
+            return window.innerHeight*0.15
+        if(window.innerHeight<1000)
+            return (window.innerHeight*-1)
+        }
+       
+    
+    
     const setInitialState = () => {
         ScrollTrigger.getAll().forEach(st => {
             st.scroll(window.scrollY);
