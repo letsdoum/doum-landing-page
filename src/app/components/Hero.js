@@ -2003,46 +2003,46 @@ const toServices=(e)=>{
           <div className='FAQS w-full h-[95%]  flex flex-col justify-evenly items-center overflow-hidden gap-8 relative z-10  bottom-0 '>
             <div className='QnA1 h-[15%] w-full flex flex-col justify-between pt-[5vh]'>
                <div className='Q1Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-20 w-20 rounded-full bg-gray-400'></div>
-                     <div className='Q1 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-center px-[2%] mr-[11vw]'>
+                     <div className='userdp h-16 w-16 md:h-20 md:w-20 rounded-full bg-gray-400'></div>
+                     <div className='Q1 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-center px-[2%] mr-[11vw] text-sm md:text-base'>
                      Hi, I’m new to DOUM and have a lot of questions about how it works. Can you help?
 
                      </div>
                </div>
                <div className='A1Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%]  '>
                      
-                     <div className='A1 h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
+                     <div className='A1 h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left text-sm md:text-base'>
                      Of course! I’m here to assist. Ask me anything.
 
 
                      </div>
-                     <div className='employeedp h-20 w-20 rounded-full bg-gray-900'></div>
+                     <div className='employeedp h-16 w-16 md:h-20 md:w-20  rounded-full bg-gray-900'></div>
                </div>
 
             </div>
             <div className='QnA2 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q2Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
-                     <div className='Q2 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='userdp h-16 w-16 md:h-20 md:w-20   rounded-full bg-gray-400'></div>
+                     <div className='Q2 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What is DOUM?
 
                      </div>
                </div>
                <div className='A2Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%]  '>
                      
-                     <div className='A2 h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
+                     <div className='A2 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
                      DOUM is an all-in-one home services platform connecting users with verified experts for appliance repairs, cleaning, plumbing, electrical work, spa & massage and more—fast, reliable, and hassle-free in a single click
 
 
                      </div>
-                     <div className='employeedp h-20 w-20 rounded-full bg-gray-900'></div>
+                     <div className='employeedp h-16 w-16 md:h-20 md:w-20  rounded-full bg-gray-900'></div>
                </div>
 
             </div>
             <div className='QnA3 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q3Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
-                     <div className='Q3 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='userdp h-16 w-16 md:h-20 md:w-20   rounded-full bg-gray-400'></div>
+                     <div className='Q3 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      Okay. So, do you offer regular or subscription-based services?
 
 
@@ -2050,77 +2050,77 @@ const toServices=(e)=>{
                </div>
                <div className='A3Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%]  '>
                      
-                     <div className='A3 h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
+                     <div className='A3 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
                      Yes, we offer both one-time services and subscriptionbased plans. You can choose weekly, bi-weekly, or monthly visits for services like cleaning, pest control, or maintenance tasks
 
 
                      </div>
-                     <div className='employeedp h-20 w-20 rounded-full bg-gray-900'></div>
+                     <div className='employeedp h-16 w-16 md:h-20 md:w-20  rounded-full bg-gray-900'></div>
                </div>
 
             </div>
             <div className='QnA4 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q4Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
-                     <div className='Q4 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='userdp h-16 w-16 md:h-20 md:w-20   rounded-full bg-gray-400'></div>
+                     <div className='Q4 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What happens if an expert doesn’t show up on time?
 
                      </div>
                </div>
                <div className='A4Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%]  '>
                      
-                     <div className='A4 h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
+                     <div className='A4 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
                      Punctuality is our priority. In rare cases of delays, we let you know immediately. You can track the expert’s real-time location or contact our support team for quick assistance.
 
 
                      </div>
-                     <div className='employeedp h-20 w-20 rounded-full bg-gray-900'></div>
+                     <div className='employeedp h-16 w-16 md:h-20 md:w-20  rounded-full bg-gray-900'></div>
                </div>
 
             </div>
             <div className='QnA5 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q5Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
-                     <div className='Q5 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='userdp h-16 w-16 md:h-20 md:w-20   rounded-full bg-gray-400'></div>
+                     <div className='Q5 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      Amazing. So, are there any charges for cancelling or rescheduling bookings?
 
                      </div>
                </div>
                <div className='A5Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%]  '>
                      
-                     <div className='A5 h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
+                     <div className='A5 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
                      You can cancel or reschedule for free if done within 1 hour before the service time. However, last-minute cancellations may incur minimal charges. Refer to Cancellation Policy.
 
 
                      </div>
-                     <div className='employeedp h-20 w-20 rounded-full bg-gray-900'></div>
+                     <div className='employeedp h-16 w-16 md:h-20 md:w-20  rounded-full bg-gray-900'></div>
                </div>
 
             </div>
             <div className='QnA6 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q6Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
-                     <div className='Q6 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='userdp h-16 w-16 md:h-20 md:w-20   rounded-full bg-gray-400'></div>
+                     <div className='Q6 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What happens if I’m not satisfied with the service?
 
                      </div>
                </div>
                <div className='A6Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%]  '>
                      
-                     <div className='A6 h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
+                     <div className='A6 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
                      If you’re unsatisfied, you can report the issue via the app or contact our support team. We’ll work to resolve your concern promptly.
 
 
 
                      </div>
-                     <div className='employeedp h-20 w-20 rounded-full bg-gray-900'></div>
+                     <div className='employeedp h-16 w-16 md:h-20 md:w-20  rounded-full bg-gray-900'></div>
                </div>
 
             </div>
             <div className='QnA7 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q7Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
-                     <div className='Q7 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='userdp h-16 w-16 md:h-20 md:w-20   rounded-full bg-gray-400'></div>
+                     <div className='Q7 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      Got It. What if I require an instant service?
 
 
@@ -2128,13 +2128,13 @@ const toServices=(e)=>{
                </div>
                <div className='A7Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%] pb-[2vh]  '>
                      
-                     <div className='A7 h-full w-[70%] md:w-[40%]  bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
+                     <div className='A7 text-sm md:text-base h-full w-[70%] md:w-[40%]  bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
                      Currently, we only provide service scheduling. Soon we will be adding instant services in under 10 minutes.
 
 
 
                      </div>
-                     <div className='employeedp h-20 w-20 rounded-full bg-gray-900'></div>
+                     <div className='employeedp h-16 w-16 md:h-20 md:w-20  rounded-full bg-gray-900'></div>
                </div>
 
             </div>
