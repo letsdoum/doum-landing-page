@@ -437,12 +437,15 @@ function Model() {
         if(window.innerHeight<650)
             return window.innerHeight*0.3
         if(window.innerHeight<700)
-            return window.innerHeight*0.15
-        if(window.innerHeight<1000)
-            return (window.innerHeight*-1)
+            return window.innerHeight*0.05
+        if(window.innerHeight<1000){
+          const offset =window.innerHeight*-1
+          return offset
+        }
+           
         }
        
-    
+    return 0
     
     const setInitialState = () => {
         ScrollTrigger.getAll().forEach(st => {
