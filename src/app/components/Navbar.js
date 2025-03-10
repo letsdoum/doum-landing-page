@@ -45,43 +45,38 @@ function Navbar() {
         })
     }, [])
 
-    useEffect(()=>{
+
         
-        tl2.to(panelRef.current,{
-            right:10,
-            duration:1,
-            
+      useEffect(() => {
+        tl2.to(panelRef.current, {
+            right: 10,
+            duration: 0.3, // Reduced from 1 to 0.3
             opacity: 1
         })
-        tl2.to(mobRef.current,{
+        .to(mobRef.current, {
             opacity: 1,
-            duration:0.3,
-           
-            X:60,
-            stagger:0.2
+            duration: 0.15, // Reduced from 0.3 to 0.15
+            X: 60,
+            stagger: 0.05 // Reduced from 0.2 to 0.05
+        });
+    }, []);
+    
+    // Update the useEffect for tl3 timeline:
+    useEffect(() => {
+        const tl3 = gsap.timeline();
+    
+        tl3.from(mobBarRef.current, {
+            y: -1000,
+            opacity: 0,
+            duration: 0.4, // Reduced from 0.7 to 0.4
         })
-
-    })
-    useEffect(()=>{
-         const tl3= gsap.timeline()
-
-         tl3.from(mobBarRef.current,{
-                y:-1000,
-                opacity:0,
-                duration:0.7,
-                
-         })
-         tl3.from(mobNavRef.current,{
-                y:-700,
-                opacity:0,
-                duration:0.4,
-                
-                stagger:0.2
-
-         }
-            
-         )
-    })
+        .from(mobNavRef.current, {
+            y: -700,
+            opacity: 0,
+            duration: 0.2, // Reduced from 0.4 to 0.2
+            stagger: 0.05 // Reduced from 0.2 to 0.05
+        });
+    }, []);
 
     const toServices = (e) => {
       e.preventDefault();

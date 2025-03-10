@@ -1673,7 +1673,7 @@ const toServices=(e)=>{
     </div>
     {/* platform */}
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[10vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
-        <div className='w-[70%] md:w-[40%] h-[17%] mt-[-90rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
+        <div className='w-[70%] md:w-[40%] h-[17%] mt-[-85rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
              {/*scroller*/}
              <div id='scroller'
       className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[160%] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-auto'
@@ -1682,7 +1682,7 @@ const toServices=(e)=>{
       {doubledServices.map((service, index) => (
         <div
           key={`${service.id}-${index}`}
-          className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[2vh]'
+          className='scrollingContent h-[70%] md:h-[90%] w-[25%] md:w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[-2vh]md:pb-[2vh] mt-[10vh] md:mt-0'
           style={{
             backgroundImage: `url("${service.image}")`,
             backgroundRepeat: 'no-repeat',
@@ -2196,13 +2196,13 @@ const toServices=(e)=>{
   ))}
 </div>
 <div className='circleConMob flex md:none bg-[#004aad] rounded-full h-[120vw] w-[120vw] ml-[-8.75vw] justify-center items-center text-center'>
-        <h1 className='text-[#e1eefd] text-xl font-glacial font-bold px-[5%] pr-[10%]  '>
+        <h1 className='text-[#e1eefd] text-xl font-glacial font-bold px-[10%] pr-[12%]  '>
               Be among the First 100 to enjoy a FREE service along with Exciting Surprise Gifts! Don't miss out!
               </h1>
         </div>
 
         {/* waitlist form */}
-        <div id='waitlist' className='scrollele form-section h-[140vh] w-[100vw]  flex justify-between z-[20]'>
+        <div id='waitlist' className='scrollele form-section h-[140vh] w-[100vw]  flex justify-between z-[20] '>
         <Toaster />
           <div className='circleCon md:h-full md:w-[25%] ml-[-35vw] overflow-x-visible hidden md:inline-block'> <div className='formCircle h-[175vh] w-[175vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
              <div className='headingCon  mr-[22vh] h-[25%] w-[40%] mt-[-8vh]'>
@@ -2293,7 +2293,7 @@ const toServices=(e)=>{
 
         </div>
               {/*footer */}
-   <div className='scrollele footer h-auto min-h-[75vh] w-[100%] md:w-[100%] mt-[20vh] mb-[-20vh] rounded-3xl mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 py-8 z-[11] mx-0 md:mx-[0%]' style={style2}>
+   <div className='scrollele footer h-auto min-h-[75vh] w-[100%] md:w-[100%] mt-[-80vh] md:mt-[20vh] mb-[-20vh] rounded-3xl mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 md:py-8 z-[11] mx-0 md:mx-[0%]' style={style2} >
    <div className='col1 h-auto w-full md:w-[25%] flex flex-col justify-center mt-6 md:mt-12 px-4' >
       <div className='logo h-[100px] w-[80%] items-start mx-auto md:mx-0 mt[0] md:mt-[5vh]' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}> </div>
       <br/>

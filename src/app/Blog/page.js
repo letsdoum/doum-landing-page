@@ -51,11 +51,11 @@ function blog() {
     <div className='flex flex-col justify-center items-center w-screen'>
         <div className=' w-full ml-[40vw]'><Navbar2/></div>
         
-        <h1 className='text-[#18375d] text-4xl mx-[5vw] md:mx-0 md:text-5xl font-bold font-glacial mt-[30vh] text-center'>PARTNERSHIP WITH MICROSOFT FOR STARTUPS</h1>
-        <div className='h-[110vh] w-[90vw] rounded-3xl  mt-[5vh]' style={style}>
+        <h1 className='text-[#18375d] text-4xl mx-[5vw] md:mx-0 md:text-5xl font-bold font-glacial mt-[10vh] md:mt-[30vh] text-center'>PARTNERSHIP WITH MICROSOFT FOR STARTUPS</h1>
+        <div className='h-[70vh] md:h-[110vh] w-[90vw] rounded-3xl  mt-[5vh]' style={style}>
                 
         </div>
-        <div className='h-[7vh] md:h-[10vh] w-[90vw]  flex mt-[5vh]'>
+        <div className='h-[6vh] md:h-[10vh] w-[90vw]  flex mt-[5vh]'>
            <a target="_blank" className='w-1/3 h-full' href='https://www.facebook.com/sharer/sharer.php?u=www.mydoum.com/Blog'> <div className='w-full h-full bg-[#3c5b99] flex justify-center items-center text-3xl'><SiFacebook color='#ffffff'/></div></a>
            <a target="_blank" className='w-1/3 h-full' href='https://twitter.com/intent/tweet?text=www.mydoum.com/Blog'><div className='w-full h-full bg-black flex justify-center items-center text-3xl'><FaSquareXTwitter color='#ffffff' /></div></a> 
            <a target="_blank" className='w-1/3 h-full' href='https://www.linkedin.com/shareArticle?url=https://www.mydoum.com/Blog&source=www.mydoum.com/Blog '><div className='full h-full bg-[#0078b6] flex justify-center items-center text-3xl'><FaLinkedin color='#ffffff' /></div></a> 
@@ -77,7 +77,7 @@ function blog() {
 
 Stay tuned—exciting times ahead!
         </div>
-        <div className='w-[32.5vw] h-[30vh]  rounded-2xl self-start mt-[5vh] md:mt-[-20vh] mx-[5vw] md:mx-[5vw]' style={{ backgroundImage: 'url(/microsoftB.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+        <div className='w-[80%] md:w-[32.5vw] h-[30vh]  rounded-2xl self-center md:self-start mt-[30vh] md:mt-[-20vh] mx-[5vw] md:mx-[5vw]' style={{ backgroundImage: 'url(/microsoftB.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
 
         </div>
         <a href='/'> <div className='flex whitespace-nowrap text-4xl font-medium self-start mt-[10vh] h-[5vh] w-[10vw] ml-[-45vw] text-[#18375d]'>
