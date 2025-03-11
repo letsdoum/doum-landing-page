@@ -445,13 +445,16 @@ function Model() {
           return offset
             
         }
-        if(window.innerHeight<1000){
-            const hVal = window.innerHeight
-          const offset = hVal * 7.5 *-1
-          console.log(offset)
-          return offset
-        }
-        return 0 
+        if (window.innerHeight < 850)
+            return window.innerHeight * -0.05; // Medium-large screens
+            
+        if (window.innerHeight < 1000)
+            return window.innerHeight * -0.10; // Large screens
+            
+        if (window.innerHeight < 1200)
+            return window.innerHeight * -0.15; // Very large screens
+            
+        return 0;
         }
        
    
