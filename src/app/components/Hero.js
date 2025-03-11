@@ -2195,7 +2195,7 @@ const toServices=(e)=>{
     </div>
   ))}
 </div>
-<div className='circleConMob flex md:none bg-[#004aad] rounded-full h-[120vw] w-[120vw] ml-[-8.75vw] justify-center items-center text-center'>
+<div className='circleConMob flex md:hidden bg-[#004aad] rounded-full h-[120vw] w-[120vw] ml-[-8.75vw] justify-center items-center text-center'>
         <h1 className='text-[#e1eefd] text-xl font-glacial font-bold px-[10%] pr-[12%]  '>
               Be among the First 100 to enjoy a FREE service along with Exciting Surprise Gifts! Don't miss out!
               </h1>
