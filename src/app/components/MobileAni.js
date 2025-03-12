@@ -49,8 +49,8 @@ function Model(){
             const tlR = gsap.timeline({
                         scrollTrigger:{
                             trigger: "#model-section",
-                            start: 'top -150%',
-                            end: 'bottom -250%',
+                            start: 'top -250%',
+                            end: 'bottom -350%',
                             scrub: {
         ease: "power1.out",
         smoothing: 0.5,
@@ -73,8 +73,8 @@ function Model(){
                     const tlR2 = gsap.timeline({
                         scrollTrigger:{
                             trigger: "#model-section",
-                            start: 'bottom -250%',
-                            end: 'bottom -350%',
+                            start: 'bottom -350%',
+                            end: 'bottom -450%',
                             scrub: {
         ease: "power1.out",
         smoothing: 0.5,
@@ -103,8 +103,8 @@ function Model(){
                     const tlR3 = gsap.timeline({
                         scrollTrigger:{
                             trigger: "#model-section",
-                            start: 'bottom -350%',
-                            end: 'bottom -450%',
+                            start: 'bottom -450%',
+                            end: 'bottom -550%',
                             scrub: {
         ease: "power1.out",
         smoothing: 0.5,
@@ -116,8 +116,8 @@ function Model(){
                     const tlR4 = gsap.timeline({
                         scrollTrigger:{
                             trigger: "#model-section",
-                            start: 'bottom -450%',
-                            end: 'bottom -550%',
+                            start: 'bottom -550%',
+                            end: 'bottom -650%',
                             scrub: {
         ease: "power1.out",
         smoothing: 0.5,
@@ -129,8 +129,8 @@ function Model(){
                     const tlR5 = gsap.timeline({
                         scrollTrigger:{
                             trigger: "#model-section",
-                            start: 'bottom -550%',
-                            end: 'bottom -650%',
+                            start: 'bottom -650%',
+                            end: 'bottom -750%',
                             scrub: {
         ease: "power1.out",
         smoothing: 0.5,
@@ -221,8 +221,8 @@ function Model(){
                     const fadeOut = gsap.timeline({
                                 scrollTrigger:{
                                     trigger: "#model-section",
-                                    start: 'bottom -650%',
-                                    end: 'bottom -750%',
+                                    start: 'bottom -700%',
+                                    end: 'bottom -800%',
                                     scrub: {
         ease: "power1.out",
         smoothing: 0.5,

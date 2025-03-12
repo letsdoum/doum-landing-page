@@ -11,8 +11,30 @@ gsap.registerPlugin({ScrollTrigger})
 
 function Model() {
     const getScrollOffset = () => {
-        return window.innerHeight < 700 ? window.innerHeight * 0.5 : 0; // 50vh offset for smaller screens
-    };
+        // return window.innerHeight < 700 ? window.innerHeight*0.3 : 0; // 50vh offset for smaller screens
+        
+        if(window.innerHeight<650)
+            return window.innerHeight*0.3
+        if(window.innerHeight<700)
+            return window.innerHeight*0.05
+        if(window.innerHeight<750){
+            const hVal = window.innerHeight
+          const offset = hVal * 0.01 *-1
+          
+          return offset
+            
+        }
+        if (window.innerHeight < 850)
+            return window.innerHeight * -0.05; // Medium-large screens
+            
+        if (window.innerHeight < 1000)
+            return window.innerHeight * -0.15; // Large screens
+            
+        if (window.innerHeight < 1200)
+            return window.innerHeight * -0.2; // Very large screens
+            
+        return 0;
+        }
 
     const setInitialState = () => {
         ScrollTrigger.getAll().forEach(st => {
@@ -38,7 +60,7 @@ function Model() {
     
     useGSAP(() => {
         if (!modelRef.current || !model2Ref.current) return
-
+     
         const heightOffset = getScrollOffset();
 
         ScrollTrigger.config({
@@ -197,12 +219,13 @@ function Model() {
             scrollTrigger:{
                 trigger: "#model-section",
                 start: `top+=${window.innerHeight * 8.0}`, // -150vh
-                end: `top+=${window.innerHeight * 9.0}`, // -250vh
+                end: `top+=${window.innerHeight * 9.4}`, // -250vh
                 scrub: {
                     ease: "power1.out",
                     smoothing: 0.5,
                     duration: 0.5
                 },
+                toggleActions: "play none none reverse", // Added toggle actions
                 preventOverlaps: true,
                 fastScrollEnd: true,
                 immediateRender: false,
@@ -380,22 +403,51 @@ function Model() {
             y: -Math.PI,
             z: 0,
         })
-        tl3.fromTo(model2Ref.current.scale,{
-            x: 6.5,
-            y: 6.5,
-            z: 6.5,     
-        },{
-            x: 35,y:35,z: 35,
-        },'hy')
-        tl3.fromTo(model2Ref.current.position,{
-            x: 3,
-            y: 6,
-            z: -25
-        },{
-            x: 0,
-            y: 6,
-            z: -25
-        })
+       // Replace the existing tl3 animations with this:
+tl3.fromTo(model2Ref.current.scale,
+    {
+        x: 6.5,
+        y: 6.5,
+        z: 6.5,     
+    },
+    {
+        x: 35,
+        y: 35,
+        z: 35,
+        immediateRender: false
+    },
+    0 // Start position in timeline
+);
+
+// Position animation needs to be synchronized
+tl3.fromTo(model2Ref.current.position,
+    {
+        x: 3,
+        y: 6,
+        z: -25
+    },
+    {
+        x: 0,
+        y: 6,
+        z: -25,
+        immediateRender: false
+    },
+    0 // Start at same time as scale
+);
+
+// Add visibility controls
+tl3.eventCallback("onUpdate", () => {
+    if(model2Ref.current) {
+        model2Ref.current.visible = true;
+    }
+});
+
+// Add reverse callback
+tl3.eventCallback("onReverseComplete", () => {
+    if(model2Ref.current) {
+        model2Ref.current.scale.set(6.5, 6.5, 6.5);
+    }
+});
         fadeOut.fromTo(model2Ref.current,{
             opacity:1
         },{
@@ -449,10 +501,10 @@ function Model() {
             return window.innerHeight * -0.05; // Medium-large screens
             
         if (window.innerHeight < 1000)
-            return window.innerHeight * -0.10; // Large screens
+            return window.innerHeight * -0.15; // Large screens
             
         if (window.innerHeight < 1200)
-            return window.innerHeight * -0.15; // Very large screens
+            return window.innerHeight * -0.2; // Very large screens
             
         return 0;
         }

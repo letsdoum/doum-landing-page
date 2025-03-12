@@ -8,7 +8,7 @@ function EqualOpportunityPolicy() {
       <div className=' w-full ml-[20vw] md:ml-[20vw]'><Navbar2/></div>
       
       {/* Policy Document */}
-      <div className="bg-white text-[#18375d] p-6 md:p-12 w-full max-w-2xl mx-auto px-4 md:px-12 font-glacial mt-[5vh] md:mt-[25vh] rounded-lg">
+      <div className="bg-white text-[#18375d] p-6 md:p-12 w-full md:w-4/5 max-w-6xl mx-auto px-4 md:px-12 font-glacial mt-[5vh] md:mt-[10vh] rounded-lg">
         <h1 className="text-3xl font-bold text-center mb-6">EQUAL OPPORTUNITY POLICY</h1>
         <p className="text-gray-700 text-center">Date of Issue: 18th February 2025</p>
         <p className="text-gray-700 text-center">Effective From: 18th February 2025</p>

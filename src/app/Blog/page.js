@@ -51,7 +51,7 @@ function blog() {
     <div className='flex flex-col justify-center items-center w-screen'>
         <div className=' w-full ml-[40vw]'><Navbar2/></div>
         
-        <h1 className='text-[#18375d] text-4xl mx-[5vw] md:mx-0 md:text-5xl font-bold font-glacial mt-[10vh] md:mt-[30vh] text-center'>PARTNERSHIP WITH MICROSOFT FOR STARTUPS</h1>
+        <h1 className='text-[#18375d] text-4xl mx-[5vw] md:mx-0 md:text-5xl font-bold font-glacial mt-[10vh] md:mt-[10vh] text-center'>PARTNERSHIP WITH MICROSOFT FOR STARTUPS</h1>
         <div className='h-[70vh] md:h-[110vh] w-[90vw] rounded-3xl  mt-[5vh]' style={style}>
                 
         </div>
