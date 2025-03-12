@@ -293,11 +293,9 @@ function Model() {
                 onEnterBack: () => {
                     // Only make visible if we're not at the end of the animation
                     
-                        if (model2Ref.current.visible) {
+                        
                             model2Ref.current.visible = true;
-                        } else {
-                            modelRef.current.visible = true;
-                        }
+                        
                     
                 }
             }
@@ -454,7 +452,7 @@ tl3.eventCallback("onReverseComplete", () => {
             opacity:0
         })
 
-    }, [modelRef.current, model2Ref.current])
+    },  model2Ref.current)
     useEffect(() => {
         // Set initial transform when the component mounts
         if (modelRef.current) {
