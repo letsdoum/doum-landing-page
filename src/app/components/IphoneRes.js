@@ -53,8 +53,13 @@ function Model() {
     useEffect(() => {
         // Ensure first model is visible and second is hidden initially
         if (modelRef.current && model2Ref.current) {
-            modelRef.current.visible = true
-            model2Ref.current.visible = false
+            modelRef.current.visible = true;
+            model2Ref.current.visible = false;
+            
+            // Set initial transform when the component mounts
+            modelRef.current.scale.set(18, 18, 18);
+            modelRef.current.rotation.set(-Math.PI/4, Math.PI, 0);
+            modelRef.current.position.set(3, -50, -15);
         }
     }, [])
     
@@ -126,41 +131,62 @@ function Model() {
                 
             }
         })
-        const tlR2 = gsap.timeline({
-            scrollTrigger:{
-                trigger: "#model-section",
-                start: `top+=${window.innerHeight * 4.0}`, // -150vh
-                end: `top+=${(window.innerHeight * 5.0)+heightOffset}`, // -250vh
-                scrub: {
-                    ease: "power1.out",
-                    smoothing: 0.5,
-                    duration: 0.5
-                },
-                preventOverlaps: true,
-                fastScrollEnd: true,
-                immediateRender: false,
-                invalidateOnRefresh: true, // Recalculate on resize/refresh
-  fastScrollEnd: true, // Better handling of fast scrolling
-                
-                onUpdate: (self) => {
-                    // Get scroll direction and progress
-                    const progress = self.progress;
-                    const direction = self.getVelocity() >= 0 ? 1 : -1;
-                    const currentRotation = modelRef.current.rotation.y;
-
-                    // Scrolling down
-                    if (direction > 0 && currentRotation < 0.6 * Math.PI && !model2Ref.current.visible) {
-                        modelRef.current.visible = false;
-                        model2Ref.current.visible = true;
-                    }
-                    // Scrolling up
-                    else if (direction < 0 && currentRotation > 0.4 * Math.PI && model2Ref.current.visible) {
-                        modelRef.current.visible = true;
-                        model2Ref.current.visible = false;
+        
+            const tlR2 = gsap.timeline({
+                scrollTrigger:{
+                    trigger: "#model-section",
+                    start: `top+=${window.innerHeight * 4.0}`,
+                    end: `top+=${(window.innerHeight * 5.0)+heightOffset}`,
+                    scrub: {
+                        ease: "power1.out",
+                        smoothing: 0.5,
+                        duration: 0.5
+                    },
+                    preventOverlaps: true,
+                    fastScrollEnd: true,
+                    immediateRender: false,
+                    invalidateOnRefresh: true,
+                    fastScrollEnd: true,
+                    
+                    // Replace the existing onUpdate with this improved version
+                    onUpdate: (self) => {
+                        // Get progress and direction
+                        const progress = self.progress;
+                        const direction = self.getVelocity() >= 0 ? 1 : -1;
+                        
+                        // Switch at the midpoint for consistency
+                        const switchPoint = 0.5;
+                        
+                        // Scrolling down past the switch point
+                        if (direction > 0 && progress >= switchPoint && modelRef.current.visible) {
+                            modelRef.current.visible = false;
+                            model2Ref.current.visible = true;
+                        }
+                        // Scrolling up past the switch point
+                        else if (direction < 0 && progress < switchPoint && model2Ref.current.visible) {
+                            modelRef.current.visible = true;
+                            model2Ref.current.visible = false;
+                        }
+                    },
+                    // Add these callbacks to handle edge cases
+                    onEnter: () => {
+                        if (modelRef.current) modelRef.current.visible = true;
+                        if (model2Ref.current) model2Ref.current.visible = false;
+                    },
+                    onLeave: () => {
+                        if (modelRef.current) modelRef.current.visible = false;
+                        if (model2Ref.current) model2Ref.current.visible = true;
+                    },
+                    onEnterBack: () => {
+                        if (modelRef.current) modelRef.current.visible = false;
+                        if (model2Ref.current) model2Ref.current.visible = true;
+                    },
+                    onLeaveBack: () => {
+                        if (modelRef.current) modelRef.current.visible = true;
+                        if (model2Ref.current) model2Ref.current.visible = false;
                     }
                 }
-            }
-        })
+            })
         const tlR3 = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
