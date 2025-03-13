@@ -826,6 +826,31 @@ function Model() {
  function Model3(){
     const modelRef = useRef()
     const result = useLoader(GLTFLoader, '/IP 7.glb')
+    const getScrollOffset = () => {
+        // return window.innerHeight < 700 ? window.innerHeight*0.3 : 0; // 50vh offset for smaller screens
+        
+        if(window.innerHeight<650)
+            return window.innerHeight*0.3
+        if(window.innerHeight<700)
+            return window.innerHeight*0.05
+        if(window.innerHeight<750){
+            const hVal = window.innerHeight
+          const offset = hVal * 0.01 *-1
+          
+          return offset
+            
+        }
+        if (window.innerHeight < 850)
+            return window.innerHeight * -0.05; // Medium-large screens
+            
+        if (window.innerHeight < 1000)
+            return window.innerHeight * -0.55; // Large screens
+            
+        if (window.innerHeight < 1200)
+            return window.innerHeight * -0.8; // Very large screens
+            
+        return 0;
+        }
 
     useGSAP(()=>{
         ScrollTrigger.config({
@@ -833,11 +858,12 @@ function Model() {
             autoRefreshEvents: "visibilitychange,DOMContentLoaded,load", // Optimize refresh events
             limitCallbacks: true
         });
+        const heightOffset = getScrollOffset();
         const tl =gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
-                start: `top+=${window.innerHeight * 17}`, // -150vh
-                end: `top+=${window.innerHeight * 18}`, // -250vh
+                start: `top+=${(window.innerHeight * 17)+heightOffset}`, // -150vh
+                end: `top+=${(window.innerHeight * 18)+heightOffset}`, // -250vh
                 
                 scrub: 1
                 
