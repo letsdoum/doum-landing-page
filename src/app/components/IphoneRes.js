@@ -525,10 +525,10 @@ tl3.eventCallback("onReverseComplete", () => {
             return window.innerHeight * -0.05; // Medium-large screens
             
         if (window.innerHeight < 1000)
-            return window.innerHeight * -0.15; // Large screens
+            return window.innerHeight * -0.5; // Large screens
             
         if (window.innerHeight < 1200)
-            return window.innerHeight * -0.2; // Very large screens
+            return window.innerHeight * -0.75; // Very large screens
             
         return 0;
         }
