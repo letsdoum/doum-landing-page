@@ -224,7 +224,7 @@ function Model() {
         });
         
         const tl3 = gsap.timeline({
-            scrollTrigger:{
+            scrollTrigger: {
                 trigger: "#model-section",
                 start: `top+=${window.innerHeight * 8.0}`,
                 end: `top+=${window.innerHeight * 9.4}`,
@@ -233,12 +233,26 @@ function Model() {
                     smoothing: 0.5,
                     duration: 0.5
                 },
-                toggleActions: "play none none reverse",
-                preventOverlaps: true,
-                fastScrollEnd: true,
-                immediateRender: false,
-                invalidateOnRefresh: true,
-                fastScrollEnd: true,
+                onEnter: () => {
+                    if (model2Ref.current) {
+                        gsap.set(model2Ref.current.scale, {x: 6.5, y: 6.5, z: 6.5});
+                    }
+                },
+                onEnterBack: () => {
+                    if (model2Ref.current) {
+                        gsap.set(model2Ref.current.scale, {x: 6.5, y: 6.5, z: 6.5});
+                    }
+                },
+                onLeave: () => {
+                    if (model2Ref.current) {
+                        gsap.set(model2Ref.current.scale, {x: 35, y: 35, z: 35});
+                    }
+                },
+                onLeaveBack: () => {
+                    if (model2Ref.current) {
+                        gsap.set(model2Ref.current.scale, {x: 6.5, y: 6.5, z: 6.5});
+                    }
+                }
             }
         });
         
@@ -365,15 +379,11 @@ function Model() {
         });
         
         // Final animations
-        tl3.fromTo(model2Ref.current.scale, {
-            x: 6.5, y: 6.5, z: 6.5
-        }, {
+        tl3.to(model2Ref.current.scale, {
             x: 35, y: 35, z: 35,
             immediateRender: false
         }, 0)
-        .fromTo(model2Ref.current.position, {
-            x: 3, y: 6, z: -25
-        }, {
+        .to(model2Ref.current.position, {
             x: 0, y: 6, z: -25,
             immediateRender: false
         }, 0);
