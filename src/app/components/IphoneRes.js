@@ -1,5 +1,5 @@
 'use client'
-import React, { Suspense, useEffect, useRef } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas, useLoader, useThree } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { useGSAP } from '@gsap/react'
@@ -57,7 +57,7 @@ function Model() {
             modelRef.current.position.set(3, -50, -15);
             
             // Set initial transform for model2 (even though it's hidden)
-            model2Ref.current.scale.set(6.5, 6.5, 6.5);
+            model2Ref.current.scale.set(18, 18, 18);
             model2Ref.current.rotation.set(-Math.PI/4, Math.PI, 0);
             model2Ref.current.position.set(3, -50, -15);
         }
@@ -96,6 +96,43 @@ function Model() {
             }
         });
         
+        const tl2 = gsap.timeline({
+            scrollTrigger:{
+                trigger: "#model-section",
+                start: 'top 30%',
+                end: 'bottom 60%',
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
+                invalidateOnRefresh: true,
+                fastScrollEnd: true,
+            }
+        });
+        
+        const tlR = gsap.timeline({
+            scrollTrigger:{
+                trigger: "#model-section",
+                start: `top+=${window.innerHeight * 2.0}`,
+                end: `top+=${(window.innerHeight * 3.0) + heightOffset}`,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
+                invalidateOnRefresh: true,
+                fastScrollEnd: true,
+            }
+        });
+        
+        // IMPORTANT: This is the timeline that should handle the model switch
         const tlR2 = gsap.timeline({
             scrollTrigger:{
                 trigger: "#model-section",
@@ -117,19 +154,237 @@ function Model() {
                     // When entering this section, switch to model2
                     if (modelRef.current) modelRef.current.visible = false;
                     if (model2Ref.current) model2Ref.current.visible = true;
-                    // Ensure Model2's scale is set correctly
-                    if (model2Ref.current) model2Ref.current.scale.set(6.5, 6.5, 6.5);
                 },
                 onLeaveBack: () => {
                     // When scrolling back up before this section, switch to model1
                     if (modelRef.current) modelRef.current.visible = true;
                     if (model2Ref.current) model2Ref.current.visible = false;
-                },
+                }
             }
         });
         
-        // Additional timelines and animations...
+        const tlR3 = gsap.timeline({
+            scrollTrigger:{
+                trigger: "#model-section",
+                start: `top+=${window.innerHeight * 5.0}`,
+                end: `top+=${window.innerHeight * 6.0}`,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
+                invalidateOnRefresh: true,
+                fastScrollEnd: true,
+            }
+        });
         
+        const tlR4 = gsap.timeline({
+            scrollTrigger:{
+                trigger: "#model-section",
+                start: `top+=${window.innerHeight * 6.0}`,
+                end: `top+=${window.innerHeight * 7.0}`,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
+                invalidateOnRefresh: true,
+                fastScrollEnd: true,
+            }
+        });
+        
+        const tlR5 = gsap.timeline({
+            scrollTrigger:{
+                trigger: "#model-section",
+                start: `top+=${window.innerHeight * 7.0}`,
+                end: `top+=${window.innerHeight * 8.0}`,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
+                invalidateOnRefresh: true,
+                fastScrollEnd: true,
+            }
+        });
+        
+        const tl3 = gsap.timeline({
+            scrollTrigger:{
+                trigger: "#model-section",
+                start: `top+=${window.innerHeight * 8.0}`,
+                end: `top+=${window.innerHeight * 9.4}`,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                toggleActions: "play none none reverse",
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
+                invalidateOnRefresh: true,
+                fastScrollEnd: true,
+            }
+        });
+        
+        const tl4 = gsap.timeline({
+            scrollTrigger:{
+                trigger: "#model-section",
+                start: `top+=${window.innerHeight * 9.0}`,
+                end: `top+=${window.innerHeight * 9.0}`,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
+                invalidateOnRefresh: true,
+                fastScrollEnd: true,
+            }
+        });
+        
+        const fadeOut = gsap.timeline({
+            scrollTrigger:{
+                trigger: "#model-section",
+                start: `top+=${window.innerHeight * 9.0}`,
+                end: `top+=${window.innerHeight * 9.4}`,
+                scrub: {
+                    ease: "power1.out",
+                    smoothing: 0.5,
+                    duration: 0.5
+                },
+                preventOverlaps: true,
+                fastScrollEnd: true,
+                immediateRender: false,
+                invalidateOnRefresh: true,
+                fastScrollEnd: true,
+                onUpdate: (self) => {
+                    const progress = self.progress;
+                    [modelRef, model2Ref].forEach(ref => {
+                        if (ref.current && ref.current.visible) {
+                            ref.current.traverse((node) => {
+                                if (node.material) {
+                                    node.material.transparent = true;
+                                    node.material.opacity = 1 - progress;
+                                    node.material.needsUpdate = true;
+                                }
+                            });
+                        }
+                    });
+
+                    // If progress is complete, hide the models
+                    if (progress === 1) {
+                        if (modelRef.current) modelRef.current.visible = false;
+                        if (model2Ref.current) model2Ref.current.visible = false;
+                    }
+                },
+                onLeave: () => {
+                    if (modelRef.current) modelRef.current.visible = false;
+                    if (model2Ref.current) model2Ref.current.visible = false;
+                },
+                onEnterBack: () => {
+                    // Only make model2 visible when entering back
+                    if (model2Ref.current) model2Ref.current.visible = true;
+                }
+            }
+        });
+        
+        // Scale animations
+        tl.fromTo([modelRef.current.scale, model2Ref.current.scale], {
+            x: 18, y: 18, z: 18
+        }, {
+            x: 10, y: 10, z: 10,
+            immediateRender: false
+        }, 'hi')
+        .fromTo([modelRef.current.rotation, model2Ref.current.rotation], {
+            x: -Math.PI/4, y: Math.PI, z: 0
+        }, {
+            x: 0, y: Math.PI, z: 0,
+            immediateRender: false
+        }, '-=1');
+
+        // Position animations
+        tl2.fromTo([modelRef.current.position, model2Ref.current.position], {
+            x: 0, y: -50, z: -15
+        }, {
+            x: 3, y: 6, z: -25,
+            immediateRender: false
+        });
+
+        // Rotation and scale animations
+        tlR.fromTo([modelRef.current.rotation, model2Ref.current.rotation], {
+            x: 0, y: Math.PI, z: 0
+        }, {
+            x: 0, y: 2*Math.PI/3, z: 0
+        }, 'kbc')
+        .fromTo([modelRef.current.scale, model2Ref.current.scale], {
+            x: 9, y: 9, z: 9
+        }, {
+            x: 6.5, y: 6.5, z: 6.5
+        }, 'kbc');
+        
+        tlR2.fromTo([modelRef.current.rotation, model2Ref.current.rotation], {
+            x: 0, y: 2*Math.PI/3, z: 0
+        }, {
+            x: 0, y: Math.PI/2, z: 0
+        });
+
+        tlR3.fromTo([modelRef.current.rotation, model2Ref.current.rotation], {
+            x: 0, y: Math.PI/2, z: 0
+        }, {
+            x: 0, y: Math.PI/4, z: 0
+        });
+
+        tlR4.fromTo([modelRef.current.rotation, model2Ref.current.rotation], {
+            x: 0, y: Math.PI/4, z: 0
+        }, {
+            x: 0, y: 0, z: 0
+        });
+
+        tlR5.fromTo([modelRef.current.rotation, model2Ref.current.rotation], {
+            x: 0, y: 0, z: 0
+        }, {
+            x: 0, y: -Math.PI, z: 0
+        });
+        
+        // Final animations
+        tl3.fromTo(model2Ref.current.scale, {
+            x: 6.5, y: 6.5, z: 6.5
+        }, {
+            x: 35, y: 35, z: 35,
+            immediateRender: false
+        }, 0)
+        .fromTo(model2Ref.current.position, {
+            x: 3, y: 6, z: -25
+        }, {
+            x: 0, y: 6, z: -25,
+            immediateRender: false
+        }, 0);
+
+        // Add reverse callback
+        tl3.eventCallback("onReverseComplete", () => {
+            if(model2Ref.current) {
+                model2Ref.current.scale.set(6.5, 6.5, 6.5);
+            }
+        });
+        
+        fadeOut.fromTo(model2Ref.current, {
+            opacity: 1
+        }, {
+            opacity: 0
+        });
+
     }, [model2Ref.current]);
 
     return (
@@ -151,8 +406,7 @@ function Model() {
         </>
     );
 }
-
-function Model2(){
+ function Model2(){
 
     const getScrollOffset = () => {
         // return window.innerHeight < 700 ? window.innerHeight*0.3 : 0; // 50vh offset for smaller screens
@@ -568,6 +822,7 @@ function Model2(){
 
     
  }
+
  function Model3(){
     const modelRef = useRef()
     const result = useLoader(GLTFLoader, '/IP 7.glb')
@@ -737,9 +992,8 @@ function Model2(){
   };
 
 
-
- 
- 
+  
+  
   function IphoneRes() {
     useEffect(() => {
         ScrollTrigger.config({
