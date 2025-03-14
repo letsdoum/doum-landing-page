@@ -78,7 +78,7 @@ html, body {
 @media(max-width:768px){
   .scrollingContent{
     background-size: cover;
-    color:rgba(24, 55, 93, 0)
+    
   }
 }
 body::-webkit-scrollbar {
