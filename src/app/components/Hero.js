@@ -834,39 +834,27 @@ useGSAP(() => {
   const texts = textRefs.current;
   const images = imageRefs.current;
 
-  // Set initial states
-  if (texts[0] && images[0]) {
-    gsap.set(texts[0], {
-      scale: 1.2,
-      opacity: 1,
-      color: "#ffffff"
-    });
-    gsap.set(images[0], {
-      opacity: 1,
-      duration: 0.5,
-      ease: "power2.inOut"
-    });
-  }
-
-  // Set initial state for other items
-  texts.slice(1).forEach((text, index) => {
+  // Set initial states - make first item active, others inactive
+  texts.forEach((text, index) => {
     if (text) {
       gsap.set(text, {
-        scale: 0.8,
-        opacity: 0.5,
-        color: "#ffffff80"
+        scale: index === 0 ? 1.2 : 0.8,
+        opacity: index === 0 ? 1 : 0.5,
+        color: index === 0 ? "#ffffff" : "#ffffff80"
       });
     }
-    if (images[index + 1]) {
-      gsap.set(images[index + 1], {
-        opacity: 0
+    if (images[index]) {
+      gsap.set(images[index], {
+        opacity: index === 0 ? 1 : 0
       });
     }
   });
 
+  let activeIndex = 0; // Track currently active item
+
   const options = {
     root: container,
-    threshold: [0.3, 0.7], // Add multiple thresholds
+    threshold: 0.6, // Single threshold for cleaner transitions
     rootMargin: "-25% 0px -25% 0px"
   };
 
@@ -874,33 +862,38 @@ useGSAP(() => {
     entries.forEach((entry) => {
       const index = texts.indexOf(entry.target);
       
-      // Only transition if visibility changes significantly
-      if (entry.intersectionRatio > 0.7) {
+      if (entry.isIntersecting) {
+        // Deactivate previous active item
+        if (activeIndex !== index) {
+          if (texts[activeIndex]) {
+            gsap.to(texts[activeIndex], {
+              scale: 0.8,
+              opacity: 0.5,
+              color: "#ffffff80",
+              duration: 0.5
+            });
+          }
+          if (images[activeIndex]) {
+            gsap.to(images[activeIndex], {
+              opacity: 0,
+              duration: 0.5
+            });
+          }
+        }
+
+        // Activate new item
         gsap.to(entry.target, {
           scale: 1.2,
           opacity: 1,
           color: "#ffffff",
-          duration: 0.5,
-          ease: "power2.inOut"
+          duration: 0.5
         });
         gsap.to(images[index], {
           opacity: 1,
-          duration: 0.5,
-          ease: "power2.inOut"
+          duration: 0.5
         });
-      } else if (entry.intersectionRatio < 0.3) {
-        gsap.to(entry.target, {
-          scale: 0.8,
-          opacity: 0.5,
-          color: "#ffffff80",
-          duration: 0.5,
-          ease: "power2.inOut"
-        });
-        gsap.to(images[index], {
-          opacity: 0,
-          duration: 0.5,
-          ease: "power2.inOut"
-        });
+
+        activeIndex = index;
       }
     });
   }, options);
