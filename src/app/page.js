@@ -11,8 +11,9 @@ function page() {
     window.scrollTo(0, 0);
 
     const handleResize = () => {
+      const isDesktop = window.innerWidth >= 1024; // Standard desktop breakpoint
       const currentHeight = window.innerHeight;
-      if (currentHeight !== prevHeight.current) {
+      if (isDesktop && currentHeight !== prevHeight.current) {
         // Option 1: Soft refresh (faster, preserves state)
         window.location.reload();
         
