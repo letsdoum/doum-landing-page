@@ -1696,7 +1696,7 @@ const toServices=(e)=>{
           backgroundRepeat: 'no-repeat'
         }}
       ></div>
-      <div className='h-[20%] w-full flex items-center justify-center text-2xl font-bold'>
+      <div className='h-[20%] w-full flex items-center justify-center text-base md:text-2xl font-bold'>
         {service.name}
       </div>
     </div>
