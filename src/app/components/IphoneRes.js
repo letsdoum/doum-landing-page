@@ -158,7 +158,11 @@ function Model() {
                 onLeaveBack: () => {
                     // When scrolling back up before this section, switch to model1
                     if (modelRef.current) modelRef.current.visible = true;
-                    if (model2Ref.current) model2Ref.current.visible = false;
+                    if (model2Ref.current) {
+                        model2Ref.current.visible = false;
+                        // Reset the scale to match model1's current scale
+                        model2Ref.current.scale.set(6.5, 6.5, 6.5);
+                    }
                 }
             }
         });
@@ -233,6 +237,18 @@ function Model() {
                 immediateRender: false,
                 invalidateOnRefresh: true,
                 fastScrollEnd: true,
+                onEnter: () => {
+                    // Ensure model2 has the correct scale before starting this animation
+                    if (model2Ref.current && model2Ref.current.visible) {
+                        model2Ref.current.scale.set(6.5, 6.5, 6.5);
+                    }
+                },
+                onLeaveBack: () => {
+                    // Reset the scale when scrolling back up
+                    if (model2Ref.current) {
+                        model2Ref.current.scale.set(6.5, 6.5, 6.5);
+                    }
+                }
             }
         });
         
@@ -383,6 +399,11 @@ function Model() {
             opacity: 1
         }, {
             opacity: 0
+        });
+        tlR2.eventCallback("onComplete", () => {
+            if (model2Ref.current) {
+                model2Ref.current.scale.set(6.5, 6.5, 6.5);
+            }
         });
 
     }, [model2Ref.current]);
