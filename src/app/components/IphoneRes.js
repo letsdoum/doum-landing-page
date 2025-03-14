@@ -334,7 +334,7 @@ function Model() {
         }, {
             x: 0, y: 2*Math.PI/3, z: 0
         }, 'kbc')
-        .fromTo([modelRef.current.scale, model2Ref.current.scale], {
+        .fromTo(modelRef.current.scale, {
             x: 9, y: 9, z: 9
         }, {
             x: 6.5, y: 6.5, z: 6.5
