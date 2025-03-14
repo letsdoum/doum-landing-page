@@ -1676,23 +1676,32 @@ const toServices=(e)=>{
         <div className='w-[70%] md:w-[40%] h-[17%] mt-[-85rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
              {/*scroller*/}
              <div id='scroller'
-      className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[160%] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-auto'
-      ref={conRef}
+     className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[160%] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-auto'
+     ref={conRef}
+>
+  {doubledServices.map((service, index) => (
+    <div
+      key={`${service.id}-${index}`}
+      className='scrollingContent h-[70%] md:h-[90%] w-[25%] md:w-[25%] rounded-2xl flex flex-col bg-[#e1eefd] text-[#18375d]'
+      style={{
+        aspectRatio: '4/5'
+      }}
     >
-      {doubledServices.map((service, index) => (
-        <div
-          key={`${service.id}-${index}`}
-          className='scrollingContent h-[70%] md:h-[90%] w-[25%] md:w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[-2vh]md:pb-[2vh] mt-[10vh] md:mt-0'
-          style={{
-            backgroundImage: `url("${service.image}")`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'top'
-          }}
-        >
-          {service.name}
-        </div>
-      ))}
+      <div 
+        className='h-[80%] w-full rounded-t-2xl'
+        style={{
+          backgroundImage: `url("${service.image}")`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      ></div>
+      <div className='h-[20%] w-full flex items-center justify-center text-2xl font-bold'>
+        {service.name}
+      </div>
     </div>
+  ))}
+</div>
           </div>
     </div>
         
