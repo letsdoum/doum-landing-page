@@ -129,6 +129,11 @@ function Model() {
                 immediateRender: false,
                 invalidateOnRefresh: true,
                 fastScrollEnd: true,
+                onEnterBack:()=>{
+                    // When scrolling back down to this section, switch back to model1
+                    if (modelRef.current) modelRef.current.visible = true;
+                    if (model2Ref.current) model2Ref.current.visible = false;
+                }
             }
         });
         
@@ -159,7 +164,8 @@ function Model() {
                     // When scrolling back up before this section, switch to model1
                     if (modelRef.current) modelRef.current.visible = true;
                     if (model2Ref.current) model2Ref.current.visible = false;
-                }
+                },
+                
             }
         });
         
