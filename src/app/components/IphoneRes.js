@@ -57,7 +57,7 @@ function Model() {
             modelRef.current.position.set(3, -50, -15);
             
             // Set initial transform for model2 (even though it's hidden)
-            model2Ref.current.scale.set(18, 18, 18);
+            model2Ref.current.scale.set(6.5, 6.5, 6.5);
             model2Ref.current.rotation.set(-Math.PI/4, Math.PI, 0);
             model2Ref.current.position.set(3, -50, -15);
         }
