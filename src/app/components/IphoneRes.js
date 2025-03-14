@@ -307,7 +307,7 @@ function Model() {
         });
         
         // Scale animations
-        tl.fromTo([modelRef.current.scale, model2Ref.current.scale], {
+        tl.fromTo(modelRef.current.scale, {
             x: 18, y: 18, z: 18
         }, {
             x: 10, y: 10, z: 10,
