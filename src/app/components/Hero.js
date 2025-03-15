@@ -2301,7 +2301,7 @@ const toServices=(e)=>{
 
         </div>
               {/*footer */}
-   <div className='scrollele footer h-auto min-h-[75vh] w-[100%] md:w-[100%] mt-[-80vh] md:mt-[20vh] mb-[-20vh] rounded-3xl mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 md:py-8 z-[11] mx-0 md:mx-[0%]' style={style2} >
+   <div className='scrollele footer h-auto min-h-[75vh] w-[100%] md:w-[100%] mt-[-80vh] md:mt-[20vh] mb-[-20vh] mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 md:py-8 z-[11] mx-0 md:mx-[0%]' style={style2} >
    <div className='col1 h-auto w-full md:w-[25%] flex flex-col justify-center mt-6 md:mt-12 px-4' >
       <div className='logo h-[100px] w-[80%] items-start mx-auto md:mx-0 mt[0] md:mt-[5vh]' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}> </div>
       <br/>
