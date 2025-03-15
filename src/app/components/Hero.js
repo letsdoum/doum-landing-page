@@ -828,70 +828,72 @@ function Hero() {
 
 // In your Hero component, modify the useGSAP section for whyUsData:
 
+// Update the useGSAP section for whyUsData:
 useGSAP(() => {
   const container = whyDoumRef.current;
   const texts = textRefs.current;
   const images = imageRefs.current;
 
-  // Set initial state for first item
-  if (texts[0] && images[0]) {
-    gsap.set(texts[0], {
-      scale: 1.2,
-      opacity: 1,
-      color: "#ffffff"
-    });
-    gsap.set(images[0], {
-      opacity: 1
-    });
-  }
-
-  // Set initial state for other items
-  texts.slice(1).forEach((text, index) => {
+  // Set initial states - make first item active, others inactive
+  texts.forEach((text, index) => {
     if (text) {
       gsap.set(text, {
-        scale: 0.8,
-        opacity: 0.5,
-        color: "#ffffff80"
+        scale: index === 0 ? 1.2 : 0.8,
+        opacity: index === 0 ? 1 : 0.5,
+        color: index === 0 ? "#ffffff" : "#ffffff80"
       });
     }
-    if (images[index + 1]) {
-      gsap.set(images[index + 1], {
-        opacity: 0
+    if (images[index]) {
+      gsap.set(images[index], {
+        opacity: index === 0 ? 1 : 0
       });
     }
   });
 
+  let activeIndex = 0; // Track currently active item
+
   const options = {
     root: container,
-    threshold: 0.5,
+    threshold: 0.6, // Single threshold for cleaner transitions
     rootMargin: "-25% 0px -25% 0px"
   };
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const index = texts.indexOf(entry.target);
+      
       if (entry.isIntersecting) {
+        // Deactivate previous active item
+        if (activeIndex !== index) {
+          if (texts[activeIndex]) {
+            gsap.to(texts[activeIndex], {
+              scale: 0.8,
+              opacity: 0.5,
+              color: "#ffffff80",
+              duration: 0.5
+            });
+          }
+          if (images[activeIndex]) {
+            gsap.to(images[activeIndex], {
+              opacity: 0,
+              duration: 0.5
+            });
+          }
+        }
+
+        // Activate new item
         gsap.to(entry.target, {
           scale: 1.2,
           opacity: 1,
           color: "#ffffff",
-          duration: 0.3
+          duration: 0.5
         });
         gsap.to(images[index], {
           opacity: 1,
-          duration: 0.3
+          duration: 0.5
         });
-      } else {
-        gsap.to(entry.target, {
-          scale: 0.8,
-          opacity: 0.5,
-          color: "#ffffff80",
-          duration: 0.3
-        });
-        gsap.to(images[index], {
-          opacity: 0,
-          duration: 0.3
-        });
+
+        activeIndex = index;
       }
     });
   }, options);
@@ -1310,6 +1312,31 @@ useGSAP(() => {
 
   
 });
+useGSAP(() => {
+  const htl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".circleConMob",
+      start: 'center bottom', // Changed from 'bottom bottom'
+      end: 'center center',   // Changed from 'top top'
+      toggleActions: 'play none none reverse',
+      scrub: 1,              // Reduced from 4 for smoother animation
+          }
+  });
+
+  htl.from(".circleConMob", {
+    scale: 0,
+    duration: 1,
+    ease: "back.out(1.7)"    // Added easing for pop effect
+  });
+
+  htl.from(".circleConMob", {
+    opacity: 0,
+    duration: 1,
+    stagger: 0.2             // Added stagger for sequential fade-in
+  });
+
+  
+});
 
 useGSAP(() => {
   const htl = gsap.timeline({
@@ -1543,10 +1570,10 @@ const toServices=(e)=>{
               const waitlist = document.getElementById('waitlist');
           
               if (waitlist) {
-                  const margin = window.innerHeight * 0.1;
+                  const margin = window.innerHeight * 0.4;
           
                   window.scrollTo({
-                      top: waitlist.offsetTop + margin,
+                      top: waitlist.offsetTop - margin,
                       behavior: 'smooth'
                   });
               }
@@ -1621,7 +1648,7 @@ const toServices=(e)=>{
       
       <div className='h-12 w-12  absolute top-[20vh] left-[80vw]' style={{ backgroundImage: "url(/star.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center', mixBlendMode:"multiply" }} ref={el => starRef.current[1] = el}></div>
       <div className='mt-[0vh] md:mt-[20vh] h-[40vh] md:h-[10%] w-[90vw] min-w-[320px]' style={{ backgroundImage: 'url(/Hero-text.webp)', backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center', mixBlendMode: 'multiply' }}></div>
-      <div className='mt-[-15vh] md:mt-[-5vh]  h-16 w-400 overflow-hidden'><h4 className='text-xl md:text-2xl lg:text-3xl text-[#18375d] font-semibold font-glacial'>
+      <div className='mt-[-15vh] md:mt-[-5vh]  h-16 w-400 overflow-hidden'><h4 className='text-lg md:text-2xl lg:text-3xl text-[#18375d] font-semibold font-glacial'>
       All Your Home Services, One Tap Away!
       </h4></div>
       <div className='w-[50vw] md:w-[40vw] h-[25vh] flex flex-col md:flex-row justify-evenly md:justify-between items-center mb-[0] md:mb-[200vh] mt-[0vh] md:mt-[-10vh]'>
@@ -1639,26 +1666,35 @@ const toServices=(e)=>{
     </div>
     {/* platform */}
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[10vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
-        <div className='w-[70%] md:w-[40%] h-[17%] mt-[-80rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
+        <div className='w-[70%] md:w-[40%] h-[17%] mt-[-85rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
              {/*scroller*/}
              <div id='scroller'
-      className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[160%] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-auto'
-      ref={conRef}
+     className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[160%] relative ml-[-15vw] md:ml-[-30vw] mt-[20vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-hidden'
+     ref={conRef}
+>
+  {doubledServices.map((service, index) => (
+    <div
+      key={`${service.id}-${index}`}
+      className='scrollingContent h-[70%] md:h-[90%] w-[25%] md:w-[25%] rounded-2xl flex flex-col bg-[#e1eefd] text-[#18375d]'
+      style={{
+        aspectRatio: '4/5'
+      }}
     >
-      {doubledServices.map((service, index) => (
-        <div
-          key={`${service.id}-${index}`}
-          className='scrollingContent h-[90%] w-[25%] bg-[#e1eefd] rounded-2xl flex flex-col justify-end items-center text-2xl font-bold text-[#18375d] pb-[2vh]'
-          style={{
-            backgroundImage: `url("${service.image}")`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'top'
-          }}
-        >
-          {service.name}
-        </div>
-      ))}
+      <div 
+        className='h-[80%] w-full rounded-t-2xl'
+        style={{
+          backgroundImage: `url("${service.image}")`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      ></div>
+      <div className='h-[20%] w-full flex items-center justify-center text-base md:text-2xl font-bold capitalize'>
+        {service.name}
+      </div>
     </div>
+  ))}
+</div>
           </div>
     </div>
         
@@ -1969,46 +2005,46 @@ const toServices=(e)=>{
           <div className='FAQS w-full h-[95%]  flex flex-col justify-evenly items-center overflow-hidden gap-8 relative z-10  bottom-0 '>
             <div className='QnA1 h-[15%] w-full flex flex-col justify-between pt-[5vh]'>
                <div className='Q1Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-20 w-20 rounded-full bg-gray-400'></div>
-                     <div className='Q1 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-center px-[2%] mr-[11vw]'>
+                     <div className='userdp h-16 w-16 md:h-20 md:w-20 rounded-full bg-gray-400'></div>
+                     <div className='Q1 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-center px-[2%] mr-[11vw] text-sm md:text-base'>
                      Hi, I’m new to DOUM and have a lot of questions about how it works. Can you help?
 
                      </div>
                </div>
                <div className='A1Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%]  '>
                      
-                     <div className='A1 h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
+                     <div className='A1 h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left text-sm md:text-base'>
                      Of course! I’m here to assist. Ask me anything.
 
 
                      </div>
-                     <div className='employeedp h-20 w-20 rounded-full bg-gray-900'></div>
+                     <div className='employeedp h-16 w-16 md:h-20 md:w-20  rounded-full bg-gray-900'></div>
                </div>
 
             </div>
             <div className='QnA2 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q2Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
-                     <div className='Q2 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='userdp h-16 w-16 md:h-20 md:w-20   rounded-full bg-gray-400'></div>
+                     <div className='Q2 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What is DOUM?
 
                      </div>
                </div>
                <div className='A2Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%]  '>
                      
-                     <div className='A2 h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
+                     <div className='A2 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
                      DOUM is an all-in-one home services platform connecting users with verified experts for appliance repairs, cleaning, plumbing, electrical work, spa & massage and more—fast, reliable, and hassle-free in a single click
 
 
                      </div>
-                     <div className='employeedp h-20 w-20 rounded-full bg-gray-900'></div>
+                     <div className='employeedp h-16 w-16 md:h-20 md:w-20  rounded-full bg-gray-900'></div>
                </div>
 
             </div>
             <div className='QnA3 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q3Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
-                     <div className='Q3 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='userdp h-16 w-16 md:h-20 md:w-20   rounded-full bg-gray-400'></div>
+                     <div className='Q3 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      Okay. So, do you offer regular or subscription-based services?
 
 
@@ -2016,77 +2052,77 @@ const toServices=(e)=>{
                </div>
                <div className='A3Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%]  '>
                      
-                     <div className='A3 h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
+                     <div className='A3 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
                      Yes, we offer both one-time services and subscriptionbased plans. You can choose weekly, bi-weekly, or monthly visits for services like cleaning, pest control, or maintenance tasks
 
 
                      </div>
-                     <div className='employeedp h-20 w-20 rounded-full bg-gray-900'></div>
+                     <div className='employeedp h-16 w-16 md:h-20 md:w-20  rounded-full bg-gray-900'></div>
                </div>
 
             </div>
             <div className='QnA4 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q4Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
-                     <div className='Q4 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='userdp h-16 w-16 md:h-20 md:w-20   rounded-full bg-gray-400'></div>
+                     <div className='Q4 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What happens if an expert doesn’t show up on time?
 
                      </div>
                </div>
                <div className='A4Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%]  '>
                      
-                     <div className='A4 h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
+                     <div className='A4 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
                      Punctuality is our priority. In rare cases of delays, we let you know immediately. You can track the expert’s real-time location or contact our support team for quick assistance.
 
 
                      </div>
-                     <div className='employeedp h-20 w-20 rounded-full bg-gray-900'></div>
+                     <div className='employeedp h-16 w-16 md:h-20 md:w-20  rounded-full bg-gray-900'></div>
                </div>
 
             </div>
             <div className='QnA5 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q5Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
-                     <div className='Q5 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='userdp h-16 w-16 md:h-20 md:w-20   rounded-full bg-gray-400'></div>
+                     <div className='Q5 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      Amazing. So, are there any charges for cancelling or rescheduling bookings?
 
                      </div>
                </div>
                <div className='A5Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%]  '>
                      
-                     <div className='A5 h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
+                     <div className='A5 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
                      You can cancel or reschedule for free if done within 1 hour before the service time. However, last-minute cancellations may incur minimal charges. Refer to Cancellation Policy.
 
 
                      </div>
-                     <div className='employeedp h-20 w-20 rounded-full bg-gray-900'></div>
+                     <div className='employeedp h-16 w-16 md:h-20 md:w-20  rounded-full bg-gray-900'></div>
                </div>
 
             </div>
             <div className='QnA6 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q6Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
-                     <div className='Q6 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='userdp h-16 w-16 md:h-20 md:w-20   rounded-full bg-gray-400'></div>
+                     <div className='Q6 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      What happens if I’m not satisfied with the service?
 
                      </div>
                </div>
                <div className='A6Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%]  '>
                      
-                     <div className='A6 h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
+                     <div className='A6 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
                      If you’re unsatisfied, you can report the issue via the app or contact our support team. We’ll work to resolve your concern promptly.
 
 
 
                      </div>
-                     <div className='employeedp h-20 w-20 rounded-full bg-gray-900'></div>
+                     <div className='employeedp h-16 w-16 md:h-20 md:w-20  rounded-full bg-gray-900'></div>
                </div>
 
             </div>
             <div className='QnA7 h-[50vh] w-full flex flex-col justify-between'>
                <div className='Q7Container h-[40%] w-[100%] flex justify-center items-end gap-[1%] '>
-                     <div className='userdp h-20 w-20  rounded-full bg-gray-400'></div>
-                     <div className='Q7 h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
+                     <div className='userdp h-16 w-16 md:h-20 md:w-20   rounded-full bg-gray-400'></div>
+                     <div className='Q7 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#bbd7f4] rounded-3xl text-[#18375d] font-glacial font-light flex items-center justify-start p-[2%]  mr-[11vw]'>
                      Got It. What if I require an instant service?
 
 
@@ -2094,13 +2130,13 @@ const toServices=(e)=>{
                </div>
                <div className='A7Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%] pb-[2vh]  '>
                      
-                     <div className='A7 h-full w-[70%] md:w-[40%]  bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
+                     <div className='A7 text-sm md:text-base h-full w-[70%] md:w-[40%]  bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
                      Currently, we only provide service scheduling. Soon we will be adding instant services in under 10 minutes.
 
 
 
                      </div>
-                     <div className='employeedp h-20 w-20 rounded-full bg-gray-900'></div>
+                     <div className='employeedp h-16 w-16 md:h-20 md:w-20  rounded-full bg-gray-900'></div>
                </div>
 
             </div>
@@ -2161,28 +2197,35 @@ const toServices=(e)=>{
     </div>
   ))}
 </div>
+<div className='circleConMob flex md:hidden bg-[#004aad] rounded-full h-[120vw] w-[120vw] ml-[-8.75vw] justify-center items-center text-center'>
+        <h1 className='text-[#e1eefd] text-xl font-glacial font-bold px-[10%] pr-[12%]  '>
+              Be among the First 100 to enjoy a FREE service along with Exciting Surprise Gifts! Don't miss out!
+              </h1>
+        </div>
 
         {/* waitlist form */}
-        <div id='waitlist' className='scrollele form-section h-[140vh] w-[100vw]  flex justify-between z-[20]'>
+        <div id='waitlist' className='scrollele form-section h-[140vh] w-[100vw]  flex justify-between z-[20] '>
         <Toaster />
-          <div className='circleCon  h-full w-[25%] ml-[-35vw] overflow-x-visible hidden md:inline-block'> <div className='formCircle h-[175vh] w-[175vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
-             <div className='headingCon  mr-[22vh] h-[25%] w-[40%] mt-[-8vh]'>
+          <div className='circleCon md:h-full md:w-[25%] ml-[-35vw] 2xl:ml-[-40vw] overflow-x-visible hidden md:inline-block'> <div className='formCircle h-[175vh] w-[175vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
+             <div className='headingCon  mr-[22vh] h-[25%] w-[40%] mt-[-8vh]'>   {/*2xl:mr-[25vh]  */}
               <h1 className='text-[#e1eefd] text-4xl font-glacial font-bold '>
               Be among the First 100 to enjoy a FREE service along with Exciting Surprise Gifts! Don't miss out!
               </h1>
               </div>  
-             <div className='contact-info h-[8%] w-[30%] mr-[39vh] mb-[0vh] mt-[-12vh] '>
+             <div className='contact-info h-[8%] w-[30%] mr-[39vh]  mb-[0vh] mt-[-12vh] '>    {/*2xl:mr-[42vh]*/}
              
              <a href='mailto:helpdesk@mydoum.com' className='font-glacial text-[#e1eefd] text-2xl font-light'> helpdesk@mydoum.com</a>
              </div>
-             <div className='whatsapp h-[5%] w-[35%] mr-[17vh] mt-[-10vh]' >
-              <a href='https://wa.me/918967908081' className='font-glacial text-[#e1eefd] text-2xl font-thin whitespace-nowrap flex items-center justify-start gap-4 ml-[-13vh]   '>Need help? Message us! <div><BsWhatsapp color='#e1eefd' /></div>  </a> </div>
-              <div className='address font-glacial text-[#e1eefd] text-2xl font-light h-[10%] w-[40%] mr-[22vh] mt-[-5vh] '>Salt Lake City, Kolkata,Kolkata 700091,West Bengal, India</div>
+             <div className='whatsapp h-[5%] w-[35%] mr-[17vh]  mt-[-10vh]' >   {/*2xl:mr-[20vh] */}
+              <a href='https://wa.me/918967908081' className='font-glacial text-[#e1eefd] text-2xl font-thin whitespace-nowrap flex items-center justify-start gap-4 ml-[-13vh]   '>Need help? Message us! <div><BsWhatsapp color='#e1eefd' /></div>  </a> </div>  {/*2xl:ml-[-15vh]  */}
+              <div className='address font-glacial text-[#e1eefd] text-2xl font-light h-[10%] w-[40%] mr-[22vh] mt-[-5vh] '>Salt Lake City, Kolkata,Kolkata 700091,West Bengal, India</div>   {/*2xl:mr-[25vh]  */}
 
             
 
             </div></div>
-          <div className='FormCon h-[60%] md:h-full w-full md:w-[65%]  mt-[10vh] flex justify-center items-center flex-col '>
+                
+
+          <div className='FormCon h-[60%] md:h-full w-full md:w-[65%] mt-[-35vh]  md:mt-[10vh] flex justify-center items-center flex-col '>
             <form className='ml:0 md:ml-[10vw] h-[50%] md:h-[40%] mt-0 md:mt-[5vh] w-[90%] md:w-[65%] bg-[#bbd7f47a] rounded-2xl mb-[2vh] drop-shadow-2xl flex flex-col items-center justify-evenly'onSubmit={handleSubmit(onSubmit,onError)} id='myForm'>
             
               <div className='names flex h-[20%] w-[90%]  items-center justify-between '>
@@ -2246,13 +2289,19 @@ const toServices=(e)=>{
               
 
             </form>
-            <button  type='submit' className='ml:0 md:ml-[10vw] bg-[#004aad] text-[#e1eefd] text-lg font-glacial font-medium w-[50%] h-[7.5%] md:h-[5%] rounded-2xl' onClick={() => document.getElementById("myForm").requestSubmit()}
-              >Claim Your Spot Now</button>
+            <button  
+  type="submit"  
+  className="ml:0 md:ml-[10vw] bg-gradient-to-br from-[#1CE7FF] via-[#0045FF] to-[#00C6FF] text-[#e1eefd] text-lg font-glacial font-medium w-[50%] h-[7.5%] md:h-[5%] rounded-2xl"
+  onClick={() => document.getElementById('myForm').requestSubmit()}
+>
+  Claim Your Spot Now
+</button>
+
           </div>
 
         </div>
               {/*footer */}
-   <div className='scrollele footer h-auto min-h-[75vh] w-[100%] md:w-[100%] mt-[20vh] mb-[-20vh] rounded-3xl mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 py-8 z-[11] mx-0 md:mx-[0%]' style={style2}>
+   <div className='scrollele footer h-auto min-h-[75vh] w-[100%] md:w-[100%] mt-[-80vh] md:mt-[20vh] mb-[-20vh] rounded-3xl mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 md:py-8 z-[11] mx-0 md:mx-[0%]' style={style2} >
    <div className='col1 h-auto w-full md:w-[25%] flex flex-col justify-center mt-6 md:mt-12 px-4' >
       <div className='logo h-[100px] w-[80%] items-start mx-auto md:mx-0 mt[0] md:mt-[5vh]' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}> </div>
       <br/>

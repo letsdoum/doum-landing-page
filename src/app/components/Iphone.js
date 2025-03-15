@@ -845,8 +845,8 @@ function Model() {
         const fadeOut = gsap.timeline({
             scrollTrigger: {
                 trigger: "#model-section",
-                start: 'bottom -1650%',
-                end: 'bottom -1680%',
+                start: 'bottom -1630%',//prev -1650
+                end: 'bottom -1650%',//prev-1680
                 
                 scrub: {
                     ease: "power1.out",
