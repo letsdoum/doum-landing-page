@@ -1669,7 +1669,7 @@ const toServices=(e)=>{
         <div className='w-[70%] md:w-[40%] h-[17%] mt-[-85rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
              {/*scroller*/}
              <div id='scroller'
-     className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[160%] relative ml-[-15vw] md:ml-[-30vw] mt-[25vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-hidden'
+     className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[160%] relative ml-[-15vw] md:ml-[-30vw] mt-[20vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-hidden'
      ref={conRef}
 >
   {doubledServices.map((service, index) => (
@@ -2289,8 +2289,14 @@ const toServices=(e)=>{
               
 
             </form>
-            <button  type='submit' className='ml:0 md:ml-[10vw] bg-[#004aad] text-[#e1eefd] text-lg font-glacial font-medium w-[50%] h-[7.5%] md:h-[5%] rounded-2xl' onClick={() => document.getElementById("myForm").requestSubmit()}
-              >Claim Your Spot Now</button>
+            <button  
+  type="submit"  
+  className="ml:0 md:ml-[10vw] bg-gradient-to-br from-[#1CE7FF] via-[#0045FF] to-[#00C6FF] text-[#e1eefd] text-lg font-glacial font-medium w-[50%] h-[7.5%] md:h-[5%] rounded-2xl"
+  onClick={() => document.getElementById('myForm').requestSubmit()}
+>
+  Claim Your Spot Now
+</button>
+
           </div>
 
         </div>
