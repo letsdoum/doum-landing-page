@@ -2207,18 +2207,18 @@ const toServices=(e)=>{
         <div id='waitlist' className='scrollele form-section h-[140vh] w-[100vw]  flex justify-between z-[20] '>
         <Toaster />
           <div className='circleCon md:h-full md:w-[25%] ml-[-35vw] 2xl:ml-[-40vw] overflow-x-visible hidden md:inline-block'> <div className='formCircle h-[175vh] w-[175vh]  rounded-full bg-[#004aad] flex flex-col items-end justify-center gap-[3vh]'>
-             <div className='headingCon  mr-[22vh] 2xl:mr-[25vh] h-[25%] w-[40%] mt-[-8vh]'>
+             <div className='headingCon  mr-[22vh] h-[25%] w-[40%] mt-[-8vh]'>   {/*2xl:mr-[25vh]  */}
               <h1 className='text-[#e1eefd] text-4xl font-glacial font-bold '>
               Be among the First 100 to enjoy a FREE service along with Exciting Surprise Gifts! Don't miss out!
               </h1>
               </div>  
-             <div className='contact-info h-[8%] w-[30%] mr-[39vh] 2xl:mr-[42vh] mb-[0vh] mt-[-12vh] '>
+             <div className='contact-info h-[8%] w-[30%] mr-[39vh]  mb-[0vh] mt-[-12vh] '>    {/*2xl:mr-[42vh]*/}
              
              <a href='mailto:helpdesk@mydoum.com' className='font-glacial text-[#e1eefd] text-2xl font-light'> helpdesk@mydoum.com</a>
              </div>
-             <div className='whatsapp h-[5%] w-[35%] mr-[17vh] 2xl:mr-[20vh] mt-[-10vh]' >
-              <a href='https://wa.me/918967908081' className='font-glacial text-[#e1eefd] text-2xl font-thin whitespace-nowrap flex items-center justify-start gap-4 ml-[-13vh] 2xl:ml-[-15vh]   '>Need help? Message us! <div><BsWhatsapp color='#e1eefd' /></div>  </a> </div>
-              <div className='address font-glacial text-[#e1eefd] text-2xl font-light h-[10%] w-[40%] mr-[22vh] 2xl:mr-[25vh] mt-[-5vh] '>Salt Lake City, Kolkata,Kolkata 700091,West Bengal, India</div>
+             <div className='whatsapp h-[5%] w-[35%] mr-[17vh]  mt-[-10vh]' >   {/*2xl:mr-[20vh] */}
+              <a href='https://wa.me/918967908081' className='font-glacial text-[#e1eefd] text-2xl font-thin whitespace-nowrap flex items-center justify-start gap-4 ml-[-13vh]   '>Need help? Message us! <div><BsWhatsapp color='#e1eefd' /></div>  </a> </div>  {/*2xl:ml-[-15vh]  */}
+              <div className='address font-glacial text-[#e1eefd] text-2xl font-light h-[10%] w-[40%] mr-[22vh] mt-[-5vh] '>Salt Lake City, Kolkata,Kolkata 700091,West Bengal, India</div>   {/*2xl:mr-[25vh]  */}
 
             
 
