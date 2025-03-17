@@ -1584,19 +1584,19 @@ const scrollPromptRef = useRef();
 
 // Add this useGSAP animation with your other animations
 useGSAP(() => {
-  // Only show from services section until step1ConRef
+  // Show earlier from hero section until step1ConRef
   ScrollTrigger.create({
-    trigger: "#services",
+    trigger: "#heroRef", // Changed from #services to start earlier
     endTrigger: step1ConRef.current,
-    start: "top top",
-    end: "top center",
+    start: "top center", // Changed to show earlier
+    end: "bottom center",
     onEnter: () => gsap.to(scrollPromptRef.current, {opacity: 1, duration: 0.3}),
     onLeave: () => gsap.to(scrollPromptRef.current, {opacity: 0, duration: 0.3}),
     onEnterBack: () => gsap.to(scrollPromptRef.current, {opacity: 1, duration: 0.3}),
     onLeaveBack: () => gsap.to(scrollPromptRef.current, {opacity: 0, duration: 0.3})
   });
 
-  // Subtle bounce animation
+  // Bounce animation
   gsap.to(scrollPromptRef.current.querySelector('.arrow'), {
     y: 2,
     repeat: -1,
