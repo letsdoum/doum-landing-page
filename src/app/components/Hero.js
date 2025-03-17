@@ -1579,7 +1579,32 @@ const toServices=(e)=>{
               }
           };
 
-   
+   // Add this ref at the top with your other refs
+const scrollPromptRef = useRef();
+
+// Add this useGSAP animation with your other animations
+useGSAP(() => {
+  // Only show from services section until step1ConRef
+  ScrollTrigger.create({
+    trigger: "#services",
+    endTrigger: step1ConRef.current,
+    start: "top top",
+    end: "top center",
+    onEnter: () => gsap.to(scrollPromptRef.current, {opacity: 1, duration: 0.3}),
+    onLeave: () => gsap.to(scrollPromptRef.current, {opacity: 0, duration: 0.3}),
+    onEnterBack: () => gsap.to(scrollPromptRef.current, {opacity: 1, duration: 0.3}),
+    onLeaveBack: () => gsap.to(scrollPromptRef.current, {opacity: 0, duration: 0.3})
+  });
+
+  // Subtle bounce animation
+  gsap.to(scrollPromptRef.current.querySelector('.arrow'), {
+    y: 2,
+    repeat: -1,
+    yoyo: true,
+    duration: 0.8,
+    ease: "power1.inOut"
+  });
+});
 
  
   return (
@@ -1666,7 +1691,7 @@ const toServices=(e)=>{
     </div>
     {/* platform */}
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[10vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
-        <div className='w-[70%] md:w-[40%] h-[17%] mt-[-85rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
+        <div className='w-[70%] md:w-[40%] h-[17%] mt-[-85rem] md:mt-[0rem] invisible md:visible ' style={{ backgroundImage: "url(/platform-text.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
              {/*scroller*/}
              <div id='scroller'
      className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[160%] relative ml-[-15vw] md:ml-[-30vw] mt-[20vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-hidden'
@@ -1699,7 +1724,13 @@ const toServices=(e)=>{
     </div>
         
 
-   
+    <div 
+  ref={scrollPromptRef}
+  className="fixed bottom-8 right-8 flex flex-col items-center justify-center md:hidden z-50 opacity-0 pointer-events-none"
+>
+  <p className="text-sm font-glacial text-[#18375d] font-medium mb-1">Scroll</p>
+  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl" />
+</div>
 
     {/* services */}
     <div id='services' className='h-[600vh] w-full bg-[#e1eefd] relative flex flex-col items-center justify-start gap-4'>
