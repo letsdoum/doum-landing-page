@@ -1691,7 +1691,15 @@ useGSAP(() => {
     </div>
     {/* platform */}
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[10vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
-        <div className='w-[70%] md:w-[40%] h-[17%] mt-[-85rem] md:mt-[0rem] invisible md:visible ' style={{ backgroundImage: "url(/platform-text.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
+        <div className='w-[70%] md:w-[40%] h-[17%] mt-[-85rem] md:mt-[0rem] ' style={{ 
+    backgroundImage: "url(/platform-text.webp)",
+    backgroundSize: 'contain',
+    backgroundRepeat: "no-repeat", 
+    backgroundPosition: 'center',
+    '@media (max-width: 768px)': {
+      backgroundImage: 'none'
+    }
+  }}  >
              {/*scroller*/}
              <div id='scroller'
      className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[160%] relative ml-[-15vw] md:ml-[-30vw] mt-[20vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-hidden'
@@ -1726,11 +1734,12 @@ useGSAP(() => {
 
     <div 
   ref={scrollPromptRef}
-  className="fixed bottom-8 right-8 flex flex-col items-center justify-center md:hidden z-50 opacity-0 pointer-events-none"
+  className="fixed bottom-8 left-8 flex flex-row items-center justify-center gap-2 md:hidden z-50 opacity-0 pointer-events-none"
 >
-  <p className="text-sm font-glacial text-[#18375d] font-medium mb-1">Scroll</p>
+  <p className="text-sm font-glacial text-[#18375d] font-medium">Scroll</p>
   <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl" />
 </div>
+
 
     {/* services */}
     <div id='services' className='h-[600vh] w-full bg-[#e1eefd] relative flex flex-col items-center justify-start gap-4'>
