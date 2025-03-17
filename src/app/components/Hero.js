@@ -197,7 +197,7 @@ function Hero() {
                 
                 backgroundImage: "url('/footer-bg.webp')",
                 backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
+                backgroundPosition: 'top',
                 backgroundSize: 'cover',
                 
                 
@@ -1579,7 +1579,32 @@ const toServices=(e)=>{
               }
           };
 
-   
+   // Add this ref at the top with your other refs
+const scrollPromptRef = useRef();
+
+// Add this useGSAP animation with your other animations
+useGSAP(() => {
+  // Show earlier from hero section until step1ConRef
+  ScrollTrigger.create({
+    trigger: "#heroRef", // Changed from #services to start earlier
+    endTrigger: step1ConRef.current,
+    start: "top center", // Changed to show earlier
+    end: "bottom center",
+    onEnter: () => gsap.to(scrollPromptRef.current, {opacity: 1, duration: 0.3}),
+    onLeave: () => gsap.to(scrollPromptRef.current, {opacity: 0, duration: 0.3}),
+    onEnterBack: () => gsap.to(scrollPromptRef.current, {opacity: 1, duration: 0.3}),
+    onLeaveBack: () => gsap.to(scrollPromptRef.current, {opacity: 0, duration: 0.3})
+  });
+
+  // Bounce animation
+  gsap.to(scrollPromptRef.current.querySelector('.arrow'), {
+    y: 2,
+    repeat: -1,
+    yoyo: true,
+    duration: 0.5,
+    ease: "power1.inOut"
+  });
+});
 
  
   return (
@@ -1664,9 +1689,16 @@ const toServices=(e)=>{
       </div> </a>
 
     </div>
+    <div 
+  ref={scrollPromptRef}
+  className="fixed bottom-8 left-8 flex flex-row items-center justify-center gap-2 md:hidden z-50 opacity-0 pointer-events-none"
+>
+  <p className="text-sm font-glacial text-[#18375d] font-medium">Keep Scrolling</p>
+  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl" />
+</div>
     {/* platform */}
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[10vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
-        <div className='w-[70%] md:w-[40%] h-[17%] mt-[-85rem] md:mt-[0rem]  ' style={{ backgroundImage: "url(/platform-text.webp)", backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: 'center' }}  >
+    <div className='w-[70%] md:w-[40%] h-[17%] mt-[-85rem] md:mt-[0rem] platform-text'>
              {/*scroller*/}
              <div id='scroller'
      className='scrollele scrollContainer w-[3775vw] md:w-[1600vw] h-[35vh] md:h-[160%] relative ml-[-15vw] md:ml-[-30vw] mt-[20vh] md:mt-[40vh] flex items-center justify-center gap-12 overflow-x-hidden'
@@ -1699,7 +1731,8 @@ const toServices=(e)=>{
     </div>
         
 
-   
+    
+
 
     {/* services */}
     <div id='services' className='h-[600vh] w-full bg-[#e1eefd] relative flex flex-col items-center justify-start gap-4'>
@@ -2300,16 +2333,16 @@ const toServices=(e)=>{
           </div>
 
         </div>
-              {/*footer */}
+                        {/*footer */}
    <div className='scrollele footer h-auto min-h-[75vh] w-[100%] md:w-[100%] mt-[-80vh] md:mt-[20vh] mb-[-20vh] mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 md:py-8 z-[11] mx-0 md:mx-[0%]' style={style2} >
    <div className='col1 h-auto w-full md:w-[25%] flex flex-col justify-center mt-6 md:mt-12 px-4' >
       <div className='logo h-[100px] w-[80%] items-start mx-auto md:mx-0 mt[0] md:mt-[5vh]' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}> </div>
       <br/>
-      <div className='text-container text-xl text-[#063281] mega_shadow font-glacial font-extralight text-center md:text-left'>
+      <div className='text-container text-xl text-[#ffffff] md:text-[#063281] mega_shadow font-glacial font-extralight text-center md:text-left'>
       Salt Lake City, Kolkata, Kolkata 700091, West Bengal, India
       </div>
       <br/>
-      <div className='links flex justify-center md:justify-start gap-4 text-[#063281]  mega_shadow'>
+      <div className='links flex justify-center md:justify-start gap-4 text-[#ffffff] md:text-[#063281]  mega_shadow'>
         <Link target="_blank" href='https://www.linkedin.com/company/letsdoumit/'><AiOutlineLinkedin  size={40} /></Link>
         <Link target="_blank" href='https://www.instagram.com/letsdoum?igsh=MWY2YXNyODRhZG51aw=='><CiInstagram  size={40}  /></Link>
         <Link target="_blank" href='https://www.facebook.com/'><AiOutlineFacebook  size={40}  /></Link>
@@ -2317,27 +2350,27 @@ const toServices=(e)=>{
       </div>
    </div>
    <div className='col2 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center mt-6 md:mt-20 px-4'>
-      <h1 className='text-[#063281]  mega_shadow font-glacial font-bold text-xl mb-4'>Navigation</h1>
-      <Link href='/' className='font-light font-glacial text-md text-[#063281]  mega_shadow mb-2' onClick={toHome}>Home</Link>
-      <Link href='/'className='font-light font-glacial text-md text-[#063281] mega_shadow mb-2'onClick={toHowItWorks} >How it works</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#063281]  mega_shadow mb-2'onClick={toWhyUs}>why us</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#063281]  mega_shadow mb-2'onClick={toFAQ}>FAQs</Link>
-      <Link href='/' className='font-light font-glacial text-md text-[#063281]  mega_shadow mb-2'onClick={toWaitlist}>Join Waitlist</Link>
+      <h1 className='text-[#ffffff] md:text-[#063281]  mega_shadow font-glacial font-bold text-xl mb-4'>Navigation</h1>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2' onClick={toHome}>Home</Link>
+      <Link href='/'className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281] mega_shadow mb-2'onClick={toHowItWorks} >How it works</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2'onClick={toWhyUs}>why us</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2'onClick={toFAQ}>FAQs</Link>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2'onClick={toWaitlist}>Join Waitlist</Link>
    </div>
    <div className='col3 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 md:mt-20 px-4'>
-      <h1 className='text-[#063281]  mega_shadow font-glacial font-bold text-xl mb-4'>Get in Touch</h1>
-      <a href='mailto:helpdesk@mydoum.com' className='font-light font-glacial text-md text-[#063281]  mega_shadow mb-2'>helpdesk@mydoum.com</a>
-      <h1 className='text-[#063281]  mega_shadow font-glacial font-bold text-xl mt-4 mb-2'>Enquire</h1>
-      <Link href='/' className='font-light font-glacial text-md text-[#063281]  mega_shadow mb-2'>+91 8967908081</Link>
-      <h1 className='text-[#063281]  mega_shadow font-glacial font-bold text-xl mt-4 mb-2'>Support</h1>
-      <Link href='/' className='font-light font-glacial text-md text-[#063281]  mega_shadow mb-2'>+91 8420385246</Link>
+      <h1 className='text-[#ffffff] md:text-[#063281]  mega_shadow font-glacial font-bold text-xl mb-4'>Get in Touch</h1>
+      <a href='mailto:helpdesk@mydoum.com' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2'>helpdesk@mydoum.com</a>
+      <h1 className='text-[#ffffff] md:text-[#063281]  mega_shadow font-glacial font-bold text-xl mt-4 mb-2'>Enquire</h1>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2'>+91 8967908081</Link>
+      <h1 className='text-[#ffffff] md:text-[#063281]  mega_shadow font-glacial font-bold text-xl mt-4 mb-2'>Support</h1>
+      <Link href='/' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2'>+91 8420385246</Link>
    </div>
    <div className='col4 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 md:mt-20 px-4'>
-      <h1 className='text-[#063281]  mega_shadow font-glacial font-bold text-xl mb-4'>Legal</h1>
-      <a href='/legal/terms-of-use' className='font-light font-glacial text-md text-[#063281]  mega_shadow mb-2'>Terms of Use</a>
-      <a href='/legal/privacy-policy'className='font-light font-glacial text-md text-[#063281]  mega_shadow mb-2' >Privacy Policy</a>
-      <a href='/legal/equal-oppurtunity-policy' className='font-light font-glacial text-md text-[#063281]  mega_shadow mb-2'>Equal Opportunity Policy</a>
-      <a href='/legal/refund-and-cancellation' className='font-light font-glacial text-md text-[#063281]  mega_shadow mb-2'>Refund and Cancellation Policy</a>
+      <h1 className='text-[#ffffff] md:text-[#063281]  mega_shadow font-glacial font-bold text-xl mb-4'>Legal</h1>
+      <a href='/legal/terms-of-use' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2'>Terms of Use</a>
+      <a href='/legal/privacy-policy'className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2' >Privacy Policy</a>
+      <a href='/legal/equal-oppurtunity-policy' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2'>Equal Opportunity Policy</a>
+      <a href='/legal/refund-and-cancellation' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2'>Refund and Cancellation Policy</a>
    </div>
    </div>     
 
