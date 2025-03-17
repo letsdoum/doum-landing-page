@@ -219,3 +219,15 @@ html{
 .scrollContainer::-webkit-scrollbar{
   display: none;
 }
+.platform-text {
+  background-image: url('/platform-text.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@media (max-width: 768px) {
+  .platform-text {
+    background-image: none;
+  }
+}
