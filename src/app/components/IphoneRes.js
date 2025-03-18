@@ -10,24 +10,32 @@ import { Html } from '@react-three/drei'
 gsap.registerPlugin({ScrollTrigger})
 
 function Model() {
-    const getScrollOffset = () => {
-        if(window.innerHeight < 650)
-            return window.innerHeight * 0.3;
-        if(window.innerHeight < 700)
-            return window.innerHeight * 0.05;
-        if(window.innerHeight < 750) {
-            const hVal = window.innerHeight;
-            const offset = hVal * 0.01 * -1;
-            return offset;
-        }
-        if(window.innerHeight < 850)
-            return window.innerHeight * -0.05; // Medium-large screens
-        if(window.innerHeight < 1000)
-            return window.innerHeight * -0.15; // Large screens
-        if(window.innerHeight < 1200)
-            return window.innerHeight * -0.2; // Very large screens
-        return 0;
-    }
+    
+        const getScrollOffset = () => {
+            // return window.innerHeight < 700 ? window.innerHeight*0.3 : 0; // 50vh offset for smaller screens
+            
+            if(window.innerHeight<650)
+                return window.innerHeight*0.3
+            if(window.innerHeight<700)
+                return window.innerHeight*0.05
+            if(window.innerHeight<750){
+                const hVal = window.innerHeight
+              const offset = hVal * 0.01 *-1
+              
+              return offset
+                
+            }
+            if (window.innerHeight < 850)
+                return window.innerHeight * -0.05; // Medium-large screens
+                
+            if (window.innerHeight < 1000)
+                return window.innerHeight * -0.55; // Large screens
+                
+            if (window.innerHeight < 1200)
+                return window.innerHeight * -0.8; // Very large screens
+                
+            return 0;
+            }
 
     const setInitialState = () => {
         ScrollTrigger.getAll().forEach(st => {
@@ -274,7 +282,7 @@ function Model() {
             scrollTrigger:{
                 trigger: "#model-section",
                 start: `top+=${window.innerHeight * 9.0}`,
-                end: `top+=${window.innerHeight * 9.4}`,
+                end: `top+=${(window.innerHeight * 9.4)+heightOffset}`,
                 scrub: {
                     ease: "power1.out",
                     smoothing: 0.5,
@@ -600,7 +608,7 @@ function Model() {
                 onLeave:()=>{
                     modelRef.current.visible = false
                     model2Ref.current.visible = false
-                    model3Ref.current.visible = false
+                    model3Ref.current.visible = true
                 },
                 onLeaveBack:()=>{
                     modelRef.current.visible = true
@@ -847,7 +855,7 @@ function Model() {
  function Model3(){
     const modelRef = useRef()
     const result = useLoader(GLTFLoader, '/IP 7.glb')
-    const getScrollOffset = () => {
+        const getScrollOffset = () => {
         // return window.innerHeight < 700 ? window.innerHeight*0.3 : 0; // 50vh offset for smaller screens
         
         if(window.innerHeight<650)
@@ -868,9 +876,9 @@ function Model() {
             return window.innerHeight * -0.55; // Large screens
             
         if (window.innerHeight < 1200)
-            return window.innerHeight * -0.8; // Very large screens
+            return window.innerHeight * -1; // Very large screens
             
-        return 0;
+        return window.innerHeight* -1.3;
         }
 
     useGSAP(()=>{

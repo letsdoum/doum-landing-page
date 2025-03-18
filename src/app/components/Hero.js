@@ -1580,31 +1580,18 @@ const toServices=(e)=>{
           };
 
    // Add this ref at the top with your other refs
-const scrollPromptRef = useRef();
 
-// Add this useGSAP animation with your other animations
 useGSAP(() => {
-  // Show earlier from hero section until step1ConRef
-  ScrollTrigger.create({
-    trigger: "#heroRef", // Changed from #services to start earlier
-    endTrigger: step1ConRef.current,
-    start: "top center", // Changed to show earlier
-    end: "bottom center",
-    onEnter: () => gsap.to(scrollPromptRef.current, {opacity: 1, duration: 0.3}),
-    onLeave: () => gsap.to(scrollPromptRef.current, {opacity: 0, duration: 0.3}),
-    onEnterBack: () => gsap.to(scrollPromptRef.current, {opacity: 1, duration: 0.3}),
-    onLeaveBack: () => gsap.to(scrollPromptRef.current, {opacity: 0, duration: 0.3})
-  });
-
-  // Bounce animation
-  gsap.to(scrollPromptRef.current.querySelector('.arrow'), {
-    y: 2,
-    repeat: -1,
-    yoyo: true,
+  // Create an infinite bounce animation
+  gsap.to(".arrow", {
+    y: 8, // Move down by 10 pixels
     duration: 0.5,
-    ease: "power1.inOut"
+    repeat: -1, // Infinite repeat
+    yoyo: true, // Bounce back
+    ease: "power1.inOut",
   });
-});
+}, []);
+
 
  
   return (
@@ -1689,13 +1676,7 @@ useGSAP(() => {
       </div> </a>
 
     </div>
-    <div 
-  ref={scrollPromptRef}
-  className="fixed bottom-8 left-8 flex flex-row items-center justify-center gap-2 md:hidden z-50 opacity-0 pointer-events-none"
->
-  <p className="text-sm font-glacial text-[#18375d] font-medium">Keep Scrolling</p>
-  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl" />
-</div>
+    
     {/* platform */}
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[10vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
     <div className='w-[70%] md:w-[40%] h-[17%] mt-[-85rem] md:mt-[0rem] platform-text'>
@@ -1824,7 +1805,7 @@ useGSAP(() => {
        <div id='howItWorks' ref={whyUsRef} className='scrollele why-us-start h-[100vh] w-[100vw] bg-[#18375d] flex justify-center items-center bg-fixed'>
        <div ref={circleRef} className='h-[40vw] w-[40vw] rounded-full absolute -z-2 self-center'style={{ backgroundImage: 'url(/circle.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', opacity:'0.45' }}></div>
           <div ref={WhyUsImgRef} className='image-container  h-[50%] w-[100%] md:w-[60%] relative z-50' style={{ backgroundImage: 'url(/Screenshot_2025-02-01_092629-removebg-preview_upscayl_4x_realesrgan-x4plus.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
-          
+            
              
           </div>
 
@@ -1835,6 +1816,9 @@ useGSAP(() => {
          <h1 ref={howItWorksHeadingRef} className=' font-glacial text-[#18375d] text-xl md:text-4xl sticky top-[15vh] md:top-[25vh] mb-20 mt-[5vh] md:mt-[10vh]  whitespace-nowrap font-medium ' >
            Book an Expert in 3 Easy steps
          </h1>
+         <div className='md:hidden h-[2.5%] w-[15%] rounded-full bg-transparent border-2 border-[#18375d] flex flex-col justify-start items-center mt-[25%] overflow-hidden'>
+  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-4xl transform transition-transform" />
+</div>
         
           {/* how it works 1 container*/}
           <div className='h-[100vh] w-[100vw] flex justify-center items-center  mt-[100vh]'>
@@ -1918,7 +1902,7 @@ useGSAP(() => {
         <div
           key={index}
           ref={el => textRefs.current[index] = el}
-          className="transition-all duration-300 w-full px-12"
+          className="transition-all duration-300 w-full px-12 lg:mt-[20%]"
           
         >
           <h3 className="text-2xl font-bold text-white/50">{item.heading}</h3>
