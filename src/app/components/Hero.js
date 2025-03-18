@@ -1918,7 +1918,7 @@ useGSAP(() => {
         <div
           key={index}
           ref={el => textRefs.current[index] = el}
-          className="transition-all duration-300 w-full px-12 h-1/2"
+          className="transition-all duration-300 w-full px-12 lg:mt-[20%]"
           
         >
           <h3 className="text-2xl font-bold text-white/50">{item.heading}</h3>
