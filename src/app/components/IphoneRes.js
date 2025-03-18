@@ -600,7 +600,7 @@ function Model() {
                 onLeave:()=>{
                     modelRef.current.visible = false
                     model2Ref.current.visible = false
-                    model3Ref.current.visible = false
+                    model3Ref.current.visible = true
                 },
                 onLeaveBack:()=>{
                     modelRef.current.visible = true
