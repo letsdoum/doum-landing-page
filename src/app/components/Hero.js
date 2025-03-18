@@ -1580,7 +1580,31 @@ const toServices=(e)=>{
           };
 
    // Add this ref at the top with your other refs
+const scrollPromptRef = useRef();
 
+// Add this useGSAP animation with your other animations
+useGSAP(() => {
+  // Show earlier from hero section until step1ConRef
+  ScrollTrigger.create({
+    trigger: "#heroRef", // Changed from #services to start earlier
+    endTrigger: step1ConRef.current,
+    start: "top center", // Changed to show earlier
+    end: "bottom center",
+    onEnter: () => gsap.to(scrollPromptRef.current, {opacity: 1, duration: 0.3}),
+    onLeave: () => gsap.to(scrollPromptRef.current, {opacity: 0, duration: 0.3}),
+    onEnterBack: () => gsap.to(scrollPromptRef.current, {opacity: 1, duration: 0.3}),
+    onLeaveBack: () => gsap.to(scrollPromptRef.current, {opacity: 0, duration: 0.3})
+  });
+
+  // Bounce animation
+  gsap.to(scrollPromptRef.current.querySelector('.arrow'), {
+    y: 2,
+    repeat: -1,
+    yoyo: true,
+    duration: 0.5,
+    ease: "power1.inOut"
+  });
+});
 useGSAP(() => {
   // Create an infinite bounce animation
   gsap.to(".arrow", {
@@ -1676,9 +1700,22 @@ useGSAP(() => {
       </div> </a>
 
     </div>
-    
+    <div 
+  ref={scrollPromptRef}
+  className="fixed bottom-8 left-8 flex flex-row items-center justify-center gap-2 md:hidden z-50 opacity-0 pointer-events-none"
+>
+  <p className="text-sm font-glacial text-[#18375d] font-medium">Keep Scrolling</p>
+  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl" />
+</div>
     {/* platform */}
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[10vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
+    <div 
+  ref={scrollPromptRef}
+  className="fixed bottom-8 left-8 flex flex-row items-center justify-center gap-2 md:hidden z-50 opacity-0 pointer-events-none"
+>
+  <p className="text-sm font-glacial text-[#18375d] font-medium">Keep Scrolling</p>
+  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl" />
+</div>
     <div className='w-[70%] md:w-[40%] h-[17%] mt-[-85rem] md:mt-[0rem] platform-text'>
              {/*scroller*/}
              <div id='scroller'
@@ -1812,11 +1849,11 @@ useGSAP(() => {
        </div>
 
        {/*how it works container */}
-       <div ref={stepsRef} className='h-[550vh] w-[100%] bg-[#e1eefd] flex flex-col justify-start items-center'>
+       <div ref={stepsRef} className='h-[550vh] w-[100%] bg-[#e1eefd] flex flex-col justify-between items-center'>
          <h1 ref={howItWorksHeadingRef} className=' font-glacial text-[#18375d] text-xl md:text-4xl sticky top-[15vh] md:top-[25vh] mb-20 mt-[5vh] md:mt-[10vh]  whitespace-nowrap font-medium ' >
            Book an Expert in 3 Easy steps
          </h1>
-         <div className='md:hidden h-[2.5%] w-[15%] rounded-full bg-transparent border-2 border-[#18375d] flex flex-col justify-start items-center mt-[25%] overflow-hidden'>
+         <div className='md:hidden h-[2.5%] w-[15%] rounded-full bg-transparent border-2 border-[#18375d] flex flex-col justify-start items-center mt-[25%] overflow-hidden relative bottom-[-10%]'>
   <RiArrowDownDoubleFill className="arrow text-[#18375d] text-4xl transform transition-transform" />
 </div>
         
