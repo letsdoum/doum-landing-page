@@ -1709,6 +1709,13 @@ useGSAP(() => {
 </div>
     {/* platform */}
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[10vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
+    <div 
+  ref={scrollPromptRef}
+  className="fixed bottom-8 left-8 flex flex-row items-center justify-center gap-2 md:hidden z-50 opacity-0 pointer-events-none"
+>
+  <p className="text-sm font-glacial text-[#18375d] font-medium">Keep Scrolling</p>
+  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl" />
+</div>
     <div className='w-[70%] md:w-[40%] h-[17%] mt-[-85rem] md:mt-[0rem] platform-text'>
              {/*scroller*/}
              <div id='scroller'
