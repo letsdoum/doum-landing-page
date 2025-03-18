@@ -1608,7 +1608,7 @@ useGSAP(() => {
 useGSAP(() => {
   // Create an infinite bounce animation
   gsap.to(".arrow", {
-    y: 4, // Move down by 10 pixels
+    y: 8, // Move down by 10 pixels
     duration: 0.5,
     repeat: -1, // Infinite repeat
     yoyo: true, // Bounce back
@@ -1846,8 +1846,8 @@ useGSAP(() => {
          <h1 ref={howItWorksHeadingRef} className=' font-glacial text-[#18375d] text-xl md:text-4xl sticky top-[15vh] md:top-[25vh] mb-20 mt-[5vh] md:mt-[10vh]  whitespace-nowrap font-medium ' >
            Book an Expert in 3 Easy steps
          </h1>
-         <div className='md:hidden h-[2.5%] w-[15%] rounded-full bg-transparent border-2 border-[#18375d] flex flex-col justify-start mt-[10%] overflow-hidden'>
-  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl transform transition-transform" />
+         <div className='md:hidden h-[2.5%] w-[15%] rounded-full bg-transparent border-2 border-[#18375d] flex flex-col justify-start items-center mt-[25%] overflow-hidden'>
+  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-4xl transform transition-transform" />
 </div>
         
           {/* how it works 1 container*/}
