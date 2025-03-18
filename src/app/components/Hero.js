@@ -1605,6 +1605,17 @@ useGSAP(() => {
     ease: "power1.inOut"
   });
 });
+useGSAP(() => {
+  // Create an infinite bounce animation
+  gsap.to(".arrow", {
+    y: 4, // Move down by 10 pixels
+    duration: 0.5,
+    repeat: -1, // Infinite repeat
+    yoyo: true, // Bounce back
+    ease: "power1.inOut",
+  });
+}, []);
+
 
  
   return (
@@ -1824,7 +1835,7 @@ useGSAP(() => {
        <div id='howItWorks' ref={whyUsRef} className='scrollele why-us-start h-[100vh] w-[100vw] bg-[#18375d] flex justify-center items-center bg-fixed'>
        <div ref={circleRef} className='h-[40vw] w-[40vw] rounded-full absolute -z-2 self-center'style={{ backgroundImage: 'url(/circle.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', opacity:'0.45' }}></div>
           <div ref={WhyUsImgRef} className='image-container  h-[50%] w-[100%] md:w-[60%] relative z-50' style={{ backgroundImage: 'url(/Screenshot_2025-02-01_092629-removebg-preview_upscayl_4x_realesrgan-x4plus.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
-          
+            
              
           </div>
 
@@ -1835,6 +1846,9 @@ useGSAP(() => {
          <h1 ref={howItWorksHeadingRef} className=' font-glacial text-[#18375d] text-xl md:text-4xl sticky top-[15vh] md:top-[25vh] mb-20 mt-[5vh] md:mt-[10vh]  whitespace-nowrap font-medium ' >
            Book an Expert in 3 Easy steps
          </h1>
+         <div className='md:hidden h-[2.5%] w-[15%] rounded-full bg-transparent border-2 border-[#18375d] flex flex-col justify-start mt-[10%] overflow-hidden'>
+  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl transform transition-transform" />
+</div>
         
           {/* how it works 1 container*/}
           <div className='h-[100vh] w-[100vw] flex justify-center items-center  mt-[100vh]'>
