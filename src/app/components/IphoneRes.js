@@ -26,10 +26,10 @@ function Model() {
                 
             }
             if (window.innerHeight < 850)
-                return window.innerHeight * -0.05; // Medium-large screens
+                return 0; // Medium-large screens
                 
             if (window.innerHeight < 1000)
-                return window.innerHeight * -0.55; // Large screens
+                return window.innerHeight * 0; // Large screens
                 
             if (window.innerHeight < 1200)
                 return window.innerHeight * -0.8; // Very large screens
