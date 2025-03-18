@@ -1842,11 +1842,11 @@ useGSAP(() => {
        </div>
 
        {/*how it works container */}
-       <div ref={stepsRef} className='h-[550vh] w-[100%] bg-[#e1eefd] flex flex-col justify-start items-center'>
+       <div ref={stepsRef} className='h-[550vh] w-[100%] bg-[#e1eefd] flex flex-col justify-between items-center'>
          <h1 ref={howItWorksHeadingRef} className=' font-glacial text-[#18375d] text-xl md:text-4xl sticky top-[15vh] md:top-[25vh] mb-20 mt-[5vh] md:mt-[10vh]  whitespace-nowrap font-medium ' >
            Book an Expert in 3 Easy steps
          </h1>
-         <div className='md:hidden h-[2.5%] w-[15%] rounded-full bg-transparent border-2 border-[#18375d] flex flex-col justify-start items-center mt-[80%] overflow-hidden'>
+         <div className='md:hidden h-[2.5%] w-[15%] rounded-full bg-transparent border-2 border-[#18375d] flex flex-col justify-start items-center mt-[25%] overflow-hidden'>
   <RiArrowDownDoubleFill className="arrow text-[#18375d] text-4xl transform transition-transform" />
 </div>
         
