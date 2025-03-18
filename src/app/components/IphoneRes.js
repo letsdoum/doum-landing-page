@@ -847,7 +847,7 @@ function Model() {
  function Model3(){
     const modelRef = useRef()
     const result = useLoader(GLTFLoader, '/IP 7.glb')
-    const getScrollOffset = () => {
+        const getScrollOffset = () => {
         // return window.innerHeight < 700 ? window.innerHeight*0.3 : 0; // 50vh offset for smaller screens
         
         if(window.innerHeight<650)
@@ -868,9 +868,9 @@ function Model() {
             return window.innerHeight * -0.55; // Large screens
             
         if (window.innerHeight < 1200)
-            return window.innerHeight * -0.8; // Very large screens
+            return window.innerHeight * -1; // Very large screens
             
-        return 0;
+        return window.innerHeight* -1.3;
         }
 
     useGSAP(()=>{

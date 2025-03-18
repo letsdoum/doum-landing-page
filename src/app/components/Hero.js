@@ -834,7 +834,7 @@ useGSAP(() => {
   const texts = textRefs.current;
   const images = imageRefs.current;
 
-  // Set initial states - make first item active, others inactive
+  // Set initial states
   texts.forEach((text, index) => {
     if (text) {
       gsap.set(text, {
@@ -850,20 +850,33 @@ useGSAP(() => {
     }
   });
 
-  let activeIndex = 0; // Track currently active item
+  let activeIndex = 0;
 
+  // Modified options with higher threshold and adjusted rootMargin
   const options = {
     root: container,
-    threshold: 0.6, // Single threshold for cleaner transitions
-    rootMargin: "-25% 0px -25% 0px"
+    threshold: 0.8, // Increased threshold for more precise detection
+    rootMargin: "-40% 0px -40% 0px" // Adjusted margins to create more scroll distance between points
   };
+
+  // Add scroll snap behavior to container
+  if (container) {
+    container.style.scrollSnapType = "y mandatory";
+    texts.forEach(text => {
+      if (text) {
+        text.style.scrollSnapAlign = "center";
+        // Add padding to create more space between points
+        text.style.padding = "8vh 0";
+      }
+    });
+  }
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const index = texts.indexOf(entry.target);
       
       if (entry.isIntersecting) {
-        // Deactivate previous active item
+        // Deactivate previous
         if (activeIndex !== index) {
           if (texts[activeIndex]) {
             gsap.to(texts[activeIndex], {
@@ -881,7 +894,7 @@ useGSAP(() => {
           }
         }
 
-        // Activate new item
+        // Activate current
         gsap.to(entry.target, {
           scale: 1.2,
           opacity: 1,
@@ -902,11 +915,9 @@ useGSAP(() => {
     if (text) observer.observe(text);
   });
 
-  return () => {
-    texts.forEach(text => {
-      if (text) observer.unobserve(text);
-    });
-  };
+  return () => texts.forEach(text => {
+    if (text) observer.unobserve(text);
+  });
 }, []);
 
   useGSAP(() => {
