@@ -834,7 +834,7 @@ useGSAP(() => {
   const texts = textRefs.current;
   const images = imageRefs.current;
 
-  // Set initial states
+  // Set initial states - make first item active, others inactive
   texts.forEach((text, index) => {
     if (text) {
       gsap.set(text, {
@@ -850,63 +850,85 @@ useGSAP(() => {
     }
   });
 
-  let activeIndex = 0;
+  let activeIndex = 0; // Track currently active item
+  let lastScrollPosition = 0; // Track scroll position
+  let scrollDirection = 'down'; // Track scroll direction
 
-  // Modified options with higher threshold and adjusted rootMargin
+  // Adjust the threshold and rootMargin to be more sensitive
   const options = {
     root: container,
-    threshold: 0.8, // Increased threshold for more precise detection
-    rootMargin: "-40% 0px -40% 0px" // Adjusted margins to create more scroll distance between points
+    threshold: [0.3, 0.4, 0.5, 0.6, 0.7], // Multiple thresholds for smoother transitions
+    rootMargin: "-10% 0px -10% 0px" // Less aggressive margin
   };
 
-  // Add scroll snap behavior to container
-  if (container) {
-    container.style.scrollSnapType = "y mandatory";
-    texts.forEach(text => {
-      if (text) {
-        text.style.scrollSnapAlign = "center";
-        // Add padding to create more space between points
-        text.style.padding = "8vh 0";
+  // Force sequential activation
+  const activateItem = (index) => {
+    // Don't allow skipping items
+    let targetIndex = index;
+    
+    // When scrolling down, only allow activating the next item
+    if (scrollDirection === 'down' && index > activeIndex + 1) {
+      targetIndex = activeIndex + 1;
+    }
+    
+    // When scrolling up, only allow activating the previous item
+    if (scrollDirection === 'up' && index < activeIndex - 1) {
+      targetIndex = activeIndex - 1;
+    }
+
+    // Deactivate current active item
+    if (activeIndex !== targetIndex) {
+      if (texts[activeIndex]) {
+        gsap.to(texts[activeIndex], {
+          scale: 0.8,
+          opacity: 0.5,
+          color: "#ffffff80",
+          duration: 0.5
+        });
       }
-    });
-  }
+      if (images[activeIndex]) {
+        gsap.to(images[activeIndex], {
+          opacity: 0,
+          duration: 0.5
+        });
+      }
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      const index = texts.indexOf(entry.target);
-      
-      if (entry.isIntersecting) {
-        // Deactivate previous
-        if (activeIndex !== index) {
-          if (texts[activeIndex]) {
-            gsap.to(texts[activeIndex], {
-              scale: 0.8,
-              opacity: 0.5,
-              color: "#ffffff80",
-              duration: 0.5
-            });
-          }
-          if (images[activeIndex]) {
-            gsap.to(images[activeIndex], {
-              opacity: 0,
-              duration: 0.5
-            });
-          }
-        }
-
-        // Activate current
-        gsap.to(entry.target, {
+      // Activate new item
+      if (texts[targetIndex]) {
+        gsap.to(texts[targetIndex], {
           scale: 1.2,
           opacity: 1,
           color: "#ffffff",
           duration: 0.5
         });
-        gsap.to(images[index], {
+      }
+      if (images[targetIndex]) {
+        gsap.to(images[targetIndex], {
           opacity: 1,
           duration: 0.5
         });
+      }
 
-        activeIndex = index;
+      activeIndex = targetIndex;
+    }
+  };
+
+  // Track scroll position and direction
+  const handleScroll = () => {
+    const currentScrollPosition = container.scrollTop;
+    scrollDirection = currentScrollPosition > lastScrollPosition ? 'down' : 'up';
+    lastScrollPosition = currentScrollPosition;
+  };
+
+  // Add scroll event listener
+  container.addEventListener('scroll', handleScroll);
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const index = texts.indexOf(entry.target);
+      
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+        activateItem(index);
       }
     });
   }, options);
@@ -915,9 +937,12 @@ useGSAP(() => {
     if (text) observer.observe(text);
   });
 
-  return () => texts.forEach(text => {
-    if (text) observer.unobserve(text);
-  });
+  return () => {
+    texts.forEach(text => {
+      if (text) observer.unobserve(text);
+    });
+    container.removeEventListener('scroll', handleScroll);
+  };
 }, []);
 
   useGSAP(() => {
