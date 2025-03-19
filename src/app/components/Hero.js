@@ -2413,8 +2413,8 @@ useGSAP(() => {
 
         </div>
 
-       
-<div className="testimonials-section relative h-[60vh] w-full bg-[#e1eefd] overflow-hidden py-12">
+   {/*testimonials */}    
+<div className="testimonials-section relative h-[60vh] w-full bg-[#e1eefd] overflow-hidden py-12 mt-[-30vh] md:mt-0">
   <h2 className="text-4xl font-bold text-[#18375d] text-center mb-8">What Our Customers Say</h2>
   
   <div 
@@ -2429,7 +2429,7 @@ useGSAP(() => {
       return (
         <div
           key={testimonial.id}
-          className="flex-none w-[300px] h-[200px] relative snap-center cursor-pointer group"
+          className="flex-none w-[200px] h-[300px] relative snap-center cursor-pointer group"
           onClick={() => handleVideoClick(index)}
         >
           <video
@@ -2463,7 +2463,7 @@ useGSAP(() => {
         
         <button
           onClick={handleClose}
-          className="absolute -top-12 right-0 text-white text-4xl hover:text-gray-300 transition-colors"
+          className="absolute top-0 right-0 text-white text-4xl hover:text-gray-300 transition-colors"
         >
           <IoCloseCircle />
         </button>
