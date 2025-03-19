@@ -26,10 +26,10 @@ function Model() {
                 
             }
             if (window.innerHeight < 850)
-                return window.innerHeight * -0.05; // Medium-large screens
+                return 0; // Medium-large screens
                 
             if (window.innerHeight < 1000)
-                return window.innerHeight * -0.55; // Large screens
+                return window.innerHeight * 0; // Large screens
                 
             if (window.innerHeight < 1200)
                 return window.innerHeight * -0.8; // Very large screens
@@ -929,8 +929,9 @@ function Model() {
         const fadeOut = gsap.timeline({
             scrollTrigger: {
                 trigger: "#model-section",
-                start: 'bottom -1650%',
-                end: 'bottom -1680%',
+                start: `top+=${(window.innerHeight * 17.7)+heightOffset}`,  // Updated with heightOffset
+                end: `top+=${(window.innerHeight * 18)+heightOffset}`,    // Updated with heightOffset
+                
                 
                 scrub: {
                     ease: "power1.out",
