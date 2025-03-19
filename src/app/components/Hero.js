@@ -1570,7 +1570,9 @@ const toServices=(e)=>{
               const waitlist = document.getElementById('waitlist');
           
               if (waitlist) {
-                  const margin = window.innerHeight * 0.4;
+                const isMobile = window.innerWidth < 768;
+                const margin = isMobile ? 0 : window.innerHeight * 0.4;
+                  
           
                   window.scrollTo({
                       top: waitlist.offsetTop - margin,
@@ -1700,13 +1702,7 @@ useGSAP(() => {
       </div> </a>
 
     </div>
-    <div 
-  ref={scrollPromptRef}
-  className="fixed bottom-8 left-8 flex flex-row items-center justify-center gap-2 md:hidden z-50 opacity-0 pointer-events-none"
->
-  <p className="text-sm font-glacial text-[#18375d] font-medium">Keep Scrolling</p>
-  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl" />
-</div>
+    
     {/* platform */}
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[10vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
     <div 
@@ -1749,7 +1745,13 @@ useGSAP(() => {
     </div>
         
 
-    
+    <div 
+  ref={scrollPromptRef}
+  className="fixed bottom-8 left-8 flex flex-row items-center justify-center gap-2 md:hidden z-50 opacity-0 pointer-events-none"
+>
+  <p className="text-sm font-glacial text-[#18375d] font-medium">Keep Scrolling</p>
+  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl" />
+</div>
 
 
     {/* services */}
@@ -2087,7 +2089,7 @@ useGSAP(() => {
                <div className='A2Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%]  '>
                      
                      <div className='A2 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
-                     DOUM is an all-in-one home services platform connecting users with verified experts for appliance repairs, cleaning, plumbing, electrical work, spa & massage and more—fast, reliable, and hassle-free in a single click
+                     DOUM is an all-in-one home services platform connecting users with verified experts for repairs, cleaning, plumbing, spa and more — all within 10 minutes
 
 
                      </div>

@@ -76,24 +76,41 @@ function Model(){
                             start: 'bottom -350%',
                             end: 'bottom -450%',
                             scrub: {
-        ease: "power1.out",
-        smoothing: 0.5,
-        duration: 0.5
-    },
-                            
+                                ease: "power1.out",
+                                smoothing: 0.5,
+                                duration: 0.5
+                            },
+                            onEnter: () => {
+                                // When entering this section, ensure correct model is visible
+                                if (modelRef.current.rotation.y >= 0.6 * Math.PI) {
+                                    modelRef.current.visible = false;
+                                    model2Ref.current.visible = true;
+                                }
+                            },
+                            onEnterBack: () => {
+                                // When scrolling back into this section, maintain second model visibility
+                                model2Ref.current.visible = true;
+                                modelRef.current.visible = false;
+                            },
+                            onLeaveBack: () => {
+                                // When scrolling back before the switch point
+                                model2Ref.current.visible = false;
+                                modelRef.current.visible = true;
+                            },
                             onUpdate: (self) => {
                                 // Get scroll direction and progress
                                 const progress = self.progress;
                                 const direction = self.getVelocity() >= 0 ? 1 : -1;
                                 const currentRotation = modelRef.current.rotation.y;
-            
+                                const switchPoint = 0.5 * Math.PI; // Midpoint for switching models
+                    
                                 // Scrolling down
-                                if (direction > 0 && currentRotation < 0.6 * Math.PI && !model2Ref.current.visible) {
+                                if (direction > 0 && currentRotation >= switchPoint && !model2Ref.current.visible) {
                                     modelRef.current.visible = false;
                                     model2Ref.current.visible = true;
                                 }
                                 // Scrolling up
-                                else if (direction < 0 && currentRotation > 0.4 * Math.PI && model2Ref.current.visible) {
+                                else if (direction < 0 && currentRotation <= switchPoint && model2Ref.current.visible) {
                                     modelRef.current.visible = true;
                                     model2Ref.current.visible = false;
                                 }
@@ -248,11 +265,9 @@ function Model(){
                                         
                                     },
                                     onEnterBack: () => {
-                                        if (model2Ref.current.visible) {
-                                            model2Ref.current.visible = true;
-                                        } else {
-                                            modelRef.current.visible = true;
-                                        }
+                                        // When entering back, show model2 since we're coming from the end
+                                        model2Ref.current.visible = true;
+                                        modelRef.current.visible = false;
                                     }
                                 }})
             fadeOut.fromTo([modelRef.current.scale, model2Ref.current.scale],{
