@@ -2414,7 +2414,7 @@ useGSAP(() => {
         </div>
 
    {/*testimonials */}    
-<div className="testimonials-section relative h-[60vh] w-full bg-[#e1eefd] overflow-hidden py-12 mt-[-30vh] md:mt-0">
+<div className="testimonials-section relative h-[70vh] w-full bg-[#e1eefd] md:px-8 overflow-hidden py-12 top-[-90vh] md:top-[-10vh] md:mt-0">
   <h2 className="text-4xl font-bold text-[#18375d] text-center mb-8">What Our Customers Say</h2>
   
   <div 
