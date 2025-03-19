@@ -1,6 +1,12 @@
 'use client'
 import '@/app/globals.css'
-import React, { useEffect, useRef, useState } from 'react'
+// Add these imports at the top
+import { useState, useRef, useEffect } from 'react';
+import { IoCloseCircle } from "react-icons/io5";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { FaPlay } from "react-icons/fa";
+
+
 import { gsap } from 'gsap'
 import { FaArrowCircleRight } from "react-icons/fa";
 import Link from 'next/link'
@@ -68,6 +74,10 @@ import IphoneRes from './IphoneRes';
 
 
 // }
+// Add these in your Hero component
+
+
+// Add this section before the footer
 
 const leagueSpartan = League_Spartan({
   subsets: ["latin"],
@@ -111,6 +121,52 @@ function Hero() {
   const s5ImageRef = useRef(null)
   const s5TextRef = useRef(null)
   const s5ParagraphRef = useRef(null)
+
+
+
+  const [activeVideoIndex, setActiveVideoIndex] = useState(null);
+const scrollContainerRef = useRef(null);
+const videoRefs = useRef([]);
+
+const testimonials = [
+  { id: 1, video: '/testimonials/video1.mp4' },
+  { id: 2, video: '/testimonials/video1.mp4' },
+  { id: 3, video: '/testimonials/video1.mp4' },
+  { id: 4, video: '/testimonials/video1.mp4' },
+  { id: 5, video: '/testimonials/video1.mp4' },
+  { id: 6, video: '/testimonials/video1.mp4' },
+  { id: 7, video: '/testimonials/video1.mp4' },
+  { id: 8, video: '/testimonials/video1.mp4' },
+  { id: 9, video: '/testimonials/video1.mp4' },
+  { id: 10, video: '/testimonials/video1.mp4' }
+];
+
+// Add these handler functions
+const handleVideoClick = (index) => {
+  setActiveVideoIndex(index);
+  // Pause all other videos
+  videoRefs.current.forEach((ref, i) => {
+    if (i !== index && ref) {
+      ref.pause();
+    }
+  });
+};
+
+const handleClose = () => {
+  setActiveVideoIndex(null);
+};
+
+const handlePrevVideo = () => {
+  if (activeVideoIndex > 0) {
+    setActiveVideoIndex(activeVideoIndex - 1);
+  }
+};
+
+const handleNextVideo = () => {
+  if (activeVideoIndex < testimonials.length - 1) {
+    setActiveVideoIndex(activeVideoIndex + 1);
+  }
+};
 
   
   
@@ -2356,6 +2412,83 @@ useGSAP(() => {
           </div>
 
         </div>
+
+       
+<div className="testimonials-section relative h-[60vh] w-full bg-[#e1eefd] overflow-hidden py-12">
+  <h2 className="text-4xl font-bold text-[#18375d] text-center mb-8">What Our Customers Say</h2>
+  
+  <div 
+    ref={scrollContainerRef}
+    className="flex gap-4 overflow-x-auto px-4 snap-x snap-mandatory scroll-smooth"
+    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+  >
+    {testimonials.map((testimonial, index) => {
+      const videoRef = useRef(null);
+      videoRefs.current[index] = videoRef.current;
+
+      return (
+        <div
+          key={testimonial.id}
+          className="flex-none w-[300px] h-[200px] relative snap-center cursor-pointer group"
+          onClick={() => handleVideoClick(index)}
+        >
+          <video
+            ref={videoRef}
+            className="w-full h-full object-cover rounded-lg"
+            src={testimonial.video}
+            muted
+            onLoadedMetadata={(e) => {
+              // Set video to 1 second for thumbnail
+              e.target.currentTime = 1;
+            }}
+          />
+          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 rounded-lg">
+            <FaPlay className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-4xl opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+  {/* Active Video Modal */}
+  {activeVideoIndex !== null && (
+    <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+      <div className="relative w-[90vw] md:w-[80vw] aspect-video max-h-[90vh]">
+        <video
+          src={testimonials[activeVideoIndex].video}
+          className="w-full h-full object-contain"
+          controls
+          autoPlay
+        />
+        
+        <button
+          onClick={handleClose}
+          className="absolute -top-12 right-0 text-white text-4xl hover:text-gray-300 transition-colors"
+        >
+          <IoCloseCircle />
+        </button>
+
+        {activeVideoIndex > 0 && (
+          <button
+            onClick={handlePrevVideo}
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-5xl hover:text-gray-300 transition-colors"
+          >
+            <IoIosArrowBack />
+          </button>
+        )}
+
+        {activeVideoIndex < testimonials.length - 1 && (
+          <button
+            onClick={handleNextVideo}
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-5xl hover:text-gray-300 transition-colors"
+          >
+            <IoIosArrowForward />
+          </button>
+        )}
+      </div>
+    </div>
+  )}
+</div>
                         {/*footer */}
    <div className='scrollele footer h-auto min-h-[75vh] w-[100%] md:w-[100%] mt-[-80vh] md:mt-[20vh] mb-[-20vh] mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 md:py-8 z-[11] mx-0 md:mx-[0%]' style={style2} >
    <div className='col1 h-auto w-full md:w-[25%] flex flex-col justify-center mt-6 md:mt-12 px-4' >
