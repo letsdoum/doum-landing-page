@@ -1,6 +1,12 @@
 'use client'
 import '@/app/globals.css'
-import React, { useEffect, useRef, useState } from 'react'
+// Add these imports at the top
+import { useState, useRef, useEffect } from 'react';
+import { IoCloseCircle } from "react-icons/io5";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { FaPlay } from "react-icons/fa";
+
+
 import { gsap } from 'gsap'
 import { FaArrowCircleRight } from "react-icons/fa";
 import Link from 'next/link'
@@ -68,6 +74,10 @@ import IphoneRes from './IphoneRes';
 
 
 // }
+// Add these in your Hero component
+
+
+// Add this section before the footer
 
 const leagueSpartan = League_Spartan({
   subsets: ["latin"],
@@ -111,6 +121,52 @@ function Hero() {
   const s5ImageRef = useRef(null)
   const s5TextRef = useRef(null)
   const s5ParagraphRef = useRef(null)
+
+
+
+//   const [activeVideoIndex, setActiveVideoIndex] = useState(null);
+// const scrollContainerRef = useRef(null);
+// const videoRefs = useRef([]);
+
+// const testimonials = [
+//   { id: 1, video: '/testimonials/video1.mp4' },
+//   { id: 2, video: '/testimonials/video1.mp4' },
+//   { id: 3, video: '/testimonials/video1.mp4' },
+//   { id: 4, video: '/testimonials/video1.mp4' },
+//   { id: 5, video: '/testimonials/video1.mp4' },
+//   { id: 6, video: '/testimonials/video1.mp4' },
+//   { id: 7, video: '/testimonials/video1.mp4' },
+//   { id: 8, video: '/testimonials/video1.mp4' },
+//   { id: 9, video: '/testimonials/video1.mp4' },
+//   { id: 10, video: '/testimonials/video1.mp4' }
+// ];
+
+// // Add these handler functions
+// const handleVideoClick = (index) => {
+//   setActiveVideoIndex(index);
+//   // Pause all other videos
+//   videoRefs.current.forEach((ref, i) => {
+//     if (i !== index && ref) {
+//       ref.pause();
+//     }
+//   });
+// };
+
+// const handleClose = () => {
+//   setActiveVideoIndex(null);
+// };
+
+// const handlePrevVideo = () => {
+//   if (activeVideoIndex > 0) {
+//     setActiveVideoIndex(activeVideoIndex - 1);
+//   }
+// };
+
+// const handleNextVideo = () => {
+//   if (activeVideoIndex < testimonials.length - 1) {
+//     setActiveVideoIndex(activeVideoIndex + 1);
+//   }
+// };
 
   
   
@@ -1570,7 +1626,9 @@ const toServices=(e)=>{
               const waitlist = document.getElementById('waitlist');
           
               if (waitlist) {
-                  const margin = window.innerHeight * 0.4;
+                const isMobile = window.innerWidth < 768;
+                const margin = isMobile ? 0 : window.innerHeight * 0.4;
+                  
           
                   window.scrollTo({
                       top: waitlist.offsetTop - margin,
@@ -1700,22 +1758,10 @@ useGSAP(() => {
       </div> </a>
 
     </div>
-    <div 
-  ref={scrollPromptRef}
-  className="fixed bottom-8 left-8 flex flex-row items-center justify-center gap-2 md:hidden z-50 opacity-0 pointer-events-none"
->
-  <p className="text-sm font-glacial text-[#18375d] font-medium">Keep Scrolling</p>
-  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl" />
-</div>
+    
     {/* platform */}
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[10vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
-    <div 
-  ref={scrollPromptRef}
-  className="fixed bottom-8 left-8 flex flex-row items-center justify-center gap-2 md:hidden z-50 opacity-0 pointer-events-none"
->
-  <p className="text-sm font-glacial text-[#18375d] font-medium">Keep Scrolling</p>
-  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl" />
-</div>
+    
     <div className='w-[70%] md:w-[40%] h-[17%] mt-[-85rem] md:mt-[0rem] platform-text'>
              {/*scroller*/}
              <div id='scroller'
@@ -1746,10 +1792,24 @@ useGSAP(() => {
   ))}
 </div>
           </div>
+
+          <div 
+  ref={scrollPromptRef}
+  className="fixed bottom-8 left-8 flex flex-row items-center justify-center gap-2 md:hidden z-50 opacity-0 pointer-events-none"
+>
+  <p className="text-sm font-glacial text-[#18375d] font-medium">Keep Scrolling</p>
+  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl" />
+</div>
     </div>
         
 
-    
+    <div 
+  ref={scrollPromptRef}
+  className="fixed bottom-8 left-8 flex flex-row items-center justify-center gap-2 md:hidden z-50 opacity-0 pointer-events-none"
+>
+  <p className="text-sm font-glacial text-[#18375d] font-medium">Keep Scrolling</p>
+  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl" />
+</div>
 
 
     {/* services */}
@@ -2087,7 +2147,7 @@ useGSAP(() => {
                <div className='A2Container h-[40%] w-[100%] flex justify-center items-end  gap-[1%]  '>
                      
                      <div className='A2 text-sm md:text-base h-full w-[70%] md:w-[40%] bg-[#5187c0] rounded-3xl text-[#e1eefd] font-glacial font-light flex items-center justify-start px-[2%] ml-[11vw] text-left'>
-                     DOUM is an all-in-one home services platform connecting users with verified experts for appliance repairs, cleaning, plumbing, electrical work, spa & massage and more—fast, reliable, and hassle-free in a single click
+                     DOUM is an all-in-one home services platform connecting users with verified experts for repairs, cleaning, plumbing, spa and more — all within 10 minutes
 
 
                      </div>
@@ -2354,6 +2414,84 @@ useGSAP(() => {
           </div>
 
         </div>
+
+   {/*testimonials */}    
+{/* <div className="testimonials-section relative h-[70vh] w-full bg-[#e1eefd] md:px-8 overflow-hidden py-12 top-[-90vh] md:top-[-10vh] md:mt-0">
+  <h2 className="text-4xl font-bold text-[#18375d] text-center mb-8">What Our Customers Say</h2>
+  
+  <div 
+    ref={scrollContainerRef}
+    className="flex gap-4 overflow-x-auto px-4 snap-x snap-mandatory scroll-smooth"
+    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+  >
+    {testimonials.map((testimonial, index) => {
+      const videoRef = useRef(null);
+      videoRefs.current[index] = videoRef.current;
+
+      return (
+        <div
+          key={testimonial.id}
+          className="flex-none w-[200px] h-[300px] relative snap-center cursor-pointer group"
+          onClick={() => handleVideoClick(index)}
+        >
+          <video
+            ref={videoRef}
+            className="w-full h-full object-cover rounded-lg"
+            src={testimonial.video}
+            muted
+            onLoadedMetadata={(e) => {
+              // Set video to 1 second for thumbnail
+              e.target.currentTime = 1;
+            }}
+          />
+          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 rounded-lg">
+            <FaPlay className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-4xl opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
+          </div>
+        </div>
+      );
+    })}
+  </div>
+    
+  //active video modal
+   
+  {activeVideoIndex !== null && (
+    <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+      <div className="relative w-[90vw] md:w-[80vw] aspect-video max-h-[90vh]">
+        <video
+          src={testimonials[activeVideoIndex].video}
+          className="w-full h-full object-contain"
+          controls
+          autoPlay
+        />
+        
+        <button
+          onClick={handleClose}
+          className="absolute top-0 right-0 text-white text-4xl hover:text-gray-300 transition-colors"
+        >
+          <IoCloseCircle />
+        </button>
+
+        {activeVideoIndex > 0 && (
+          <button
+            onClick={handlePrevVideo}
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-5xl hover:text-gray-300 transition-colors"
+          >
+            <IoIosArrowBack />
+          </button>
+        )}
+
+        {activeVideoIndex < testimonials.length - 1 && (
+          <button
+            onClick={handleNextVideo}
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-5xl hover:text-gray-300 transition-colors"
+          >
+            <IoIosArrowForward />
+          </button>
+        )}
+      </div>
+    </div>
+  )}
+</div> */}
                         {/*footer */}
    <div className='scrollele footer h-auto min-h-[75vh] w-[100%] md:w-[100%] mt-[-80vh] md:mt-[20vh] mb-[-20vh] mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 md:py-8 z-[11] mx-0 md:mx-[0%]' style={style2} >
    <div className='col1 h-auto w-full md:w-[25%] flex flex-col justify-center mt-6 md:mt-12 px-4' >
