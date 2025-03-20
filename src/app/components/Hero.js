@@ -124,49 +124,49 @@ function Hero() {
 
 
 
-  const [activeVideoIndex, setActiveVideoIndex] = useState(null);
-const scrollContainerRef = useRef(null);
-const videoRefs = useRef([]);
+//   const [activeVideoIndex, setActiveVideoIndex] = useState(null);
+// const scrollContainerRef = useRef(null);
+// const videoRefs = useRef([]);
 
-const testimonials = [
-  { id: 1, video: '/testimonials/video1.mp4' },
-  { id: 2, video: '/testimonials/video1.mp4' },
-  { id: 3, video: '/testimonials/video1.mp4' },
-  { id: 4, video: '/testimonials/video1.mp4' },
-  { id: 5, video: '/testimonials/video1.mp4' },
-  { id: 6, video: '/testimonials/video1.mp4' },
-  { id: 7, video: '/testimonials/video1.mp4' },
-  { id: 8, video: '/testimonials/video1.mp4' },
-  { id: 9, video: '/testimonials/video1.mp4' },
-  { id: 10, video: '/testimonials/video1.mp4' }
-];
+// const testimonials = [
+//   { id: 1, video: '/testimonials/video1.mp4' },
+//   { id: 2, video: '/testimonials/video1.mp4' },
+//   { id: 3, video: '/testimonials/video1.mp4' },
+//   { id: 4, video: '/testimonials/video1.mp4' },
+//   { id: 5, video: '/testimonials/video1.mp4' },
+//   { id: 6, video: '/testimonials/video1.mp4' },
+//   { id: 7, video: '/testimonials/video1.mp4' },
+//   { id: 8, video: '/testimonials/video1.mp4' },
+//   { id: 9, video: '/testimonials/video1.mp4' },
+//   { id: 10, video: '/testimonials/video1.mp4' }
+// ];
 
-// Add these handler functions
-const handleVideoClick = (index) => {
-  setActiveVideoIndex(index);
-  // Pause all other videos
-  videoRefs.current.forEach((ref, i) => {
-    if (i !== index && ref) {
-      ref.pause();
-    }
-  });
-};
+// // Add these handler functions
+// const handleVideoClick = (index) => {
+//   setActiveVideoIndex(index);
+//   // Pause all other videos
+//   videoRefs.current.forEach((ref, i) => {
+//     if (i !== index && ref) {
+//       ref.pause();
+//     }
+//   });
+// };
 
-const handleClose = () => {
-  setActiveVideoIndex(null);
-};
+// const handleClose = () => {
+//   setActiveVideoIndex(null);
+// };
 
-const handlePrevVideo = () => {
-  if (activeVideoIndex > 0) {
-    setActiveVideoIndex(activeVideoIndex - 1);
-  }
-};
+// const handlePrevVideo = () => {
+//   if (activeVideoIndex > 0) {
+//     setActiveVideoIndex(activeVideoIndex - 1);
+//   }
+// };
 
-const handleNextVideo = () => {
-  if (activeVideoIndex < testimonials.length - 1) {
-    setActiveVideoIndex(activeVideoIndex + 1);
-  }
-};
+// const handleNextVideo = () => {
+//   if (activeVideoIndex < testimonials.length - 1) {
+//     setActiveVideoIndex(activeVideoIndex + 1);
+//   }
+// };
 
   
   
@@ -1761,13 +1761,7 @@ useGSAP(() => {
     
     {/* platform */}
     <div className='w-full h-[150rem] md:h-[112.5rem] relative z-0 mt-[10vh] md:mt-[-220vh] flex flex-col justify-center items-center 'style={style} >
-    <div 
-  ref={scrollPromptRef}
-  className="fixed bottom-8 left-8 flex flex-row items-center justify-center gap-2 md:hidden z-50 opacity-0 pointer-events-none"
->
-  <p className="text-sm font-glacial text-[#18375d] font-medium">Keep Scrolling</p>
-  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl" />
-</div>
+    
     <div className='w-[70%] md:w-[40%] h-[17%] mt-[-85rem] md:mt-[0rem] platform-text'>
              {/*scroller*/}
              <div id='scroller'
@@ -1798,6 +1792,14 @@ useGSAP(() => {
   ))}
 </div>
           </div>
+
+          <div 
+  ref={scrollPromptRef}
+  className="fixed bottom-8 left-8 flex flex-row items-center justify-center gap-2 md:hidden z-50 opacity-0 pointer-events-none"
+>
+  <p className="text-sm font-glacial text-[#18375d] font-medium">Keep Scrolling</p>
+  <RiArrowDownDoubleFill className="arrow text-[#18375d] text-2xl" />
+</div>
     </div>
         
 
@@ -2414,7 +2416,7 @@ useGSAP(() => {
         </div>
 
    {/*testimonials */}    
-<div className="testimonials-section relative h-[70vh] w-full bg-[#e1eefd] md:px-8 overflow-hidden py-12 top-[-90vh] md:top-[-10vh] md:mt-0">
+{/* <div className="testimonials-section relative h-[70vh] w-full bg-[#e1eefd] md:px-8 overflow-hidden py-12 top-[-90vh] md:top-[-10vh] md:mt-0">
   <h2 className="text-4xl font-bold text-[#18375d] text-center mb-8">What Our Customers Say</h2>
   
   <div 
@@ -2449,8 +2451,9 @@ useGSAP(() => {
       );
     })}
   </div>
-
-  {/* Active Video Modal */}
+    
+  //active video modal
+   
   {activeVideoIndex !== null && (
     <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
       <div className="relative w-[90vw] md:w-[80vw] aspect-video max-h-[90vh]">
@@ -2488,7 +2491,7 @@ useGSAP(() => {
       </div>
     </div>
   )}
-</div>
+</div> */}
                         {/*footer */}
    <div className='scrollele footer h-auto min-h-[75vh] w-[100%] md:w-[100%] mt-[-80vh] md:mt-[20vh] mb-[-20vh] mix-blend-multiply flex flex-wrap items-start justify-evenly bg-black gap-8 md:py-8 z-[11] mx-0 md:mx-[0%]' style={style2} >
    <div className='col1 h-auto w-full md:w-[25%] flex flex-col justify-center mt-6 md:mt-12 px-4' >
