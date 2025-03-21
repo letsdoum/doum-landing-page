@@ -197,7 +197,7 @@ function Navbar() {
                       
 
                     }
-                    const toWhyUsMob=()=>{
+                    const toWhyUsMob=(e)=>{
                       e.preventDefault();
               
                       // Get the services element
@@ -225,10 +225,10 @@ function Navbar() {
                       const waitlist = document.getElementById('waitlist');
                   
                       if (waitlist) {
-                          const margin = window.innerHeight * 0.03;
+                          const margin = window.innerHeight * 0.6;
                   
                           window.scrollTo({
-                              top: waitlist.offsetTop + margin,
+                              top: waitlist.offsetTop - margin,
                               behavior: 'smooth'
                           });
                           tl2.reverse()

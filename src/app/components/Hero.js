@@ -2531,6 +2531,9 @@ useGSAP(() => {
       <a href='/legal/equal-oppurtunity-policy' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2'>Equal Opportunity Policy</a>
       <a href='/legal/refund-and-cancellation' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2'>Refund and Cancellation Policy</a>
    </div>
+   <div className='w-full text-center text-[#ffffff] md:text-[#063281] font-glacial font-light mt-8'>
+    <p>&copy; 2025 DOUM. All rights reserved.</p>
+  </div>
    </div>     
 
       
