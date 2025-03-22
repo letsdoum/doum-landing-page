@@ -81,6 +81,8 @@ Stay tuned—exciting times ahead!
 
         </div>
         <Link href='/'> <div className='flex whitespace-nowrap text-4xl font-medium self-start mt-[8vh] h-[5vh] w-[10vw] ml-[-45vw] text-[#18375d]'>
+
+        
             <div><FaArrowCircleLeft size={40} /> </div> 
        
         </div>

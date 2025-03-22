@@ -2525,6 +2525,7 @@ useGSAP(() => {
       <Link href='/' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2'>+91 8420385246</Link>
    </div>
    <div className='col4 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 md:mt-20 px-4'>
+
   <h1 className='text-[#ffffff] md:text-[#063281] mega_shadow font-glacial font-bold text-xl mb-4'>Legal</h1>
   <Link href='/legal/terms-of-use' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281] mega_shadow mb-2'>
     Terms of Use
@@ -2539,6 +2540,7 @@ useGSAP(() => {
     Refund and Cancellation Policy
   </Link>
 </div>
+
    <div className='w-full text-center text-[#ffffff] md:text-[#063281] font-glacial font-light mt-8'>
     <p>&copy; 2025 DOUM. All rights reserved.</p>
   </div>
