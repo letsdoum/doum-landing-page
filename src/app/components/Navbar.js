@@ -245,7 +245,7 @@ function Navbar() {
         <Link href='/#services' onClick={toServices} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem ' ref={el => linksRef.current[0] = el}>Services</Link>
 
             <Link href='/#howItWorks' onClick={toHowItWorks} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[1] = el}>How it works</Link>
-            <a  href='/Blog'className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[2] = el}>Blogs</a>
+            <Link  href='/Blog'className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[2] = el}>Blogs</Link>
             <div ref={divRef} className='h-full w-1/6' style={{ backgroundImage: 'url(/DOUM-logo-removebg-preview.webp)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply', cursor: "pointer" }}   onClick={handleClick}></div>
             <Link href='/#whyUs' onClick={toWhyUs} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[3] = el}>Why us</Link>
             <Link href='/#faq' onClick={toFAQ} className='text-sm h-1/4 w-1/8 text-[#18375d] font-bold my-6 font-glacial navitem' ref={el => linksRef.current[4] = el}>FAQs</Link>
@@ -269,7 +269,7 @@ function Navbar() {
         <div ref={panelRef} className='flex flex-col h-[85vh] w-[90vw] justify-evenly bg-[#bbd7f47a] rounded-3xl backdrop-blur-xl fixed right-[-100vw] mr-[3vw] top-[13vh] z-[200] opacity-0 text-[#18375d]'>
             <Link href='/'  onClick={toServicesMob} className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[0] = el}>Services</Link>
             <Link href='/' onClick={toHowItWorksMob} className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[1] = el}>How it Works</Link>
-            <a href='/Blog' className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[2] = el}>Blog</a>
+            <Link href='/Blog' className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[2] = el}>Blog</Link>
             <Link href='/' onClick={toWhyUsMob} className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[3] = el}>Why Us</Link>
             <Link href='/' onClick={toFAQMob} className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[4] = el}>FAQs</Link>
             <Link href='/' onClick={toWaitlistMob} className='mx-16 text-2xl font-bold h-1/12 font-glacial opacity-0'ref={el => mobRef.current[5] = el}>Join Waitlist</Link>
