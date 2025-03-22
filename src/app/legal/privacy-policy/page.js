@@ -75,7 +75,11 @@ function privacyPolicy() {
             <p className="mb-4">Our Platform may contain links to third-party websites or services. This Privacy Policy does not govern those external sites, and we encourage users to review their privacy policies before providing any personal information.</p>
             <p className="mb-4 font-semibold">8. CHANGES TO THIS POLICY</p>
             <p className="mb-4">We reserve the right to modify this Privacy Policy at any time. Any updates will be posted on the Platform, and continued use of our services constitutes acceptance of the revised terms.</p>
-            <p className="mb-4 font-semibold">9. CONTACT US</p>
+            <p className="mb-4 font-semibold">9. Legal Jurisdiction & Dispute Resolution Notice</p>
+            <p className="mb-4">All legal matters, disputes, and proceedings related to DOUM Pvt. Ltd. shall fall under the exclusive jurisdiction of the Calcutta High Court. Any claims, litigations, or legal actions against DOUM must be filed and resolved solely within this jurisdiction, ensuring a centralized and efficient legal process.<br/>
+
+Before initiating any legal proceedings, all parties—including customers, partners, and stakeholders—agree to attempt resolution through arbitration. Arbitration shall be conducted in accordance with the Arbitration and Conciliation Act, 1996, with proceedings taking place in Kolkata. If arbitration fails to resolve the dispute, the matter shall then be escalated exclusively to the Calcutta High Court.</p>
+            <p className="mb-4 font-semibold">10. CONTACT US</p>
             <p className="mb-4">For any questions or concerns regarding this Privacy Policy, you can contact us at:</p>
             <p className="mb-4">DOUM Privacy Team</p>
             <p className="mb-4">Email: helpdesk@mydoum.com</p>
