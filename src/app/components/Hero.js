@@ -1750,12 +1750,12 @@ useGSAP(() => {
         <div className='download w-full md:w-[50%] h-[45%] md:h-[80%] rounded-3xl ' style={{ backgroundImage: 'url("/applestore.webp")',  backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }} ref={el => getRef.current[1] = el}></div>
         
       </div>
-      <a href='/Blog'> <div className='w-[80vw] h-[12vh] relative mt-[-205vh] hidden md:block' style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
+      <Link href='/Blog'> <div className='w-[80vw] h-[12vh] relative mt-[-205vh] hidden md:block' style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
 
-      </div></a>
-     <a href='/Blog'> <div className='block md:hidden h-[15vh] w-[70vw] ml-[-35vw]  absolute z-[20] mt-[-5vh]'style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
+      </div></Link>
+     <Link href='/Blog'> <div className='block md:hidden h-[15vh] w-[70vw] ml-[-35vw]  absolute z-[20] mt-[-5vh]'style={{ backgroundImage: 'url("/microsoftIcon.webp")', backgroundSize:"contain" , backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' }}>
 
-      </div> </a>
+      </div> </Link>
 
     </div>
     
@@ -2525,12 +2525,20 @@ useGSAP(() => {
       <Link href='/' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2'>+91 8420385246</Link>
    </div>
    <div className='col4 h-auto w-full md:w-[20%] flex flex-col justify-evenly items-center md:items-start mt-6 md:mt-20 px-4'>
-      <h1 className='text-[#ffffff] md:text-[#063281]  mega_shadow font-glacial font-bold text-xl mb-4'>Legal</h1>
-      <a href='/legal/terms-of-use' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2'>Terms of Use</a>
-      <a href='/legal/privacy-policy'className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2' >Privacy Policy</a>
-      <a href='/legal/equal-oppurtunity-policy' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2'>Equal Opportunity Policy</a>
-      <a href='/legal/refund-and-cancellation' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281]  mega_shadow mb-2'>Refund and Cancellation Policy</a>
-   </div>
+  <h1 className='text-[#ffffff] md:text-[#063281] mega_shadow font-glacial font-bold text-xl mb-4'>Legal</h1>
+  <Link href='/legal/terms-of-use' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281] mega_shadow mb-2'>
+    Terms of Use
+  </Link>
+  <Link href='/legal/privacy-policy' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281] mega_shadow mb-2'>
+    Privacy Policy
+  </Link>
+  <Link href='/legal/equal-oppurtunity-policy' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281] mega_shadow mb-2'>
+    Equal Opportunity Policy
+  </Link>
+  <Link href='/legal/refund-and-cancellation' className='font-light font-glacial text-md text-[#ffffff] md:text-[#063281] mega_shadow mb-2'>
+    Refund and Cancellation Policy
+  </Link>
+</div>
    <div className='w-full text-center text-[#ffffff] md:text-[#063281] font-glacial font-light mt-8'>
     <p>&copy; 2025 DOUM. All rights reserved.</p>
   </div>
