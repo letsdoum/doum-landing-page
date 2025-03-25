@@ -1381,15 +1381,16 @@ useGSAP(() => {
 
   htl.from(".circleConMob", {
     scale: 0,
+    opacity: 0,
     duration: 1,
     ease: "back.out(1.7)"    // Added easing for pop effect
   });
 
-  htl.from(".circleConMob", {
-    opacity: 0,
-    duration: 1,
-    stagger: 0.2             // Added stagger for sequential fade-in
-  });
+  // htl.from(".circleConMob", {
+  //   opacity: 0,
+  //   duration: 1,
+  //   stagger: 0.2             // Added stagger for sequential fade-in
+  // });
 
   
 });
