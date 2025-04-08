@@ -1246,29 +1246,34 @@ const {
 //   reset(); // Clears the form after successful submission
 // };
 const onSubmit = async (formData) => {
-
-  
   const { firstName, lastName, Email, mobile, Message } = formData;
-
-  // Perform your API call or other operations with the form data
-  console.log('Form data:', { firstName, lastName, Email, mobile ,Message });
-  try{
-    const {data , error} = await supabase.from('Waitlist').insert([{ FirstName: firstName,LastName: lastName, Email,phoneNo: mobile,Message: Message }])
-    toast.success("congrats you're in", { position: "top-right" });
-    if(error) {
+  
+  try {
+    // Show a loading toast if desired
+    // toast.loading("Submitting...", { position: "top-right" });
+    
+    const { data, error } = await supabase.from('Waitlist').insert([{ 
+      FirstName: firstName,
+      LastName: lastName, 
+      Email,
+      phoneNo: mobile,
+      Message: Message 
+    }]);
+    
+    if (error) {
+      console.error("Supabase error:", error.message);
       toast.error("Error submitting form!", { position: "top-right" });
-      console.error(error.message);
       return;
     }
-    if(data){
-      toast.success("Form submitted successfully!", { position: "top-right" });
-      reset(); // Clears the form after successful submission
-      console.log(data)
-    }
-  }
-  catch(err){
-    toast.error("Error submitting form!", { position: "top-right"});
-    console.error(err.message);
+    
+    // Only show success if there was no error
+    toast.success("Congrats, you're in!", { position: "top-right" });
+    reset(); // Clear the form
+    console.log("Form submitted successfully", data);
+    
+  } catch (err) {
+    console.error("Connection error:", err.message);
+    toast.error("Network error while submitting form!", { position: "top-right" });
   }
 };
 
