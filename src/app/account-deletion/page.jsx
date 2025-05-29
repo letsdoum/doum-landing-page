@@ -97,10 +97,14 @@ const DataDeletionPage = () => {
       console.log("Status Response:", res.data)
       setStatusResponse(res.data)
     } catch (error) {
+       if(error.response && error?.response?.data) {
+      setSubmitResponse(error?.response?.data)
+      }else {
       setStatusResponse({
         success: false,
         message: "Network error. Please check your connection and try again.",
       })
+    }
     } finally {
       setIsCheckingStatus(false)
     }
